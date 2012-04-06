@@ -1,0 +1,52 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Usuario extends CI_Model {
+  
+  function obtener_id() {
+    return $this->session->userdata('id_usuario');
+  }
+  
+  function comprobar_usuario($email, $password){
+  	
+  		return $this->db->query("select * from usuarios where email = ? and password = md5(?)", array($email, $password));	
+  }
+  
+  function crear($email, $password, $nombre, $apellidos) {
+    $res = $this->_nombre_utilizado($email);
+    $confirm_password = $this->input->post('confirm_password');
+  	if($email != '' && $password != '' && $confirm_password != '' && $nombre != '' && $apellidos != '' && empty($res)
+  	   && $password == $confirm_password) {
+	  	  return $this->db->query("insert into usuarios (email, password, nombre, apellidos) 
+		                                     values (?,md5(?),?,?)",array($email, $password, $nombre, $apellidos));
+	  } else {
+		  return false;
+	  }
+  }
+  
+  function obtener($id_cliente) {
+     return $this->db->query("select * from usuarios where id_usuario = ?", array($id_cliente))->row_array();
+  }
+  
+  function actualizar($datos) {
+    $res = $this->_nombre_editado($datos['email'], $datos['id_usuario']);
+    if ($res) {
+      $this->db->where('id_usuario',$datos['idid_usuario']);
+	    unset($datos['id']);
+	    return $this->db->update('usuarios',$datos);
+    } else {
+      return false;
+    }
+  }
+  
+  function obtener_datos($email) {
+  	if ($email != '') { # Comprueba que el email no este vacio.
+  		return $this->db->query("select * from usuarios where email = ?", array($email))->row_array();
+  	} else {
+  		return false;	
+  	}
+  }
+
+  function borrar($id_usuario) {
+    return $this->db->query("delete from usuarios where id_usuario = ?", array($id_usuario));
+  }
+}
