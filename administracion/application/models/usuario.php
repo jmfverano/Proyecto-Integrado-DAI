@@ -8,7 +8,8 @@ class Usuario extends CI_Model {
   
   function comprobar_usuario($email, $password){
   	
-  		return $this->db->query("select * from usuarios where email = ? and password = md5(?)", array($email, $password));	
+  		return $this->db->query("select * from usuarios 
+  		                         where email = ? and password = md5(?) and admin = true", array($email, $password));	
   }
   
   function crear($email, $password, $nombre, $apellidos) {
@@ -23,8 +24,14 @@ class Usuario extends CI_Model {
 	  }
   }
   
-  function obtener($id_cliente) {
-     return $this->db->query("select * from usuarios where id_usuario = ?", array($id_cliente))->row_array();
+  function obtener_todos() {
+     return $this->db->query("select * from usuarios")->result_array();
+  }
+  
+  function obtener_seleccion() {
+     $criterio = $this->input->post('criterio');
+     $columna  = $this->input->post('columna');
+     return $this->db->query("select * from usuarios where $columna like '%$criterio%'")->result_array();
   }
   
   function actualizar($datos) {

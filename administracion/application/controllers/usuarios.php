@@ -8,14 +8,26 @@ class Usuarios extends CI_Controller {
   }
 
   function index() {
+  	/*
+	 * Al entrar en el index antes se comprobara que se a iniciado la sesión, si no es así lo llevará al login.
+	 */
+  	$this->utilidades->comprobar_logueo(); 
+	
 	  if ($this->input->post('editar')) {
 	  		redirect('usuarios/editar');
 	  } elseif ($this->input->post('borrar')) {
 		  	redirect('usuarios/borrar');
-	  } elseif ($this->input->post('voler')) {
-		  	redirect('administracion/index');
+	  } elseif ($this->input->post('volver')) {
+		  	redirect('index/index');
+    } elseif ($this->input->post('buscar')) {
+        $datos['filas']= $this->Usuario->obtener_seleccion();
+        $datos['criterio'] = $this->input->post('criterio');
+        $datos['columna']  = $this->input->post('columna');
+        $this->load->view('usuarios/index', $datos);
 	  } else {
-	  		$datos= $this->Usuario->obtener($this->session->userdata('id_usuario'));
+	  		$datos['filas']= $this->Usuario->obtener_todos();
+        $datos['criterio'] = '';
+        $datos['columna']  = '';
 	  		$this->load->view('usuarios/index', $datos);
 	  }
   }		
@@ -31,7 +43,7 @@ class Usuarios extends CI_Controller {
         $this->session->set_userdata('usuario', $email);
 				$this->session->set_userdata('nombre', $datos['nombre']);
 				$this->session->set_userdata('apellidos', $datos['apellidos']);
-        redirect('administracion/index');
+        redirect('index');
       } else {
         $mensaje = 'Error: usuario o contraseña incorrectos';
       }

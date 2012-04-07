@@ -12,10 +12,10 @@ create table usuarios (
   admin      bool         default false
 );
 
-insert into usuarios (email, password, dni, nombre, apellidos, direccion, telefono, admin)
+insert into usuarios (email, password, dni, nombre, apellidos, direccion, telefono)
 values ('josemanuel.tecnico@gmail.com',md5('werty'),'48894964T','Jose Manuel', 'Fernández Verano', 
         'Paseo Jadín del Botánico Edif. Azucena B1', 956367056, true);
-insert into usuarios (email, password, dni, nombre, apellidos, direccion, telefono)
+insert into usuarios (email, password, dni, nombre, apellidos, direccion, telefono, admin)
 values ('Xhaman@gmail.com',md5('werty'),'48894964T','Jose Manuel', 'Fernández Verano', 
         'Paseo Jadín del Botánico Edif. Azucena B1', 956367056);
 
