@@ -28,21 +28,21 @@ class Usuario extends CI_Model {
      return $this->db->query("select * from usuarios")->result_array();
   }
   
+  function obtener_usuario() {
+     $id_usuario = $this->input->post('id_usuario');
+     return $this->db->query("select * from usuarios where id_usuario = $id_usuario")->row_array();
+  }
+  
   function obtener_seleccion() {
      $criterio = $this->input->post('criterio');
      $columna  = $this->input->post('columna');
      return $this->db->query("select * from usuarios where $columna like '%$criterio%'")->result_array();
   }
   
-  function actualizar($datos) {
-    $res = $this->_nombre_editado($datos['email'], $datos['id_usuario']);
-    if ($res) {
-      $this->db->where('id_usuario',$datos['idid_usuario']);
-	    unset($datos['id']);
+  function actualizar_usuario($datos) {
+      $this->db->where('id_usuario',$datos['id_usuario']);
+	    unset($datos['id_usuario']);
 	    return $this->db->update('usuarios',$datos);
-    } else {
-      return false;
-    }
   }
   
   function obtener_datos($email) {

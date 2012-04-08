@@ -8,7 +8,7 @@ class Usuarios extends CI_Controller {
   }
 
   function index() {
-  	/*
+  /*
 	 * Al entrar en el index antes se comprobara que se a iniciado la sesión, si no es así lo llevará al login.
 	 */
   	$this->utilidades->comprobar_logueo(); 
@@ -43,7 +43,7 @@ class Usuarios extends CI_Controller {
         $this->session->set_userdata('usuario', $email);
 				$this->session->set_userdata('nombre', $datos['nombre']);
 				$this->session->set_userdata('apellidos', $datos['apellidos']);
-        redirect('index');
+        redirect('index/index');
       } else {
         $mensaje = 'Error: usuario o contraseña incorrectos';
       }
@@ -60,5 +60,31 @@ class Usuarios extends CI_Controller {
   function logout() {
     $this->session->sess_destroy();
     redirect('usuarios/login');
+  }
+  
+  function editar() {
+    if ($this->input->post('actualizar')) {
+      $datos['nombre'] = $this->input->post('nombre');
+      $datos['apellidos'] = $this->input->post('apellidos');
+      $datos['email'] = $this->input->post('email');
+      $datos['dni'] = $this->input->post('dni');
+      $datos['direccion'] = $this->input->post('direccion');
+      $datos['telefono'] = $this->input->post('telefono');
+      if ($this->input->post('admin')== 'si') {
+        $datos['admin'] = 'true';
+      } else {
+        $datos['admin'] = 'false';
+      }
+
+      $datos['id_usuario'] = $this->input->post('id_usuario');
+      if(!$this->Usuario->actualizar_usuario($datos)){
+        
+      } else {
+        redirect('usuarios/index');
+      }
+    } else {
+      $datos = $this->Usuario->obtener_usuario();
+      $this->load->view('usuarios/editar', $datos);
+    }
   }
 } 

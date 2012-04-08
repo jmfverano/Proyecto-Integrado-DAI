@@ -7,19 +7,25 @@
 <div>
 <?= form_open('usuarios/editar') ?>
   <p>
-    <?= form_hidden('id', $id) ?>
-    <?= form_label('Usuario:', 'email') ?>
+    <?= form_hidden('id_usuario', $id_usuario) ?>
+    <?= form_label('Email:', 'email') ?>
     <?= form_input('email', $email) ?> <br/>
-    <?= form_label('Constraseña:', 'password') ?>
-    <?= form_password('password', $password) ?> <br/>
-    <?= form_label('Confirmar contraseña:', 'confirmpassword') ?>
-    <?= form_password('confirmpassword', $confirmpassword) ?> <br/>
     <?= form_label('Nombre:', 'nombre') ?>
     <?= form_input('nombre', $nombre) ?> <br>
     <?= form_label('Apellidos:', 'apellidos') ?>
     <?= form_input('apellidos', $apellidos) ?> <br/>
+    <?= form_label('DNI:', 'dni') ?>
+    <?= form_input('dni', $dni) ?> <br/>
+    <?= form_label('Direccion:', 'direccion') ?>
+    <?= form_input('direccion', $direccion) ?> <br/>
+    <?= form_label('Teléfono:', 'telefono') ?>
+    <?= form_input('telefono', $telefono) ?> <br/>
+    <p> Administrador 
+    <?= form_checkbox('admin', 'si', $admin == 't') ?>
+    </p>
   </p>
-  <p><?= form_submit('editar', 'Editar', 'class="boton"') ?>
-     <?= form_submit('cancelar', 'Cancelar', 'class="boton"') ?></p>
+  <p><?= form_submit('actualizar', 'Actualizar', 'class="boton"') ?>
+     <?= form_submit('cancelar', 'Cancelar', 'class="boton"') ?>
+     <?= form_submit('m_password', 'Modificar Constraseña', 'class="boton"') ?></p>
 <?= form_close() ?>
 </div>
