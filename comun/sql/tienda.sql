@@ -32,16 +32,37 @@ insert into categorias (nombre) values ('Bajo');
 drop table productos cascade;
 
 create table productos (
-  id_productos      bigserial    constraint pk_productos primary key,
+  id_producto       bigserial    constraint pk_productos primary key,
   nombre            varchar(200) not null,
   stock             numeric(99)  not null default 0,
   descripcion       varchar(800) not null,
   fabricante        varchar(200) not null,
+  precio            numeric(9,2) not null,
   id_categorias     bigint      constraint fk_productos_categorias references categorias (id_categorias)
 );
 
 drop table facturas cascade;
 
 create table facturas (
+  id_factura       bigserial     constraint pk_facturas primary key,
+  id_cliente       bigint        constraint fk_factura_cliente references clientes (id_cliente),
+  dni              char(9),
+  nombre           varchar(100),  
+  apellidos        varchar(200),  
+  direccion        varchar(500),  
+  telefono         char(9),       
+  fecha            date          default timestamp
+);
+
+drop table linea_facturas cascade;
+
+create table linea_facturas (
+  id_linea_factura bigserial    constraint pk_lineas_factura primary key,
+  id_factura       bigint       constraint fk_linea_factura_factura references factura (id_facturas),
+  id_producto      bigint       constraint fk_line_factura_producto references producto (id_producto),
+  cantidad         numeric(2)   default 1,
+  precio           numeric(9,2) not null,
 
 );
+
+
