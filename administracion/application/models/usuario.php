@@ -25,7 +25,15 @@ class Usuario extends CI_Model {
   }
   
   function obtener_todos() {
-     return $this->db->query("select * from usuarios")->result_array();
+  	/*
+  	 * Se obtiene todos los datos, indicando el orden.
+  	 */
+  	 if ($this->input->post('orden')) {
+  	 	$orden = $this->input->post('orden');
+  	 } else {
+  	 	$orden = "nombre";
+     return $this->db->query("select * from usuarios order by $orden asc")->result_array();
+  	 }
   }
   
   function obtener_usuario() {

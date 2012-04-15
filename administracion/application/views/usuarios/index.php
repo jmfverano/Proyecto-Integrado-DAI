@@ -14,15 +14,21 @@
 </fieldset>
 </p>
 <p>
+<?php $orden = ''?> 
 <table border="1" style="margin: auto" class="tabla_usuario">
   <thead>
-    <th>DNI</th><th>Nombre</th><th>Apellidos</th><th>Dirección</th><th>Teléfono</th><th>Tipo Usuario</th> <th colspan="3">Operaciones</th>
+    <th><?= anchor('usuarios/index', 'DNI', $orden = "dni") ?></th>
+    <th><?= anchor('usuarios/index', 'Nombre', $orden = "nombre") ?></th>
+    <th><?= anchor('usuarios/index', 'Apellidos', $orden = "apellidos") ?></th>
+    <th><?= anchor('usuarios/index', 'Dirección', $orden = "direccion") ?></th>
+    <th><?= anchor('usuarios/index', 'Teléfono', $orden = "telefono") ?></th>
+    <th><?= anchor('usuarios/index', 'Tipo de Usuario', $orden = "admin") ?></th>
   </thead>
   <tbody align="center">
     <?php foreach ($filas as $fila): ?>
       <?php extract($fila); ?>
       <tr>
-        <td><?= $dni ?></td>
+        <td><?= anchor('usuarios/propiedades_usuario', $dni, $id_usuario) ?></td>
         <td><?= $nombre ?></td>
         <td><?= $apellidos ?></td>
         <td><?= $direccion ?></td>
@@ -33,24 +39,6 @@
           <?php else: ?>
             Cliente
           <?php endif; ?>
-        </td>
-        <td>
-          <?= form_open("usuarios/editar") ?>
-            <?= form_hidden('id_usuario', $id_usuario)?>
-            <?= form_submit('editar', 'Editar') ?>
-          <?= form_close() ?>
-        </td>
-        <td>
-          <?= form_open("usuarios/borrar") ?>
-            <?= form_hidden('id_usuario', $id_usuario)?>
-            <?= form_submit('borrar', 'Borrar') ?>
-          <?= form_close() ?>
-        </td>
-        <td>
-          <?= form_open("usuarios/pedidos") ?>
-            <?= form_hidden('id_usuario', $id_usuario)?>
-            <?= form_submit('pedidos', 'Pedidos') ?>
-          <?= form_close() ?>
         </td>
       </tr>      
     <?php endforeach; ?>
