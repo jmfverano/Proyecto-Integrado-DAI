@@ -41,28 +41,51 @@ create table productos (
   id_categorias     bigint      constraint fk_productos_categorias references categorias (id_categorias)
 );
 
+drop table pedidos cascade;
+
+create table pedidos (
+  id_pedido        bigserial     constraint pk_pedidos primary key,
+  id_usuario       bigint        constraint fk_pedidos_usuario references usuarios (id_usuario),  
+  fecha            date          default current_date,
+  estado           varchar(15)   default 'Iniciado'
+);
+
+insert into pedidos(id_usuario) values(1);
+
+drop table linea_pedidos cascade;
+
+create table linea_pedidos (
+  id_linea_pedido  bigserial    constraint pk_lineas_pedidos primary key,
+  id_pedido        bigint       constraint fk_linea_pedidos_pedido references pedidos (id_pedido),
+  id_producto      bigint       constraint fk_line_pedido_producto references productos (id_producto),
+  cantidad         numeric(2)   default 1,
+  precio           numeric(9,2) not null
+);
+
 drop table facturas cascade;
 
 create table facturas (
   id_factura       bigserial     constraint pk_facturas primary key,
-  id_cliente       bigint        constraint fk_factura_cliente references clientes (id_cliente),
+  id_usuario       bigint        constraint fk_factura_usuario references usuarios (id_usuario),
+  id_pedido        bigint        constraint fk_factura_pedidos references pedidos (id_pedido),
   dni              char(9),
   nombre           varchar(100),  
   apellidos        varchar(200),  
   direccion        varchar(500),  
   telefono         char(9),       
-  fecha            date          default timestamp
+  fecha            date    default current_date
 );
 
 drop table linea_facturas cascade;
 
 create table linea_facturas (
   id_linea_factura bigserial    constraint pk_lineas_factura primary key,
-  id_factura       bigint       constraint fk_linea_factura_factura references factura (id_facturas),
-  id_producto      bigint       constraint fk_line_factura_producto references producto (id_producto),
+  id_factura       bigint       constraint fk_linea_factura_factura references facturas (id_factura),
+  id_producto      bigint       constraint fk_line_factura_producto references productos (id_producto),
   cantidad         numeric(2)   default 1,
-  precio           numeric(9,2) not null,
-
+  precio           numeric(9,2) not null
 );
+
+
 
 

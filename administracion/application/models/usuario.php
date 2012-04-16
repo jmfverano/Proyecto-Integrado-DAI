@@ -61,7 +61,18 @@ class Usuario extends CI_Model {
   	}
   }
 
-  function borrar($id_usuario) {
+  function borrar() {
+  	$id_usuario = $this->input->post('id_usuario');
     return $this->db->query("delete from usuarios where id_usuario = ?", array($id_usuario));
+  }
+  
+  function datos_usuario(){
+  	$id_usuario = $this->input->post('id_usuario');
+  	return $this->db->query("select * from usuarios where id_usuario = ?", array($id_usuario))->row_array();;
+  }
+  
+  function pedidos_usuario() {
+  	$id_usuario = $this->input->post('id_usuario');
+  	return $this->db->query("select * from pedidos where id_usuario = ?", array($id_usuario))->result_array();
   }
 }

@@ -87,4 +87,18 @@ class Usuarios extends CI_Controller {
       $this->load->view('usuarios/editar', $datos);
     }
   }
+  
+  function propiedades_usuario() {
+  	if ($this->input->post('id_usuario')) {
+  		/**
+  		 * Aquí se obtiene todos los datos personales del usuario y los pedidos realizados.
+  		 */
+  		$data = $this->Usuario->datos_usuario();
+  		$dta['pedidos'] = $this->Usuario->pedidos_usuario();
+  		$this->load->view('usuarios/propiedades_usuario', $data);
+  	} else {
+  		$data['mensaje'] = "No se cargado la vista correctamente por algún motivo";
+  		$this->load->view('usuarios/error', $data);
+  	}
+  }
 } 
