@@ -22,24 +22,28 @@ values ('Xhaman@gmail.com',md5('werty'),'48894965T','Salvador', 'Fernández Vera
 drop table categorias cascade;
 
 create table categorias(
-  id_categorias bigserial    constraint pk_categorias primary key,
-  nombre                     varchar(200) not null
+  id_categoria               bigserial    constraint pk_categorias primary key,
+  tipo_instrumento           varchar(200) not null
 );
 
-insert into categorias (nombre) values ('Guitarra');
-insert into categorias (nombre) values ('Bajo');
+insert into categorias (tipo_instrumento) values ('Guitarra');
+insert into categorias (tipo_instrumento) values ('Bajo');
 
 drop table productos cascade;
 
 create table productos (
   id_producto       bigserial    constraint pk_productos primary key,
   nombre            varchar(200) not null,
-  stock             numeric(99)  not null default 0,
+  stock             numeric(99)  not null default 1,
   descripcion       varchar(800) not null,
   fabricante        varchar(200) not null,
   precio            numeric(9,2) not null,
-  id_categorias     bigint      constraint fk_productos_categorias references categorias (id_categorias)
+  id_categoria      bigint      constraint fk_productos_categorias references categorias (id_categoria)
 );
+
+insert into productos  (nombre, descripcion, fabricante, precio, id_categoria) 
+values ('Squier Tele Pick', 'Pastilla del pastil tipo Telecaster con sonido vitage', 'Squier',50.99, 1);
+
 
 drop table pedidos cascade;
 

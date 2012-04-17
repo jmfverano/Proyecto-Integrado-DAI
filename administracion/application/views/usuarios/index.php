@@ -28,7 +28,12 @@
     <?php foreach ($filas as $fila): ?>
       <?php extract($fila); ?>
       <tr>
-        <td><?= anchor('usuarios/propiedades_usuario', $dni, $id_usuario) ?></td>
+        <td>
+        	<?= form_open('usuarios/propiedades_usuario') ?>
+  				<?= form_hidden('id_usuario', $id_usuario) ?>
+        		<?= form_submit('dni', $dni) ?>
+			<?= form_close() ?>
+        </td>
         <td><?= $nombre ?></td>
         <td><?= $apellidos ?></td>
         <td><?= $direccion ?></td>

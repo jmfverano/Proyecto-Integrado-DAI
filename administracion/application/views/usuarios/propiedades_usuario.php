@@ -1,17 +1,21 @@
 <div class="datos_usuario">
 	<fieldset>
-		<p align="center">DNI: <?php $dni ?> Nombre: <?php $nombre?> Apellidos: <?php $apellidos ?> Dirección: <?php $direccion ?> Teléfono: <?php $telefono ?></p>
-		<p align="center"> 
-			<?= form_open("usuarios/index") ?>
+		<legend>Datos Usuario</legend>
+		<?php extract($usuario); ?>
+		<p align="center">DNI: <?= $dni ?> Nombre: <?= $nombre?> Apellidos: <?= $apellidos ?> Dirección: <?= $direccion ?> Teléfono: <?= $telefono ?></p>
+		<p> 
+			<?= form_open("usuarios/editar") ?>
 			    <?= form_hidden('id_usuario', $id_usuario) ?>
   				<?= form_submit('editar', 'Editar') ?>
+		    <?= form_close() ?>	
+		    <?= form_open("usuarios/borrar") ?>
+			    <?= form_hidden('id_usuario', $id_usuario) ?>
   				<?= form_submit('borrar', 'Borrar') ?>
-  				<?= form_submit('volver', 'Volver') ?>
 		    <?= form_close() ?>	
 		</p>
 	</fieldset>
 </div>
-
+<br/>
 <div>
 	<table border="1" style="margin: auto" class="tabla_pedidos">
 	  <thead>

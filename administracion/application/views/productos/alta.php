@@ -1,0 +1,26 @@
+<p>
+<?php if(!empty($mensaje)): ?>
+	<?= $mensaje ?>
+<?php endif; ?>	
+</p>
+<p>
+<fieldset>
+  <legend>Alta Producto.</legend>
+  <?= form_open('productos/alta') ?>
+    Compatible con
+    <?= form_dropdown('id_categoria', array('1' => 'Guitarra','2' => 'Bajo'), set_value('id_categoria')) ?> </br>
+    <?= form_label('Nombre:', 'nombre') ?>
+    <?= form_input('nombre', $nombre) ?><br/>
+    <?= form_label('Descripción:', 'descripcion') ?>
+    <?= form_input('descripcion', $descripcion) ?><br/>
+    <?= form_label('Fabricante:', 'fabricante') ?>
+    <?= form_input('fabricante', $fabricante) ?><br/>
+    <?= form_label('Precio:', 'precio') ?>
+    <?= form_input('precio', $precio) ?><br/>
+    <?= form_label('Stock:', 'stock') ?>
+    <?= form_input('stock', $stock) ?><br/>
+    <?= form_submit('alta', 'Alta') ?>
+    <?= form_submit('cancelar', 'Cancelar') ?>                                    
+  <?= form_close() ?>
+</fieldset>
+</p>
