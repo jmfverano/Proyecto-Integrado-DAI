@@ -7,15 +7,15 @@
 <div>
 <?= form_open('usuarios/editar') ?>
   <p>
+  	<?= form_label('DNI:', 'dni') ?>
+    <?= form_input('dni', $dni) ?> <br/>
     <?= form_hidden('id_usuario', $id_usuario) ?>
     <?= form_label('Email:', 'email') ?>
     <?= form_input('email', $email) ?> <br/>
-    <?= form_label('Nombre:', 'nombre') ?>
-    <?= form_input('nombre', $nombre) ?> <br>
+    <?= form_label('Nombre:', 'nombre_usu') ?>
+    <?= form_input('nombre_usu', $nombre_usu) ?> <br>
     <?= form_label('Apellidos:', 'apellidos') ?>
     <?= form_input('apellidos', $apellidos) ?> <br/>
-    <?= form_label('DNI:', 'dni') ?>
-    <?= form_input('dni', $dni) ?> <br/>
     <?= form_label('Direccion:', 'direccion') ?>
     <?= form_input('direccion', $direccion) ?> <br/>
     <?= form_label('Teléfono:', 'telefono') ?>

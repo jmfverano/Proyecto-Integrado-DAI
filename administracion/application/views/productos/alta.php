@@ -8,9 +8,11 @@
   <legend>Alta Producto.</legend>
   <?= form_open('productos/alta') ?>
     Compatible con
-    <?= form_dropdown('id_categoria', array('1' => 'Guitarra','2' => 'Bajo'), set_value('id_categoria')) ?> </br>
-    <?= form_label('Nombre:', 'nombre') ?>
-    <?= form_input('nombre', $nombre) ?><br/>
+    <?= form_dropdown('id_categoria', $categoria) ?> </br>
+    Proveedor 
+    <?= form_dropdown('id_proveedor', $proveedor) ?> </br>
+    <?= form_label('Nombre:', 'nombre_prod') ?>
+    <?= form_input('nombre_prod', $nombre_prod) ?><br/>
     <?= form_label('Descripción:', 'descripcion') ?>
     <?= form_input('descripcion', $descripcion) ?><br/>
     <?= form_label('Fabricante:', 'fabricante') ?>
@@ -24,3 +26,4 @@
   <?= form_close() ?>
 </fieldset>
 </p>
+

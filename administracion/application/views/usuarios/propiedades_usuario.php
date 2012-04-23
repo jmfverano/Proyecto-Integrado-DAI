@@ -2,7 +2,7 @@
 	<fieldset>
 		<legend>Datos Usuario</legend>
 		<?php extract($usuario); ?>
-		<p align="center">DNI: <?= $dni ?> Nombre: <?= $nombre?> Apellidos: <?= $apellidos ?> Dirección: <?= $direccion ?> Teléfono: <?= $telefono ?></p>
+		<p align="center">DNI: <?= $dni ?> Nombre: <?= $nombre_usu?> Apellidos: <?= $apellidos ?> Dirección: <?= $direccion ?> Teléfono: <?= $telefono ?></p>
 		<p> 
 			<?= form_open("usuarios/editar") ?>
 			    <?= form_hidden('id_usuario', $id_usuario) ?>

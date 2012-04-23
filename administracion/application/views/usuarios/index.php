@@ -3,7 +3,7 @@
   <legend>Buscar</legend>
   <?= form_open('usuarios/index') ?>
     <?= form_dropdown('columna', array('dni' => 'DNI',
-                                       'nombre' => 'Nombre',
+                                       'nombre_usu' => 'Nombre',
                                        'direccion' => 'Dirección',
                                        'telefono' => 'Teléfono',
                                        'apellidos' => 'Apellidos'), $columna) ?>
@@ -17,12 +17,42 @@
 <?php $orden = ''?> 
 <table border="1" style="margin: auto" class="tabla_usuario">
   <thead>
-    <th><?= anchor('usuarios/index', 'DNI', $orden = "dni") ?></th>
-    <th><?= anchor('usuarios/index', 'Nombre', $orden = "nombre") ?></th>
-    <th><?= anchor('usuarios/index', 'Apellidos', $orden = "apellidos") ?></th>
-    <th><?= anchor('usuarios/index', 'Dirección', $orden = "direccion") ?></th>
-    <th><?= anchor('usuarios/index', 'Teléfono', $orden = "telefono") ?></th>
-    <th><?= anchor('usuarios/index', 'Tipo de Usuario', $orden = "admin") ?></th>
+    <th>
+    	<?= form_open('usuarios/index') ?>
+  		<?= form_hidden('orden', 'dni') ?>
+    	<?= form_submit('dni','DNI') ?>
+		<?= form_close() ?>
+	</th>
+	<th>
+    	<?= form_open('usuarios/index') ?>
+  		<?= form_hidden('orden', 'nombre_usu') ?>
+    	<?= form_submit('nombre_usu','Nombre') ?>
+		<?= form_close() ?>
+	</th>
+    <th>
+    	<?= form_open('usuarios/index') ?>
+  		<?= form_hidden('orden', 'apellidos') ?>
+    	<?= form_submit('apellidos','Apellidos') ?>
+		<?= form_close() ?>
+	</th>
+    <th>
+    	<?= form_open('usuarios/index') ?>
+  		<?= form_hidden('orden', 'direccion') ?>
+    	<?= form_submit('direccion','Dirección') ?>
+		<?= form_close() ?>
+	</th>
+    <th>
+    	<?= form_open('usuarios/index') ?>
+  		<?= form_hidden('orden', 'telefono') ?>
+    	<?= form_submit('telefono','Teléfono') ?>
+		<?= form_close() ?>
+	</th>
+    <th>
+    	<?= form_open('usuarios/index') ?>
+  		<?= form_hidden('orden', 'admin') ?>
+    	<?= form_submit('admin','Tipo de Usuario') ?>
+		<?= form_close() ?>
+	</th>
   </thead>
   <tbody align="center">
     <?php foreach ($filas as $fila): ?>
@@ -34,7 +64,7 @@
         		<?= form_submit('dni', $dni) ?>
 			<?= form_close() ?>
         </td>
-        <td><?= $nombre ?></td>
+        <td><?= $nombre_usu ?></td>
         <td><?= $apellidos ?></td>
         <td><?= $direccion ?></td>
         <td><?= $telefono ?></td>

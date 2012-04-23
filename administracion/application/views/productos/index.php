@@ -9,6 +9,7 @@
     <th>Descripción</th>
     <th>Precio</th>
     <th>Stock</th>
+    <th>Proveedor</th>
     <th>Compatible</th>
   </thead>
   <tbody align="center">
@@ -21,11 +22,12 @@
         		<?= form_submit('id_producto', $id_producto) ?>
 			<?= form_close() ?>
         </td>
-        <td><?= $nombre ?> </td>
+        <td><?= $nombre_prod ?> </td>
         <td><?= $fabricante ?></td>
         <td><?= $descripcion ?></td>
         <td><?= $precio ?>€</td>
         <td><?= $stock ?></td>
+        <td><?= $nombre_prov ?></td>
         <td><?= $tipo_instrumento ?> </td>
       </tr>      
     <?php endforeach; ?>

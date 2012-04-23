@@ -12,13 +12,13 @@ class Usuario extends CI_Model {
   		                         where email = ? and password = md5(?) and admin = true", array($email, $password));	
   }
   
-  function crear($email, $password, $nombre, $apellidos) {
+  function crear($email, $password, $nombre_usu, $apellidos) {
     $res = $this->_nombre_utilizado($email);
     $confirm_password = $this->input->post('confirm_password');
-  	if($email != '' && $password != '' && $confirm_password != '' && $nombre != '' && $apellidos != '' && empty($res)
+  	if($email != '' && $password != '' && $confirm_password != '' && $nombre_usu != '' && $apellidos != '' && empty($res)
   	   && $password == $confirm_password) {
 	  	  return $this->db->query("insert into usuarios (email, password, nombre, apellidos) 
-		                                     values (?,md5(?),?,?)",array($email, $password, $nombre, $apellidos));
+		                                     values (?,md5(?),?,?)",array($email, $password, $nombre_usu, $apellidos));
 	  } else {
 		  return false;
 	  }
@@ -30,10 +30,11 @@ class Usuario extends CI_Model {
   	 */
   	 if ($this->input->post('orden')) {
   	 	$orden = $this->input->post('orden');
+  	 	
   	 } else {
-  	 	$orden = "nombre";
-     return $this->db->query("select * from usuarios order by $orden asc")->result_array();
+  	 	$orden = "nombre_usu";
   	 }
+  	 return $this->db->query("select * from usuarios order by $orden asc")->result_array();
   }
   
   function obtener_usuario() {
