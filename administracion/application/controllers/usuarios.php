@@ -28,7 +28,8 @@ class Usuarios extends CI_Controller {
 			$datos['filas']= $this->Usuario->obtener_todos();
 			$datos['criterio'] = '';
 			$datos['columna']  = '';
-			$this->load->view('usuarios/index', $datos);
+			//$this->load->view('usuarios/index', $datos);
+			$this->template->load('template','usuarios/index', $datos);
 		}
 	}
 
