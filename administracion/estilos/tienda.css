@@ -73,10 +73,10 @@
 /* Bloques de estilos para las vistas */
 
 body {
-    /*background-image: url('fondo.jpg');*/
+ 
     background-color: black;
     background-size: auto;
-	font-family: "Georgia", Tahoma, Sans-Serif;
+	font-family: Georgia, Tahoma, Sans-Serif;
 	font-size: 10px;
 	line-height: 12px;
 }
@@ -97,7 +97,7 @@ thead th{
     font-size:90%;
     text-transform:uppercase;
     color:#333;
-        background:#ddd;
+    background:#ddd;
 
 }
 tbody td,tbody th{
@@ -114,3 +114,9 @@ tfoot td,tfoot th{
     padding-top:10px;
 }
 
+legend {
+    
+    font-size:20px;
+    text-align: left;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
