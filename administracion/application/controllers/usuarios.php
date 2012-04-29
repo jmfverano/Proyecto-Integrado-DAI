@@ -55,7 +55,7 @@ class Usuarios extends CI_Controller {
 			$mensaje = $this->session->flashdata('mensaje');
 		}
 
-		$this->load->view('usuarios/login', array('mensaje' => $mensaje));
+		$this->template->load('template','usuarios/login', array('mensaje' => $mensaje));
 	}
 
 	function logout() {
@@ -85,7 +85,7 @@ class Usuarios extends CI_Controller {
 			}
 		} else {
 			$datos = $this->Usuario->obtener_usuario();
-			$this->load->view('usuarios/editar', $datos);
+			$this->template->load('template','usuarios/editar', $datos);
 		}
 	}
 
@@ -96,10 +96,12 @@ class Usuarios extends CI_Controller {
 			 */
 			$data['usuario'] = $this->Usuario->datos_usuario();
 			$data['pedidos'] = $this->Usuario->pedidos_usuario();
-			$this->load->view('usuarios/propiedades_usuario', $data);
+			$this->template->load('template','usuarios/propiedades_usuario', $data);
+			
 		} else {
 			$data['mensaje'] = "No se cargado la vista correctamente por algún motivo";
-			$this->load->view('usuarios/error', $data);
+			$this->template->load('template','usuarios/error', $data);
+			
 		}
 	}
 	
@@ -118,7 +120,7 @@ class Usuarios extends CI_Controller {
 			$datos['direccion'] = '';
 			$datos['telefono'] = '';
 			$datos['admin'] = false;
-			$this->load->view('usuarios/alta',$datos);
+			$this->template->load('template','usuarios/alta', $datos);
 		}
 	}
 }

@@ -19,7 +19,8 @@ class Index extends CI_Controller {
   	} else if ($this->input->post('productos')) {
   		  redirect('productos/index');
   	} else {
-  		$this->load->view('index/menu');
+  		$this->template->load('template','index/menu');
+  		
   	}
   }
 }

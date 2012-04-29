@@ -10,7 +10,7 @@ class Productos extends CI_Controller {
   	# Se comprobara el logueo antes mostrar algun dato.
   	$this->utilidades->comprobar_logueo(); 
   	$data['filas'] = $this->Producto->obtener_productos();
-  	$this->load->view('productos/index', $data);
+  	$this->template->load('template','productos/index', $data);
   }
   
   function alta() {
@@ -26,7 +26,8 @@ class Productos extends CI_Controller {
 		    $data['stock']        = $this->input->post('stock');
 		    $data['id_categoria'] = $this->input->post('id_categoria');
 		    
-  			$this->load->view('productos/alta',$data);
+  			$this->template->load('template','productos/alta',$data);
+  			
   		} else {
   			redirect('productos/index');
   		}
@@ -57,7 +58,8 @@ class Productos extends CI_Controller {
 		    }
 		    $data['proveedor'] = $aux_pro;
 		    $data['categoria'] = $aux_cat;
-  		$this->load->view('productos/alta', $data);
+		    
+  		$this->template->load('template','productos/alta',$data);
   	}
   	
   }
