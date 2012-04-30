@@ -30,6 +30,7 @@ create table proveedores (
 );
 
 insert into proveedores (nombre_prov, cif, telefono, email) values ('Fender', '12345678912','+34956112233','fender_iberia@fender.com');
+insert into proveedores (nombre_prov, cif, telefono, email) values ('Gibson', '12345678911','+34956112234','Gibson_europe@gibson.com');
 
 drop table categorias cascade;
 
@@ -41,6 +42,30 @@ create table categorias(
 insert into categorias (tipo_instrumento) values ('Guitarra');
 insert into categorias (tipo_instrumento) values ('Bajo');
 
+drop table tipo_productos cascade;
+
+create table tipo_productos (
+
+  id_tipo_producto          bigserial    constraint pk_tipo_producto primary key,
+  tnomb_producto            varchar(100)  not null unique
+);
+
+insert into tipo_productos (tnomb_producto) values ('Cuerpo');
+insert into tipo_productos (tnomb_producto) values ('Pastilla Mastil');
+insert into tipo_productos (tnomb_producto) values ('Pastilla Puente');
+insert into tipo_productos (tnomb_producto) values ('Pastilla central');
+insert into tipo_productos (tnomb_producto) values ('Set de pastillas');
+insert into tipo_productos (tnomb_producto) values ('Mastil');
+insert into tipo_productos (tnomb_producto) values ('Clavijero');
+insert into tipo_productos (tnomb_producto) values ('Cuerdas');
+insert into tipo_productos (tnomb_producto) values ('Cejuela');
+insert into tipo_productos (tnomb_producto) values ('Puente');
+insert into tipo_productos (tnomb_producto) values ('Potenciometro');
+insert into tipo_productos (tnomb_producto) values ('Conexión Jack');
+insert into tipo_productos (tnomb_producto) values ('Selector de Posición');
+insert into tipo_productos (tnomb_producto) values ('Guarda Puas');
+insert into tipo_productos (tnomb_producto) values ('Otros');
+
 drop table productos cascade;
 
 create table productos (
@@ -51,11 +76,12 @@ create table productos (
   fabricante        varchar(200) not null,
   precio            numeric(9,2) not null,
   id_categoria      bigint      constraint fk_productos_categorias references categorias (id_categoria),
-  id_proveedor      bigint      constraint fk_productos_proveedores references proveedores (id_proveedor)
+  id_proveedor      bigint      constraint fk_productos_proveedores references proveedores (id_proveedor),
+  id_tipo_produto   bigint      constraint fk_productos_tipo_producto references tipo_productos (id_tipo_producto)
 );
 
-insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedores) 
-values ('Squier Tele Pick', 'Pastilla del pastil tipo Telecaster con sonido vitage', 'Squier',50.99, 1, 1);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_tipo_producto) 
+values ('Squier Tele Pick', 'Pastilla del pastil tipo Telecaster con sonido vitage', 'Squier',50.99, 1, 1,2);
 
 
 drop table pedidos cascade;

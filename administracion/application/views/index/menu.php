@@ -1,4 +1,4 @@
-<p align="center"> Selecciona la operación deseada.. </p>
+<p id="p_informativo"> Selecciona la operación deseada.. </p>
 
 <div class="menu_cliente">
     <?= form_open('index/index') ?>

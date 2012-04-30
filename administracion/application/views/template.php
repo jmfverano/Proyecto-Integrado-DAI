@@ -22,8 +22,8 @@
 		</div>
 	
 		<div id="footer">
-			<div id="parrafo_blanco">
-				<p>Copyright José Manuel Fernandez Verano - Proyecto DAI 2012</p>
+			<div>
+				<p id="parrafo_blanco"><A class="mail" HREF="mailto:josemanuel.tecnico@gmail.com">Copyright José Manuel Fernández Verano - Proyecto DAI 2012</A></p>
 			</div>
 		</div>
 

@@ -15,7 +15,7 @@
 </p>
 <p>
 <?php $orden = ''?> 
-<table border="1" style="margin: auto" class="tabla_usuario">
+<table >
   <thead>
     <th>
     	<?= form_open('usuarios/index') ?>
@@ -54,7 +54,7 @@
 		<?= form_close() ?>
 	</th>
   </thead>
-  <tbody align="center">
+  <tbody>
     <?php foreach ($filas as $fila): ?>
       <?php extract($fila); ?>
       <tr>
