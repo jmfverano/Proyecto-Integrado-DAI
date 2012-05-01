@@ -25,6 +25,7 @@ class Productos extends CI_Controller {
 		    $data['precio']       = $this->input->post('precio');
 		    $data['stock']        = $this->input->post('stock');
 		    $data['id_categoria'] = $this->input->post('id_categoria');
+		    $data['id_tipo_producto'] = $this->input->post('id_tipo_producto');
 		    
   			$this->template->load('template','productos/alta',$data);
   			
@@ -41,7 +42,7 @@ class Productos extends CI_Controller {
 		    $data['precio']       = '';
 		    $data['stock']        = '';
 		    
-		    #Se obtienen las categorias  existentes.
+		    #Se obtienen las categorias existentes.
 		    $filas = $this->Producto->obten_categoria();
 		    $aux_cat = array();
 		    foreach ($filas as $fila) {
@@ -49,15 +50,25 @@ class Productos extends CI_Controller {
 		    	$aux_cat += array($id_categoria => $tipo_instrumento); 
 		    }
 		   
-		    #Se obtienen los provedores  existentes.
+		    #Se obtienen los provedores existentes.
 		    $filas = $this->Producto->obten_proveedor();
 		    $aux_pro = array();
 		    foreach ($filas as $fila) {
 		    	extract($fila);
 		    	$aux_pro += array($id_proveedor => $nombre_prov); 
 		    }
+		    
+		    #Se obtienen los tipo de productos existentes.
+		    $filas = $this->Producto->obten_tipo();
+		    $aux_tipo = array();
+		    foreach ($filas as $fila) {
+		    	extract($fila);
+		    	$aux_tipo += array($id_tipo_producto => $tnomb_producto);
+		    }
+		    
 		    $data['proveedor'] = $aux_pro;
 		    $data['categoria'] = $aux_cat;
+		    $data['tipo'] = $aux_tipo;
 		    
   		$this->template->load('template','productos/alta',$data);
   	}

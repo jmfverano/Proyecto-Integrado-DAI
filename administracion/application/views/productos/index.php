@@ -1,18 +1,19 @@
 
 <p>
 <?php $orden = ''?> 
-<table border="1" style="margin: auto" class="tabla_usuario">
+<table>
   <thead>
   	<th>Código Producto</th>
     <th>Nombre</th>
     <th>Fabricante</th>
     <th>Descripción</th>
+    <th>Tipo de Parte</th>
     <th>Precio</th>
     <th>Stock</th>
     <th>Proveedor</th>
     <th>Compatible</th>
   </thead>
-  <tbody align="center">
+  <tbody>
     <?php foreach ($filas as $fila): ?>
       <?php extract($fila); ?>
       <tr>
@@ -25,6 +26,7 @@
         <td><?= $nombre_prod ?> </td>
         <td><?= $fabricante ?></td>
         <td><?= $descripcion ?></td>
+        <th><?= $tnomb_producto ?></th>
         <td><?= $precio ?>€</td>
         <td><?= $stock ?></td>
         <td><?= $nombre_prov ?></td>

@@ -17,17 +17,97 @@ class Pedidos extends CI_Controller {
 	
 	function alta() {
 		
-		if($this->input->post('alta_pedido') && $this->input->post('id_usuario')) {
-			if ($this->input->post('estilo') && $this->input->post('tipo')) {
-				
-			} else {
-				$dato['categorias'] = $this->Producto->obten_categoria();
+		if($this->input->post('ir_alta')) {
+			
+			$datos = array();
+			$datos['usuario'] = $this->Usuario->obtener_usuario();
+			$productos = $this->Producto->obtener_productos();
+			
+			#Estos son los array auxiliares que uremos para organizar la vista.
+			
+			$array_cuerpo = array(0 => "No");
+			$array_p_mastil = array(0 => "No");
+			$array_p_puente = array(0 => "No");
+			$array_p_central = array(0 => "No");
+			$array_set_pastilla = array(0 => "No");
+			$array_mastil = array(0 => "No");
+			$array_clavijero = array(0 => "No");
+			$array_cuerdas = array(0 => "No");
+			$array_cejuela = array(0 => "No");
+			$array_puente = array(0 => "No");
+			$array_potenciometro = array(0 => "No");
+			$array_jack = array(0 => "No");
+			$array_select_posicion = array(0 => "No");
+			$array_guarda_puas = array(0 => "No");
+			$array_ortros = array(0 => "No");
+			
+			foreach ($productos as $v) {
+				extract($v);
+				switch ($id_tipo_producto) {
+			
+					case 1:
+						$array_cuerpo += array($id_producto => $nombre_prod);
+						break;
+					case 2:
+						$array_p_mastil += array($id_producto => $nombre_prod);
+						break;
+					case 3:
+						$array_p_puente += array($id_producto => $nombre_prod);
+						break;
+					case 4:
+						$array_p_central += array($id_producto => $nombre_prod);
+						break;
+					case 5:
+						$array_set_pastilla += array($id_producto => $nombre_prod);
+						break;
+					case 6:
+						$array_mastil += array($id_producto => $nombre_prod);
+						break;
+					case 7:
+						$array_clavijero += array($id_producto => $nombre_prod);
+						break;
+					case 9:
+						$array_cuerdas += array($id_producto => $nombre_prod);
+						break;
+					case 10:
+						$array_cejuela += array($id_producto => $nombre_prod);
+						break;
+					case 11:
+						$array_puente += array($id_producto => $nombre_prod);
+						break;
+					case 12:
+						$array_potenciometro += array($id_producto => $nombre_prod);
+						break;
+					case 13:
+						$array_jack += array($id_producto => $nombre_prod);
+						break;
+					case 14:
+						$array_guarda_puas += array($id_producto => $nombre_prod);
+						break;
+					case 15:
+						$array_otros += array($id_producto => $nombre_prod);
+						break;
+				}
 			}
 			
-		} else {
-			$data['mensaje'] = "Se ha producido un error, vuelva a intarlo.";
-			$this->template->load('usuarios/error', $data);
-		}
+			$datos['cuerpo'] = $array_cuerpo;
+			$datos['p_mastil'] = $array_p_mastil;
+			$datos['p_puente'] = $array_p_puente;
+			$datos['p_central'] = $array_p_central;
+			$datos['set_pastilla'] = $array_set_pastilla;
+			$datos['mastil'] = $array_mastil;
+			$datos['clavijero'] = $array_clavijero;
+			$datos['cuerdas'] = $array_cuerdas;
+			$datos['cejuela'] = $array_cejuela;
+			$datos['puente'] = $array_puente;
+			$datos['potenciometro'] = $array_potenciometro;
+			$datos['jack'] = $array_jack;
+			$datos['s_posicion'] = $array_select_posicion;
+			$datos['guarda_puas'] = $array_guarda_puas;
+			$datos['otros'] = $array_ortros;
+			
+			$this->template->load('template','pedidos/alta', $datos);
+		} 
 	}
 
 }

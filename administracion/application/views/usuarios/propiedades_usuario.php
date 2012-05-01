@@ -14,7 +14,7 @@
 			    <?= form_close() ?>	
 			     <?= form_open("pedidos/alta") ?>
 				    <?= form_hidden('id_usuario', $id_usuario) ?>
-	  				<?= form_submit('alta_pedido', 'Nuevo Pedido') ?>
+	  				<?= form_submit('ir_alta', 'Nuevo Pedido') ?>
 			    <?= form_close() ?>	
 		</fieldset>
 	</div>

@@ -11,6 +11,8 @@
     <?= form_dropdown('id_categoria', $categoria) ?> </br>
     Proveedor 
     <?= form_dropdown('id_proveedor', $proveedor) ?> </br>
+    Tipo producto
+    <?= form_dropdown('id_tipo_producto', $tipo) ?> </br>
     <?= form_label('Nombre:', 'nombre_prod') ?>
     <?= form_input('nombre_prod', $nombre_prod) ?><br/>
     <?= form_label('Descripción:', 'descripcion') ?>
