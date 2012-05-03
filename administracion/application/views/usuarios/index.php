@@ -20,37 +20,37 @@
     <th>
     	<?= form_open('usuarios/index') ?>
   		<?= form_hidden('orden', 'dni') ?>
-    	<?= form_submit('dni','DNI', "id='aceptar'") ?>
+    	<?= form_submit('dni','DNI', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
 	</th>
 	<th>
     	<?= form_open('usuarios/index') ?>
   		<?= form_hidden('orden', 'nombre_usu') ?>
-    	<?= form_submit('nombre_usu','Nombre') ?>
+    	<?= form_submit('nombre_usu','Nombre' , "id='boton_cabecera'") ?>
 		<?= form_close() ?>
 	</th>
     <th>
     	<?= form_open('usuarios/index') ?>
   		<?= form_hidden('orden', 'apellidos') ?>
-    	<?= form_submit('apellidos','Apellidos') ?>
+    	<?= form_submit('apellidos','Apellidos', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
 	</th>
     <th>
     	<?= form_open('usuarios/index') ?>
   		<?= form_hidden('orden', 'direccion') ?>
-    	<?= form_submit('direccion','Dirección') ?>
+    	<?= form_submit('direccion','Dirección', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
 	</th>
     <th>
     	<?= form_open('usuarios/index') ?>
   		<?= form_hidden('orden', 'telefono') ?>
-    	<?= form_submit('telefono','Teléfono') ?>
+    	<?= form_submit('telefono','Teléfono', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
 	</th>
     <th>
     	<?= form_open('usuarios/index') ?>
   		<?= form_hidden('orden', 'admin') ?>
-    	<?= form_submit('admin','Tipo de Usuario') ?>
+    	<?= form_submit('admin','Tipo de Usuario', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
 	</th>
   </thead>

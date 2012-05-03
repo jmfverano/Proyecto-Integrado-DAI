@@ -42,17 +42,37 @@ create table categorias(
 insert into categorias (tipo_instrumento) values ('Guitarra');
 insert into categorias (tipo_instrumento) values ('Bajo');
 
+
+drop table piezas_compatibles cascade;
+
+create table piezas_compatibles (
+    
+  id_piezas     bigserial     constraint pk_piezas_compatibles primary key,
+  pc_nombre     varchar(30)   not null,
+  id_categoria  bigint        constraint fk_categorias_piezas_compatibles references categorias (id_categoria)
+  
+);
+
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Telecaster', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('SG', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Les Paul', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Guitarra', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Bajo', 2);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('JazzBass', 2);
+
+
 drop table tipo_productos cascade;
 
 create table tipo_productos (
 
   id_tipo_producto          bigserial    constraint pk_tipo_producto primary key,
   tnomb_producto            varchar(100)  not null unique
+  
 );
 
 insert into tipo_productos (tnomb_producto) values ('Cuerpo');
-insert into tipo_productos (tnomb_producto) values ('Pastilla Mastil');
 insert into tipo_productos (tnomb_producto) values ('Pastilla Puente');
+insert into tipo_productos (tnomb_producto) values ('Pastilla Mastil');
 insert into tipo_productos (tnomb_producto) values ('Pastilla central');
 insert into tipo_productos (tnomb_producto) values ('Set de pastillas');
 insert into tipo_productos (tnomb_producto) values ('Mastil');
@@ -72,16 +92,18 @@ create table productos (
   id_producto       bigserial    constraint pk_productos primary key,
   nombre_prod       varchar(200) not null,
   stock             numeric(99)  not null default 1,
-  descripcion       varchar(800) not null,
+  descripcion       text         not null,
   fabricante        varchar(200) not null,
   precio            numeric(9,2) not null,
   id_categoria      bigint      constraint fk_productos_categorias references categorias (id_categoria),
   id_proveedor      bigint      constraint fk_productos_proveedores references proveedores (id_proveedor),
-  id_tipo_produto   bigint      constraint fk_productos_tipo_producto references tipo_productos (id_tipo_producto)
+  id_tipo_producto  bigint      constraint fk_productos_tipo_producto references tipo_productos (id_tipo_producto),
+  id_piezas         bigint      constraint fk_productos_piezas references piezas_compatibles (id_piezas)
+ 
 );
 
-insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_tipo_producto) 
-values ('Squier Tele Pick', 'Pastilla del pastil tipo Telecaster con sonido vitage', 'Squier',50.99, 1, 1,2);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas) 
+values ('Squier Tele Pick', 'Pastilla del pastil tipo Telecaster con sonido vitage', 'Squier',50.99, 1, 1,1);
 
 
 drop table pedidos cascade;

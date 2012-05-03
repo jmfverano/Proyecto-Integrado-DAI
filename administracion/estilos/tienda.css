@@ -57,6 +57,20 @@
     font-family: Verdana;
 }
 
+#boton_cabecera {
+	
+    
+        font-size:10px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:white;
+        background:#638cb5;
+        border:0px;
+        width:90px;
+        height:19px;
+}  
+
+
 #contents {
 	text-align: center;	
 	width: auto; 
@@ -68,10 +82,6 @@
 	border-width: 4px;
 }
 
-#aceptar {
-
-    margin-left: 100px;
-}
 
 #usuario {
 	float: right;
@@ -152,10 +162,12 @@ legend {
     
     font-size:20px;
     text-align:left;
-    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-family: Helvetica, Tahoma, Arial;
 }
 
 a.mail:link {
 	
 	color: white;
-}  
+}
+
+ 
