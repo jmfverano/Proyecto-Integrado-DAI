@@ -20,7 +20,7 @@
     <th>
     	<?= form_open('usuarios/index') ?>
   		<?= form_hidden('orden', 'dni') ?>
-    	<?= form_submit('dni','DNI', "id='aceptar'") ?>
+    	<?= form_submit('dni','DNI') ?>
 		<?= form_close() ?>
 	</th>
 	<th>
