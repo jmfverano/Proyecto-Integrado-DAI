@@ -23,12 +23,11 @@ class Usuarios extends CI_Controller {
 			$datos['filas']= $this->Usuario->obtener_seleccion();
 			$datos['criterio'] = $this->input->post('criterio');
 			$datos['columna']  = $this->input->post('columna');
-			$this->load->view('usuarios/index', $datos);
+			$this->template->load('template','usuarios/index', $datos);
 		} else {
 			$datos['filas']= $this->Usuario->obtener_todos();
 			$datos['criterio'] = '';
 			$datos['columna']  = '';
-			//$this->load->view('usuarios/index', $datos);
 			$this->template->load('template','usuarios/index', $datos);
 		}
 	}
@@ -108,11 +107,20 @@ class Usuarios extends CI_Controller {
 	function insertar() {
 		if ($this->input->post('alta')) {
 			
+			if ($this->Usuario->insertar_nuevo()) {
+				 $this->session->set_flashdata('mensaje', 'La operación se realizo correctamente.');
+				 redirect('usuarios/index');
+			} else {
+				
+				$this->session->set_flashdata('mensaje', 'La operación no se pudo completar, vuelva a intarlo.');
+				 redirect('usuarios/insertar');
+			}
 		}	
 	    elseif ($this->input->post('cancelar')) {
 	    	redirect('usuarios/index');
 		} else {
 			$datos['email'] = '';
+			$datos['password'] = '';
 			$datos['nombre_usu'] = '';
 			$datos['apellidos'] = '';
 			$datos['nombre_usu'] = '';
@@ -121,6 +129,32 @@ class Usuarios extends CI_Controller {
 			$datos['telefono'] = '';
 			$datos['admin'] = false;
 			$this->template->load('template','usuarios/alta', $datos);
+		}
+	}
+	
+	function borrar() {
+		
+		if ($this->input->post('borrar')) {
+			
+			$datos['id_usuario'] = $this->input->post('id_usuario');
+			$this->template->load('template','usuarios/borrar', $datos);
+			
+		} else if ($this->input->post('si') && 
+		           $this->input->post('id_usuario')) {
+			
+		    if($this->Usuario->borrar_usuario()) {
+		    	
+		    	$this->session->set_flashdata('mensaje', 'La operación se realizo correctamente.');
+				redirect('usuarios/index');
+		    	
+		    } else {
+		    	
+		    	$this->session->set_flashdata('mensaje', 'La operación no se realizo, intentelo denuevo más tarde.');
+				redirect('usuarios/index');
+		    }
+		} else {
+
+			redirect('usuarios/index');
 		}
 	}
 }

@@ -8,11 +8,11 @@
                                        'telefono' => 'Teléfono',
                                        'apellidos' => 'Apellidos'), $columna) ?>
     <?= form_input('criterio', $criterio) ?>
-    <?= form_submit('buscar', 'Buscar') ?>
-                                       
-  <?= form_close() ?>
+    <?= form_submit('buscar', 'Buscar') ?>                  
+    <?= form_close() ?>
 </fieldset>
 </p>
+<p id="p_informativo"> <?php  if (!empty($mensaje)) $mensaje; ?> </p>
 <p>
 <?php $orden = ''?> 
 <table >
@@ -61,7 +61,7 @@
         <td>
         	<?= form_open('usuarios/propiedades_usuario') ?>
   				<?= form_hidden('id_usuario', $id_usuario) ?>
-        		<?= form_submit('dni', $dni) ?>
+        		<?= form_submit('dni', $dni, "id='boton_dni'") ?>
 			<?= form_close() ?>
         </td>
         <td><?= $nombre_usu ?></td>

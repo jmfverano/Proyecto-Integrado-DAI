@@ -11,6 +11,8 @@
 		  <p>
 		    <?= form_label('Email:', 'email') ?>
 		    <?= form_input('email', $email) ?> <br/>
+		    <?=form_label('Password', 'password') ?>
+		    <?= form_password('password', $password)?> <br/>
 		    <?= form_label('Nombre:', 'nombre_usu') ?>
 		    <?= form_input('nombre_usu', $nombre_usu) ?> <br>
 		    <?= form_label('Apellidos:', 'apellidos') ?>

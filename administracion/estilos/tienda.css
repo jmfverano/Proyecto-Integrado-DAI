@@ -31,10 +31,10 @@
 
 #p_informativo {
 	
-	font: Arial, Helvetica, sans-serif;
+	font: Helvetica, Tahoma, Arial;
 	color: black;
-	font-size:20px;
-	font-style:inherit;
+	font-size:15px;
+	font-style:normal;
 }
 
 #cuadro_login {
@@ -54,17 +54,30 @@
     width: auto;
     margin: auto;
     color: #FFFFFF;
-    font-family: Verdana;
+    font-family: Helvetica, Tahoma, Arial;
 }
 
 #boton_cabecera {
 	
     
-        font-size:10px;
-        font-family:Verdana,Helvetica;
+        font-size:15px;
+        font-family:Helvetica, Tahoma, Arial;
         font-weight:bold;
-        color:white;
-        background:#638cb5;
+        color:black;
+        background:#ddd;
+        border:0px;
+        width:90px;
+        height:19px;
+}  
+
+
+#boton_dni {
+	
+        font-size:10px;
+        font-family:Helvetica, Tahoma, Arial;
+        font-weight:bold;
+        color:black;
+        background:#eee;
         border:0px;
         width:90px;
         height:19px;
@@ -112,7 +125,7 @@ body {
  
     background-color: black;
     background-size: auto;
-	font-family: Georgia, Tahoma, Sans-Serif;
+	font-family: Helvetica, Tahoma, Arial;
 	font-size: 10px;
 	line-height: 12px;
 }
@@ -170,4 +183,10 @@ a.mail:link {
 	color: white;
 }
 
- 
+fieldset {
+	
+	font-size:15px;
+    text-align:center;
+    font-family: Helvetica, Tahoma, Arial;
+	
+} 
