@@ -16,11 +16,12 @@ class Index extends CI_Controller {
 	
   	if ($this->input->post('usuarios')){
         redirect('usuarios/index');
-  	} else if ($this->input->post('productos')) {
-  		  redirect('productos/index');
+  	} elseif ($this->input->post('productos')) {
+  		redirect('productos/index');
+  	} elseif ($this->input->post('proveedor')) {
+  		redirect('proveedores/index');
   	} else {
   		$this->template->load('template','index/menu');
-  		
   	}
   }
 }

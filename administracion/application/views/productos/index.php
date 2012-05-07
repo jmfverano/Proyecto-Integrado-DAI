@@ -1,6 +1,17 @@
-
+<fieldset>
+  <legend>Buscar</legend>
+  <?= form_open('productos/index') ?>
+    <?= form_dropdown('columna', array('id_producto' => 'Código',
+                                       'nombre_prod' => 'Nombre',
+                                       'fabricante' => 'Fabricante',
+                                       'tnomb_producto' => 'Tipo Parte',
+                                       'nombre_prov' => 'Marca'), $columna) ?>
+    <?= form_input('criterio', $criterio) ?>
+    <?= form_submit('buscar', 'Buscar') ?>                  
+    <?= form_close() ?>
+</fieldset>
+<?php if(!empty($filas)): ?>
 <p>
-<?php $orden = ''?> 
 <table>
   <thead>
   	<th>Código Producto</th>
@@ -20,7 +31,7 @@
         <td>
         	<?= form_open('productos/informacion_producto') ?>
   				<?= form_hidden('id_producto', $id_producto) ?>
-        		<?= form_submit('id_producto', $id_producto) ?>
+        		<?= form_submit('id_producto', $id_producto, "id='boton_dni'") ?>
 			<?= form_close() ?>
         </td>
         <td><?= $nombre_prod ?> </td>
@@ -36,6 +47,9 @@
   </tbody>
 </table>
 </p>
+<?php else: ?>
+	<p id="p_informativo"> No se encontro ningún producto </p>
+<?php endif;?>
 <p>
 <?= form_open("productos/alta") ?>
   <?= form_submit('insertar', 'Nuevo Producto') ?>

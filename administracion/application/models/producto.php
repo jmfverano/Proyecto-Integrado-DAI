@@ -3,7 +3,17 @@
 class Producto extends CI_Model {
 
 	function obtener_productos() {
+		
 		return $this->db->query("Select * from productos natural join categorias natural join proveedores natural join tipo_productos")->result_array();
+		
+	}
+	
+	function obtener_productos_criterio() {
+		
+		$columna = $this->input->post('columna');
+		$criterio = $this->input->post('criterio');
+		return $this->db->query("Select * from productos natural join categorias natural join proveedores natural join tipo_productos where $columna = '$criterio' ")->result_array();
+		
 	}
 		
 	function alta_producto() {

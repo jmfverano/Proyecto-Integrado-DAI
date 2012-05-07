@@ -9,8 +9,21 @@ class Productos extends CI_Controller {
   function index() {
   	# Se comprobara el logueo antes mostrar algun dato.
   	$this->utilidades->comprobar_logueo(); 
-  	$data['filas'] = $this->Producto->obtener_productos();
-  	$this->template->load('template','productos/index', $data);
+ 	
+  	if(!$this->input->post('columna') || !$this->input->post('criterio')) {
+  		$data['columna'] = '';
+  		$data['criterio'] = '';
+  		$data['filas'] = $this->Producto->obtener_productos();
+  		$this->template->load('template','productos/index', $data);
+  		
+  	} else {
+  		
+  		$data['columna'] = $this->input->post('columna');
+  		$data['criterio'] = $this->input->post('criterio');
+  		$data['filas'] = $this->Producto->obtener_productos_criterio();
+  		$this->template->load('template','productos/index', $data);
+  	} 
+  	
   }
   
   function alta() {

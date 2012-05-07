@@ -12,3 +12,10 @@
     <?= form_close() ?>
 </div>
 
+<div class="menu_proveedor">
+    <?= form_open('index/index') ?>
+      <?= form_submit('proveedor', 'Gestión Proveedores') ?>
+    <?= form_close() ?>
+</div>
+
+

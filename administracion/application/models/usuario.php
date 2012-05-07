@@ -57,6 +57,7 @@ class Usuario extends CI_Model {
 			$tipo = $this->session->userdata('tipo');
 			
 		}
+		
 		return $this->db->query("select * from usuarios order by $orden $tipo")->result_array();
 	}
 
