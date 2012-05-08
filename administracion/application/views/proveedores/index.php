@@ -1,7 +1,7 @@
 <p>
 <fieldset>
 	<legend>Buscar</legend>
-	<?= form_open('usuarios/index') ?>
+	<?= form_open('proveedores/index') ?>
 	<?= form_dropdown('columna', array('id_proveedor' => 'Código',
 			'nombre_prov' => 'Nombre',
 			'cif' => 'CIF',

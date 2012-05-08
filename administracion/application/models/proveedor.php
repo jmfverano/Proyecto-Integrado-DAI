@@ -25,7 +25,7 @@ class Proveedor extends CI_Model {
 				$tipo = $this->session->userdata('tipo');
 			}
 		} else {
-			$this->session->set_userdata('orden','nombre_usu');
+			$this->session->set_userdata('orden','nombre_prov');
 			$orden = $this->session->userdata('orden');
 			$this->session->set_userdata('tipo','asc');
 			$tipo = $this->session->userdata('tipo');
@@ -35,7 +35,7 @@ class Proveedor extends CI_Model {
 		if($this->input->post('criterio') && $this->input->post('columna')) {
 			$criterio = $this->input->post('criterio');
 			$columna  = $this->input->post('columna');
-			return $this->db->query("select * from provedores where $columna like '%$criterio%' order by $orden $tipo")->result_array();
+			return $this->db->query("select * from proveedores where $columna like '%$criterio%' order by $orden $tipo")->result_array();
 		} else {
 			return $this->db->query("select * from proveedores order by $orden $tipo")->result_array();
 		}

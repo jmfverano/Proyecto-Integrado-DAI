@@ -12,7 +12,7 @@ class Proveedores extends CI_Controller {
 			$datos['criterio'] = '';
 			$datos['columna']  = '';
 		}
-		datos['filas'] = $this->Proveedor->obtener_todos();
+		$datos['filas'] = $this->Proveedor->obtener_todos();
 		$this->template->load('template','proveedores/index', $datos);
 	}
 }
