@@ -1,0 +1,161 @@
+/* Bloques de estilo para el template */
+
+#header {
+	width: auto;
+	text-align: center;
+	margin:  auto;
+	background: #580000;
+	font-size: 40px;
+	font-family: Verdana;
+	font-weight: bold;
+	border-style: solid;
+	height: 90px;
+	border-width: 4px;
+}
+
+#footer {
+	text-align: center;
+	border-style: solid;
+	width: auto;
+	background: #580000;
+	margin: 0 auto;
+	border-width: 4px;
+	font-weight: bold;
+	font-style: white;
+}
+
+#parrafo_blanco {
+    
+    color: #FFFFFF;
+}
+
+#p_informativo {
+	
+	font: Arial, Helvetica, sans-serif;
+	color: black;
+	font-size:20px;
+	font-style:inherit;
+}
+
+#cuadro_login {
+	
+	width: 50%;
+	margin: auto;
+	border-color: black;
+	border-radius: 10px;
+	background-color: white;
+	padding: 20px;
+}
+
+#logo {
+    
+    padding-top: 30px;
+    text-align: center;
+    width: auto;
+    margin: auto;
+    color: #FFFFFF;
+    font-family: Verdana;
+}
+
+#contents {
+	text-align: center;	
+	width: auto; 
+	margin: auto;
+	padding-top: 20px;
+	padding-bottom: 40px;
+	background: #E6E6FA;
+	border-style: solid;
+	border-width: 4px;
+}
+
+#aceptar {
+
+    padding-left: 100px;
+}
+
+#usuario {
+	float: right;
+	position: relative;
+	font-size: 15px;
+	font-family: "arial";
+	top: 4px;
+	right: 5px;
+}
+
+#titulo {
+	position: absolute;
+	padding-left: 95px;
+	padding-top: 18px;
+}
+
+#login {
+	
+	text-align: center;
+	font-size: 15px;
+}
+
+
+
+/* Bloques de estilos para las vistas */
+
+body {
+ 
+    background-color: black;
+    background-size: auto;
+	font-family: Georgia, Tahoma, Sans-Serif;
+	font-size: 10px;
+	line-height: 12px;
+}
+
+/* Estilo obtenido de una web*/
+
+
+table,th,td{
+    border:1px solid #666;
+    border-collapse:collapse;
+    text-align:center;
+
+}
+table{
+    border:none;
+    border-top:1px solid #000;
+    margin: auto;
+}
+thead th{
+    padding:5px 10px;
+    font-size:90%;
+    text-transform:uppercase;
+    color:#333;
+    background:#ddd;
+    text-align:center;
+
+}
+tbody td,tbody th{
+    font-size:85%;
+    padding:5px 10px;
+    background:#eee;
+    text-align:center;
+
+}
+tbody th{
+    color:#333;
+    text-align:center;
+
+}
+
+tfoot td,tfoot th{
+    border:none;
+    padding-top:10px;
+}
+
+legend {
+    
+    font-size:20px;
+    text-align:left;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+a.mail:link {
+	
+	color: white;
+}  

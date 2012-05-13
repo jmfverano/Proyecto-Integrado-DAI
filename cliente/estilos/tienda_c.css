@@ -1,0 +1,209 @@
+/* Bloques de estilo para el template */
+
+#header {
+	
+	width: auto;
+	text-align: center;
+	margin:  auto;
+	font-size: 40px;
+	font-family: Verdana;
+	font-weight: bold;
+	border-style:none;
+	height: 90px;
+	border-width: 4px;
+}
+
+#footer {
+	text-align: center;
+	width: auto;
+	margin: 0 auto;
+	border-width: 4px;
+	font-weight: bold;
+	font-style: white;
+	border-style:none;
+
+}
+
+#parrafo_blanco {
+    
+    color: #FFFFFF;
+}
+
+#p_informativo {
+	
+	font: Helvetica, Tahoma, Arial;
+	color: black;
+	font-size:15px;
+	font-style:normal;
+}
+
+#cuadro_login {
+	
+	width: 50%;
+	margin: auto;
+	border-color: black;
+	border-radius: 10px;
+	background-color: white;
+	padding: 20px;
+}
+
+#logo {
+    
+    padding-top: 30px;
+    text-align: center;
+    width: auto;
+    margin: auto;
+    color: #FFFFFF;
+    font-family: Helvetica, Tahoma, Arial;
+}
+
+#boton_cabecera {
+	
+    
+        font-size:15px;
+        font-family:Helvetica, Tahoma, Arial;
+        font-weight:bold;
+        color:black;
+        background:#ddd;
+        border:0px;
+        width:90px;
+        height:19px;
+}  
+
+
+#boton_dni {
+	
+        font-size:10px;
+        font-family:Helvetica, Tahoma, Arial;
+        font-weight:bold;
+        color:black;
+        background:#eee;
+        border:0px;
+        width:90px;
+        height:19px;
+}  
+
+
+#contents {
+	text-align: center;	
+	width:80%; 
+	margin: auto;
+	padding-top: 20px;
+	padding-bottom: 40px;
+	background: #E6E6FA;
+	border-style:outset;
+	border-width: 1px;
+	border-radius: 5px;
+}
+
+
+#usuario {
+	float: right;
+	position: relative;
+	font-size: 15px;
+	font-family: "arial";
+	top: 4px;
+	right: 5px;
+}
+
+#titulo {
+	position: absolute;
+	padding-left: 95px;
+	padding-top: 18px;
+}
+
+#login {
+	
+	text-align: center;
+	font-size: 15px;
+}
+
+#menu_izquierdo {
+	
+	background-color:white;
+	position:absolute;
+	top:  15%;
+	left: 20px;
+	text-align: center;
+	font-style:Helvetica, Tahoma, Arial;
+	margin:10px;
+	width: auto;
+	border: outset;
+	border-color:white;
+	color: black;
+	border-width: 2px;
+	border-radius: 5px;
+	
+}
+
+/* Bloques de estilos para las vistas */
+
+body {
+ 
+    background-image: url('fondo2.jpg');
+    background-size: 100%;
+	font-family: Helvetica, Tahoma, Arial;
+	font-size: 10px;
+	line-height: 12px;
+}
+
+/* Estilo obtenido de una web*/
+
+
+table,th,td{
+    border:1px solid #666;
+    border-collapse:collapse;
+    text-align:center;
+
+}
+table{
+    border:none;
+    border-top:1px solid #000;
+    margin: auto;
+}
+thead th{
+    padding:5px 10px;
+    font-size:90%;
+    text-transform:uppercase;
+    color:#333;
+    background:#ddd;
+    text-align:center;
+
+}
+tbody td,tbody th{
+    font-size:85%;
+    padding:5px 10px;
+    background:#eee;
+    text-align:center;
+
+}
+tbody th{
+    color:#333;
+    text-align:center;
+
+}
+
+tfoot td,tfoot th{
+    border:none;
+    padding-top:10px;
+}
+
+legend {
+    
+    font-size:20px;
+    text-align:left;
+    font-family: Helvetica, Tahoma, Arial;
+}
+
+a.mail:link {
+	
+	color: white;
+}
+
+fieldset {
+	
+	font-size:15px;
+    text-align:center;
+    font-family: Helvetica, Tahoma, Arial;
+	
+} 

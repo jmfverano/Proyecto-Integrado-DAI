@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+$config['base_url']	= 'http://localhost/web/proyecto/cliente/';
 
 /*
 |--------------------------------------------------------------------------
@@ -191,7 +191,7 @@ $config['log_threshold'] = 0;
 | application/logs/ folder. Use a full server path with trailing slash.
 |
 */
-$config['log_path'] = '';
+$config['log_path'] = 'log.log';
 
 /*
 |--------------------------------------------------------------------------
@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = '1234567897854125632578lkjhbgvfcx';
 
 /*
 |--------------------------------------------------------------------------
