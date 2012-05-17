@@ -2,8 +2,8 @@
 
 class Tiendas extends CI_Controller {
 
-	function __construct() {
-		CI_Controller::__construct();
-		$this->load->model('Usuario');
+	function index(){
+		
+		
 	}
 }

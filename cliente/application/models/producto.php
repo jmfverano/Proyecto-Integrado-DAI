@@ -2,59 +2,95 @@
 
 class Producto extends CI_Model {
 
-	function obtener_productos() {
-		
-		return $this->db->query("Select * from productos natural join categorias natural join proveedores natural join tipo_productos")->result_array();
-		
-	}
+	/**
+	 *  ------------ Tabla Producto -----------
+	 *  id_tipo_producto |    tnomb_producto    
+        -----------------+---------------------
+		               1 | Cuerpo
+		               2 | Pastilla Puente
+		               3 | Pastilla Mastil
+		               4 | Pastilla central
+		               5 | Set de pastillas
+		               6 | Mastil
+		               7 | Clavijero
+		               8 | Cuerdas
+		               9 | Cejuela
+		              10 | Puente
+		              11 | Potenciometro
+		              12 | Conexión Jack
+		              13 | Selector de Posición
+		              14 | Guarda Puas
+		              15 | Otros
+        -----------------+---------------------
+       La tabla de tipo de pruducto tiene estos productos en el momento de la creación.
+	 */
 	
-	function obtener_productos_criterio() {
-		
-		$columna = $this->input->post('columna');
-		$criterio = $this->input->post('criterio');
-		return $this->db->query("Select * from productos natural join categorias natural join proveedores natural join tipo_productos where $columna = '$criterio' ")->result_array();
-		
-	}
-		
-	function alta_producto() {
-
-		$nombre_prod  = $this->input->post('nombre_prod');
-		$descripcion  = $this->input->post('descripcion');
-		$fabricante   = $this->input->post('fabricante');
-		$precio       = $this->input->post('precio');
-		$stock        = $this->input->post('stock');
-		$id_categoria = $this->input->post('id_categoria');
-		$id_proveedor = $this->input->post('id_proveedor');
-		$id_tipo_producto = $this->input->post('id_tipo_producto');
-		
-		if ($nombre_prod == '' or
-		$descripcion == '' or
-		$fabricante == '' or
-		$precio == '' or
-		$stock == '') {
-
-			return false;
-
+	function obten_cuerpo($busqueda=null, $datos_orden=null) {
+		/**
+		 * Obtiene el numero de filas que tiene en la base de datos.
+		 */
+		$numero = $this->db->query("Select count(*)
+				                      from productos
+				                    where id_tipo_producto = ?", array(1))->num_rows();
+		/**
+		 * Se comprueba que hay almenos más de 20 lineas de producto, si es mayor realiza todos 
+		 * los calculos para realizar el paginador.
+		 * En esta primera versión el paginador se reiniciara si realiza un busqueda.
+		 */
+		if($numero > 20) {
+			
+			$datos['numero_paginas'] = $num_paginas = ceil($numero / 20);
+			if($this->input->post('paginador')) {
+				
+				
+			} else {
+				$datos_paginador = "limit 20 offset 1";
+			}
 		} else {
-			$this->db->query("insert into productos(nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_tipo_producto) values (?,?,?,?,?,?,?,?)",
-			array($nombre_prod,$descripcion, $fabricante, $precio, $stock, $id_categoria, $id_proveedor, $id_tipo_producto));
-			return true;
+			$datos_paginador = '';
 		}
+		$datos_orden = $this->session->userdata('orden');
+		$orden_tipo  = $this->session->userdata('orden_tipo');
+		$datos['filas'] = $this->db->query("Select * 
+									          from productos 
+				                            where id_tipo_producto = 1 $busqueda 
+				                            $datos_paginador 
+				                            $datos_orden $orden_tipo")->result_array();
 	}
-
-	function obten_proveedor() {
+	
+	function obten_pastillas($busqueda=null, $datos_orden=null) {
+		/**
+		 * Obtiene el numero de filas que tiene en la base de datos.
+		 */
+		$numero = $this->db->query("Select *
+									  from productos
+									where id_tipo_producto in (2,3,4,5)")->num_rows();
 		
-		return $this->db->query("Select * from proveedores")->result_array();
-	}
+		/**
+		 * Se comprueba que hay almenos más de 20 lineas de producto, si es mayor realiza todos
+		 * los calculos para realizar el paginador.
+		 * En esta primera versión el paginador se reiniciara si realiza un busqueda.
+		 */
+		if($numero > 5) {
+				
+			$datos['numero_paginas'] = $num_paginas = ceil($numero / 5);
+			if($this->input->post('paginador')) {
 	
-function obten_categoria() {
-		
-		return $this->db->query("Select * from categorias")->result_array();
-	}
 	
-function obten_tipo() {
-	
-		return $this->db->query("Select * from tipo_productos")->result_array();
-	}
-	
+			} else {
+				$datos_paginador = "limit 5 offset 0";
+			}
+		} else {
+			$datos_paginador = '';
+		}
+		$datos_orden = $this->session->userdata('orden');
+		$orden_tipo  = $this->session->userdata('orden_tipo');
+		$datos['filas'] = $this->db->query("Select *
+											  from productos natural join categorias natural join proveedores natural join tipo_productos
+											 where id_tipo_producto in (2,3,4,5) 
+											$busqueda
+											$datos_orden $orden_tipo
+											$datos_paginador")->result_array();
+		return $datos;
+		}
 }

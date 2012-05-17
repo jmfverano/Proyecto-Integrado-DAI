@@ -8,11 +8,7 @@ class Usuarios extends CI_Controller {
 	}
 
 	function index() {
-		/*
-		 * Al entrar en el index antes se comprobara que se a iniciado la sesión, si no es así lo llevará al login.
-		 */
-		$this->utilidades->comprobar_logueo();
-
+		
 		if ($this->input->post('editar')) {
 			redirect('usuarios/editar');
 		} elseif ($this->input->post('borrar')) {
