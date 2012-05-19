@@ -37,28 +37,74 @@ class Productos extends CI_Controller {
 	
 	function pastillas() {
 		
-		if ($this->input->post('busca')) {
+			// Se realiza la busqueda pro criterio.
+			if ($this->busqueda_critrio()) {
 				
-			/**
-			 * Prepara los obtenido para la busqueda.
-			 */
-			if($busqueda != null) {
-					
+				$busqueda = "and " . $this->session->userdata('columna') . " like " . 
+				            " '%" . $this->session->userdata('criterio') ."%'";
+				
 			} else {
+				
 				$busqueda = '';
 			}
-			if($this->session->userdata('orden') != $datos_orden) {
-					
-			}
-				
+			
+			// Se comprueba el orden con la siguiente fucion.
+			$this->tipo_orden();
+			$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
+			// Con los datos ya preparados se procede a iniciar la consulta.
+			$datos = $this->Producto->obten_pastillas($busqueda, $datos_campo_orden);
+			$datos['columna'] = $this->session->userdata('columna');
+			$datos['criterio'] = $this->session->userdata('criterio');
+			$this->template->load('template','productos/pastillas', $datos);
+			
+	}
+	
+	/**
+	 *  Esta funcion será la encargada de controlar el orden a la hora de realizar la buscaqueda.
+	 *  Sera llamada antes de realizar la consulta, la consulta lo debera obtener de la varable de sessión.
+	 */
+	private function tipo_orden() {
+		
+		if ($this->input->post('campo')) {
+			
+			$this->session->set_userdata('campo', $this->input->post('campo'));
+			
 		} else {
-				
-			$datos = $this->Producto->obten_pastillas('', $this->session->userdata('orden'));
-			$datos['columna'] = '';
-			$datos['criterio'] = '';
-			$this->template->load('template','productos/index', $datos);
+			
+			$this->session->set_userdata('campo', 'id_producto');			
 		}
 		
+		if ($this->session->userdata('tipo_orden') == $this->input->post('orden')) {
+			
+			$this->session->set_userdata('tipo_orden', 'desc');
+		
+		} else {
+			
+			$this->session->set_userdata('tipo_orden', 'asc');
+		}
+	}
+	
+	/**
+	 *  Se comprueba si la vista mando datos al controlador, si es así se gualdaran en las variables de
+	 *  sessión para complementar la sentencia SQL.
+	 *  @return Devuelve verdadero si la vista envio datos y falso sino.
+	 */
+	private function busqueda_critrio() {
+		
+		if ($this->input->post('buscar')) {
+			
+			$this->session->set_userdata('criterio',$this->input->post('criterio'));
+			$this->session->set_userdata('columna', $this->input->post('columna'));
+			
+			return true;
+			
+		} else {
+			
+			$this->session->set_userdata('criterio','');
+			$this->session->set_userdata('columna', '');
+			
+			return false;
+		}
 	}
 	
 }

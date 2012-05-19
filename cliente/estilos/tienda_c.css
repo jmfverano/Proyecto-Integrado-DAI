@@ -59,15 +59,15 @@
 
 #boton_cabecera {
 	
-    
-        font-size:15px;
+        font-size:11px;
         font-family:Helvetica, Tahoma, Arial;
         font-weight:bold;
         color:black;
         background:#ddd;
-        border:0px;
-        width:90px;
-        height:19px;
+        border:none;
+        width:auto;
+        height:20px;
+        
 }  
 
 
@@ -177,6 +177,8 @@ thead th{
     color:#333;
     background:#ddd;
     text-align:center;
+    size: auto;
+    
 
 }
 tbody td,tbody th{

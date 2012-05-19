@@ -83,13 +83,12 @@ class Producto extends CI_Model {
 		} else {
 			$datos_paginador = '';
 		}
-		$datos_orden = $this->session->userdata('orden');
-		$orden_tipo  = $this->session->userdata('orden_tipo');
+		
 		$datos['filas'] = $this->db->query("Select *
 											  from productos natural join categorias natural join proveedores natural join tipo_productos
 											 where id_tipo_producto in (2,3,4,5) 
 											$busqueda
-											$datos_orden $orden_tipo
+											$datos_orden
 											$datos_paginador")->result_array();
 		return $datos;
 		}
