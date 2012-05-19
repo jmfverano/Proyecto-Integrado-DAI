@@ -38,10 +38,15 @@ class Productos extends CI_Controller {
 	function pastillas() {
 		
 			// Se realiza la busqueda pro criterio.
-			if ($this->busqueda_critrio()) {
+			if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
 				
-				$busqueda = "and " . $this->session->userdata('columna') . " like " . 
-				            " '%" . $this->session->userdata('criterio') ."%'";
+				$busqueda = "and " . $this->session->userdata('columna') .
+				" = " . $this->session->userdata('criterio') ;
+				
+			} elseif ($this->busqueda_criterio()) {
+				
+				$busqueda = "and " . $this->session->userdata('columna') . " like " .
+						" '%" . $this->session->userdata('criterio') ."%'";
 				
 			} else {
 				
@@ -89,7 +94,7 @@ class Productos extends CI_Controller {
 	 *  sessión para complementar la sentencia SQL.
 	 *  @return Devuelve verdadero si la vista envio datos y falso sino.
 	 */
-	private function busqueda_critrio() {
+	private function busqueda_criterio() {
 		
 		if ($this->input->post('buscar')) {
 			
