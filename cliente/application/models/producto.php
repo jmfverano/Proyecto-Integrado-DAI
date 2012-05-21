@@ -74,9 +74,14 @@ class Producto extends CI_Model {
 		if($numero > 5) {
 				
 			$datos['numero_paginas'] = $num_paginas = ceil($numero / 5);
-			if($this->input->post('paginador')) {
-	
-	
+			if($this->input->post('numero_pagina') && $this->input->post('numero_pagina') != 1) {
+				
+				$numero_pagina = $this->input->post('numero_pagina');
+				$limit = 5;
+				$offset = 5 * ($numero_pagina - 1);
+				
+				$datos_paginador = "limit $limit offset $offset";
+				
 			} else {
 				$datos_paginador = "limit 5 offset 0";
 			}

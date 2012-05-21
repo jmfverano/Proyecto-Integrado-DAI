@@ -18,7 +18,7 @@
 		</div>
 		<div  id="menu_izquierdo">
 			<fieldset>
-				<legend id="menu_tipos">Tipos de Productos</legend>
+				<legend id="menu_tipos">Productos</legend>
 				<p><?= anchor('productos/cuerpo','Cuerpo.'); ?></p>
 				<p><?= anchor('productos/mastil','Mástil.'); ?></p>
 				<p><?= anchor('productos/pastillas','Pastillas.'); ?></p>
@@ -34,10 +34,23 @@
 			</fieldset>
 		</div>
 		
+		</div>
+		<div  id="menu_login2">
+			<fieldset>
+				<legend id="menu_tipos">Login</legend>
+				<?php $attributes = array('id' => 'login');?>
+				<p><?= form_open('usuarios/login', $attributes) ?></p>
+    			<p><?= form_label('Usuario:', 'email','id="login_label"') ?> </p>
+    			<p><?= form_input('email','','id="login_input"') ?></p>
+    			<p><?= form_label('Constraseña:', 'password', 'id="login_label"') ?> </p>
+    			<p><?= form_password('password','','id="login_input"') ?><p>
+ 				<p><?= form_submit('login', 'Login') ?><p>
+				<?= form_close() ?>
+			</fieldset>
+		</div>
 		<div id="contents">
 		<?= $contents ?>
 		</div>
-		
 		
 		<div id="footer">
 			<div>

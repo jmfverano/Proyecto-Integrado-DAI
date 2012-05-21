@@ -96,7 +96,16 @@ class Productos extends CI_Controller {
 	 */
 	private function busqueda_criterio() {
 		
-		if ($this->input->post('buscar')) {
+		if ($this->input->post('buscar') && 
+		    $this->session->userdata('tipo_producto') != $this->input->post('tipo_producto')) {
+			
+			$this->session->set_userdata('criterio',$this->input->post('criterio'));
+			$this->session->set_userdata('columna', $this->input->post('columna'));
+			$this->session->set_userdata('tipo_producto', $this->input->post('tipo_producto'));
+			
+			return true;
+			
+		} elseif ($this->input->post('buscar')) {
 			
 			$this->session->set_userdata('criterio',$this->input->post('criterio'));
 			$this->session->set_userdata('columna', $this->input->post('columna'));

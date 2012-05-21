@@ -6,8 +6,9 @@
                                        'fabricante' => 'Fabricante',
                                        'tnomb_producto' => 'Tipo Parte',
                                        'nombre_prov' => 'Marca'), $columna) ?>
-    <?= form_input('criterio', $criterio) ?>
-    <?= form_submit('buscar', 'Buscar') ?>                  
+    <?= form_input('criterio', $criterio, 'id=buscar') ?>
+    <?= form_submit('buscar', 'Buscar', 'id=boton_buscar') ?>
+    <?= form_hidden('tipo_producto', 'pastillas') ?>                  
     <?= form_close() ?>
 </fieldset>
 <?php if(!empty($filas)): ?>
@@ -102,4 +103,13 @@
 </p>
 <?php else: ?>
 	<p id="p_informativo"> No se encontro ningún producto </p>
+<?php endif;?>
+
+<!-- Aquí estan los datos del paginador.  -->
+<?php if (!empty($numero_paginas)) :?>
+	<?php for ($i=1; $i <= $numero_paginas; $i++): ?>
+		<?= form_open('productos/pastillas') ?>
+    	<?= form_submit('numero_pagina',$i, "id='boton_cabecera'") ?>
+		<?= form_close() ?>
+	<?php endfor;?>
 <?php endif;?>
