@@ -36,8 +36,8 @@ class Usuarios extends CI_Controller {
 			if ($res->num_rows() == 1) {
 				$datos = $res->row_array();
 				$this->session->set_userdata('id_usuario', $datos['id_usuario']);
-				$this->session->set_userdata('usuario', $email);
-				$this->session->set_userdata('nombre', $datos['nombre']);
+				$this->session->set_userdata('email', $email);
+				$this->session->set_userdata('nombre', $datos['nombre_usu']);
 				$this->session->set_userdata('apellidos', $datos['apellidos']);
 				redirect('tiendas/index');
 			} else {

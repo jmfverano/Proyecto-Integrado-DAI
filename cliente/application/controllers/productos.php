@@ -11,33 +11,37 @@ class Productos extends CI_Controller {
 	
 	function cuerpo() {
 		
-		if ($this->input->post('busca')) {
-			
-			/**
-			 * Prepara los obtenido para la busqueda.
-			 */
-			if($busqueda != null) {
-					
-			} else {
-				$busqueda = '';
-			}
-			if($this->session->userdata('orden') != $datos_orden) {
-					
-			}
-			
+		// Se realiza la busqueda por criterio.
+		if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
+		
+			$busqueda = "and " . $this->session->userdata('columna') .
+			" = " . $this->session->userdata('criterio') ;
+		
+		} elseif ($this->busqueda_criterio()) {
+		
+			$busqueda = "and " . $this->session->userdata('columna') . " like " .
+					" '%" . $this->session->userdata('criterio') ."%'";
+		
 		} else {
-			
-			$datos['columna'] = '';
-			$datos['criterio'] = '';
-			$datos['fila'] = $this->Producto->obten_cuerpo('', $this->session->userdata('orden'));
-			$this->template->load('template','productos/index', $datos);
+		
+			$busqueda = '';
 		}
+			
+		// Se comprueba el orden con la siguiente fucion.
+		$this->tipo_orden();
+		$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
+		// Con los datos ya preparados se procede a iniciar la consulta.
+		$datos = $this->Producto->obten_cuerpo($busqueda, $datos_campo_orden);
+		$datos['columna'] = $this->session->userdata('columna');
+		$datos['criterio'] = $this->session->userdata('criterio');
+		$this->template->load('template','productos/cuerpo', $datos);
+			
 		
 	}
 	
 	function pastillas() {
 		
-			// Se realiza la busqueda pro criterio.
+			// Se realiza la busqueda por criterio.
 			if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
 				
 				$busqueda = "and " . $this->session->userdata('columna') .
@@ -63,6 +67,67 @@ class Productos extends CI_Controller {
 			$this->template->load('template','productos/pastillas', $datos);
 			
 	}
+	
+	function mastil() {
+	
+		// Se realiza la busqueda por criterio.
+		if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
+	
+			$busqueda = "and " . $this->session->userdata('columna') .
+			" = " . $this->session->userdata('criterio') ;
+	
+		} elseif ($this->busqueda_criterio()) {
+	
+			$busqueda = "and " . $this->session->userdata('columna') . " like " .
+					" '%" . $this->session->userdata('criterio') ."%'";
+	
+		} else {
+	
+			$busqueda = '';
+		}
+			
+		// Se comprueba el orden con la siguiente fucion.
+		$this->tipo_orden();
+		$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
+		// Con los datos ya preparados se procede a iniciar la consulta.
+		$datos = $this->Producto->obten_mastil($busqueda, $datos_campo_orden);
+		$datos['columna'] = $this->session->userdata('columna');
+		$datos['criterio'] = $this->session->userdata('criterio');
+		$this->template->load('template','productos/mastil', $datos);
+			
+	}
+	
+	
+	function clavijero() {
+	
+		// Se realiza la busqueda por criterio.
+		if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
+	
+			$busqueda = "and " . $this->session->userdata('columna') .
+			" = " . $this->session->userdata('criterio') ;
+	
+		} elseif ($this->busqueda_criterio()) {
+	
+			$busqueda = "and " . $this->session->userdata('columna') . " like " .
+					" '%" . $this->session->userdata('criterio') ."%'";
+	
+		} else {
+	
+			$busqueda = '';
+		}
+			
+		// Se comprueba el orden con la siguiente fucion.
+		$this->tipo_orden();
+		$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
+		// Con los datos ya preparados se procede a iniciar la consulta.
+		$datos = $this->Producto->obten_clavijero($busqueda, $datos_campo_orden);
+		$datos['columna'] = $this->session->userdata('columna');
+		$datos['criterio'] = $this->session->userdata('criterio');
+		$this->template->load('template','productos/clavijero', $datos);
+			
+	}
+	
+	
 	
 	/**
 	 *  Esta funcion será la encargada de controlar el orden a la hora de realizar la buscaqueda.
