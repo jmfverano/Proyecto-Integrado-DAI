@@ -2,14 +2,14 @@
 
 #header {
 	
-	width: auto;
+	width: 30%;
 	text-align: center;
-	margin:  auto;
+	margin: auto;
 	font-size: 40px;
-	font-family: Verdana;
+	font-family: Helvetica, Tahoma, Arial;
 	font-weight: bold;
 	border-style:none;
-	height: 90px;
+	height: 125px;
 	border-width: 4px;
 }
 
@@ -47,15 +47,6 @@
 	padding: 20px;
 }
 
-#logo {
-    
-    padding-top: 30px;
-    text-align: center;
-    width: auto;
-    margin: auto;
-    color: #FFFFFF;
-    font-family: Helvetica, Tahoma, Arial;
-}
 
 #boton_cabecera {
 	
@@ -85,10 +76,14 @@
 
 
 #contents {
+	
+	position:relative;
 	text-align: center;	
-	width:80%; 
-	margin: auto;
-	padding-top: 20px;
+	width:80%;
+	top:10%; 
+	margin: 7%;
+	left:3%;
+	padding-top: 30px;
 	padding-bottom: 40px;
 	background: #E6E6FA;
 	border-style:outset;
@@ -122,7 +117,7 @@
 	
 	background-color: #eee;
 	position:absolute;
-	top:  13%;
+	top:  27%;
 	left: 1%;
 	text-align: center;
 	font-style:Helvetica, Tahoma, Arial;
@@ -141,7 +136,7 @@
 	
 	background-color: #eee;
 	position:absolute;
-	top:  13%;
+	top:  27%;
 	left: 89%;
 	text-align: center;
 	font-style:Helvetica, Tahoma, Arial;
@@ -160,7 +155,7 @@
 	
 	background-color: #eee;
 	position:absolute;
-	top: 20%;
+	top: 35%;
 	left: 89%;
 	text-align: center;
 	font-style:Helvetica, Tahoma, Arial;

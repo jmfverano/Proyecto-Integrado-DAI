@@ -1,7 +1,7 @@
 <?php if (isset($contador)): ?>
 
 <?php endif; ?>
-
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>Music Band Center S.L</title>
@@ -14,7 +14,7 @@
 	<body>
 	<?php endif; ?>
 		<div id="header">
-			<div id="logo"> Music Band Center - Instrumentos a medida!!</div>
+			<div> <?php echo img('http://localhost/web/proyecto/cliente/estilos/logo_web.png'); ?> </div>
 		</div>
 		<div  id="menu_izquierdo">
 			<fieldset>
