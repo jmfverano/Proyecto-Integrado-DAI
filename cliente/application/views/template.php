@@ -19,9 +19,9 @@
 		<div  id="menu_izquierdo">
 			<fieldset>
 				<legend id="menu_tipos">Productos</legend>
-				<p><?= anchor('productos/cuerpo','Cuerpo.'); ?></p>
-				<p><?= anchor('productos/mastil','Mástil.'); ?></p>
-				<p><?= anchor('productos/pastillas','Pastillas.'); ?></p>
+				<p><?= anchor('productos/index/1','Cuerpo.'); ?></p>
+				<p><?= anchor('productos/index/6','Mástil.'); ?></p>
+				<p><?= anchor('productos/index/2','Pastillas.'); ?></p>
 				<p><?= anchor('productos/clavijero','Clavijeros.'); ?></p>
 				<p><?= anchor('productos/cuerda','Cuerdas.'); ?></p>
 				<p><?= anchor('productos/cejuela','Cejuela.'); ?></p>
@@ -31,6 +31,8 @@
 				<p><?= anchor('productos/selector_posicion','Selector Posición.'); ?></p>
 				<p><?= anchor('productos/pickguard','Pickguard.'); ?></p>
 				<p><?= anchor('productos/otras','Otros.'); ?></p>
+				<p><?= anchor('productos/index/0','Todos.'); ?></p>
+				
 			</fieldset>
 		</div>
 		

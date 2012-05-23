@@ -1,6 +1,6 @@
 <fieldset>
   <legend>Buscar</legend>
-  <?= form_open('productos/pastillas') ?>
+  <?= form_open('productos/index') ?>
     <?= form_dropdown('columna', array('id_producto' => 'Código',
                                        'nombre_prod' => 'Nombre',
                                        'fabricante' => 'Fabricante',
@@ -107,9 +107,10 @@
 
 <!-- Aquí estan los datos del paginador.  -->
 <?php if (!empty($numero_paginas)) :?>
+<form method="post">
+	<input type="hidden" value="paginador">
 	<?php for ($i=1; $i <= $numero_paginas; $i++): ?>
-		<?= form_open('productos/pastillas') ?>
-    	<?= form_submit('numero_pagina',$i, "id='boton_cabecera'") ?>
-		<?= form_close() ?>
+		<input type="submit"  name="numero_pagina" value="<?= $i ?>" , id="boton_dni" >
 	<?php endfor;?>
+</form>
 <?php endif;?>

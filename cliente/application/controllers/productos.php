@@ -6,10 +6,33 @@ class Productos extends CI_Controller {
 		CI_Controller::__construct();
 		$this->session->set_userdata('orden', 'order by id_producto');
 		$this->session->set_userdata('orden_tipo', 'asc');
+		$this->utilidades->tipos_productos();
 		
 	}
 	
-	function cuerpo() {
+	function index($id_producto=null) {
+		
+		/**
+		 *  Se comprueba el valor enviado desde la vista.
+		 */
+		switch ($id_producto) {
+			case 1:
+				$producto = "where id_tipo_producto = 1";
+				break;
+			case 2:
+				$producto = "where id_tipo_producto in (2,3,4,5)";
+				break;
+			case 6:
+				$producto = "where id_tipo_producto = 6";
+				break;
+			case null:
+				$producto = $this->session->userdata('producto');
+			default:
+				$producto = '';
+				break;
+		}
+	
+		$this->session->set_userdata('producto',$producto);
 		
 		// Se realiza la busqueda por criterio.
 		if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
@@ -31,13 +54,14 @@ class Productos extends CI_Controller {
 		$this->tipo_orden();
 		$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
 		// Con los datos ya preparados se procede a iniciar la consulta.
-		$datos = $this->Producto->obten_cuerpo($busqueda, $datos_campo_orden);
+		$datos = $this->Producto->obten_producto($busqueda, $datos_campo_orden, $producto);
 		$datos['columna'] = $this->session->userdata('columna');
 		$datos['criterio'] = $this->session->userdata('criterio');
-		$this->template->load('template','productos/cuerpo', $datos);
+		$this->template->load('template','productos/index', $datos);
 			
 		
 	}
+	
 	
 	function pastillas() {
 		
@@ -61,72 +85,12 @@ class Productos extends CI_Controller {
 			$this->tipo_orden();
 			$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
 			// Con los datos ya preparados se procede a iniciar la consulta.
-			$datos = $this->Producto->obten_pastillas($busqueda, $datos_campo_orden);
+			$datos = $this->Producto->obten_producto($busqueda, $datos_campo_orden);
 			$datos['columna'] = $this->session->userdata('columna');
 			$datos['criterio'] = $this->session->userdata('criterio');
 			$this->template->load('template','productos/pastillas', $datos);
 			
 	}
-	
-	function mastil() {
-	
-		// Se realiza la busqueda por criterio.
-		if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
-	
-			$busqueda = "and " . $this->session->userdata('columna') .
-			" = " . $this->session->userdata('criterio') ;
-	
-		} elseif ($this->busqueda_criterio()) {
-	
-			$busqueda = "and " . $this->session->userdata('columna') . " like " .
-					" '%" . $this->session->userdata('criterio') ."%'";
-	
-		} else {
-	
-			$busqueda = '';
-		}
-			
-		// Se comprueba el orden con la siguiente fucion.
-		$this->tipo_orden();
-		$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
-		// Con los datos ya preparados se procede a iniciar la consulta.
-		$datos = $this->Producto->obten_mastil($busqueda, $datos_campo_orden);
-		$datos['columna'] = $this->session->userdata('columna');
-		$datos['criterio'] = $this->session->userdata('criterio');
-		$this->template->load('template','productos/mastil', $datos);
-			
-	}
-	
-	
-	function clavijero() {
-	
-		// Se realiza la busqueda por criterio.
-		if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
-	
-			$busqueda = "and " . $this->session->userdata('columna') .
-			" = " . $this->session->userdata('criterio') ;
-	
-		} elseif ($this->busqueda_criterio()) {
-	
-			$busqueda = "and " . $this->session->userdata('columna') . " like " .
-					" '%" . $this->session->userdata('criterio') ."%'";
-	
-		} else {
-	
-			$busqueda = '';
-		}
-			
-		// Se comprueba el orden con la siguiente fucion.
-		$this->tipo_orden();
-		$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
-		// Con los datos ya preparados se procede a iniciar la consulta.
-		$datos = $this->Producto->obten_clavijero($busqueda, $datos_campo_orden);
-		$datos['columna'] = $this->session->userdata('columna');
-		$datos['criterio'] = $this->session->userdata('criterio');
-		$this->template->load('template','productos/clavijero', $datos);
-			
-	}
-	
 	
 	
 	/**

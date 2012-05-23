@@ -9,4 +9,14 @@ class Utilidades {
       redirect('usuarios/login');
     }
   }
+  
+  function tipos_productos() {
+  	$CI =& get_instance();
+  	if (!$CI->session->userdata('productos_disponibles')) {
+  		
+  		$datos = $CI->producto->obten_tipo_producto();
+  		$CI->session->set_userdata('productos_disponibles', $datos);
+  	}
+  }
+  
 }

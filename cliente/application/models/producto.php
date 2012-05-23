@@ -25,13 +25,15 @@ class Producto extends CI_Model {
 	 La tabla de tipo de pruducto tiene estos productos en el momento de la creación.
 	 */
 
-	function obten_cuerpo($busqueda=null, $datos_orden=null) {
+
+	function obten_producto($busqueda=null, $datos_orden=null, $producto=null) {
+		
 		/**
 		 * Obtiene el numero de filas que tiene en la base de datos.
 		 */
 		$numero = $this->db->query("Select *
 				from productos
-				where id_tipo_producto = 1")->num_rows();
+				$producto ")->num_rows();
 
 		/**
 		 * Se comprueba que hay almenos más de 5 lineas de producto, si es mayor realiza todos
@@ -58,131 +60,15 @@ class Producto extends CI_Model {
 
 		$datos['filas'] = $this->db->query("Select *
 				from productos natural join categorias natural join proveedores natural join tipo_productos
-				where id_tipo_producto  = 1
-				$busqueda
-				$datos_orden
-				$datos_paginador")->result_array();
-		return $datos;
-	}
-
-
-	function obten_pastillas($busqueda=null, $datos_orden=null) {
-		/**
-		 * Obtiene el numero de filas que tiene en la base de datos.
-		 */
-		$numero = $this->db->query("Select *
-				from productos
-				where id_tipo_producto in (2,3,4,5)")->num_rows();
-
-		/**
-		 * Se comprueba que hay almenos más de 5 lineas de producto, si es mayor realiza todos
-		 * los calculos para realizar el paginador.
-		 * En esta primera versión el paginador se reiniciara si realiza un busqueda.
-		 */
-		if($numero > 5) {
-
-			$datos['numero_paginas'] = $num_paginas = ceil($numero / 5);
-			if($this->input->post('numero_pagina') && $this->input->post('numero_pagina') != 1) {
-
-				$numero_pagina = $this->input->post('numero_pagina');
-				$limit = 5;
-				$offset = 5 * ($numero_pagina - 1);
-
-				$datos_paginador = "limit $limit offset $offset";
-
-			} else {
-				$datos_paginador = "limit 5 offset 0";
-			}
-		} else {
-			$datos_paginador = '';
-		}
-
-		$datos['filas'] = $this->db->query("Select *
-				from productos natural join categorias natural join proveedores natural join tipo_productos
-				where id_tipo_producto in (2,3,4,5)
+				$producto
 				$busqueda
 				$datos_orden
 				$datos_paginador")->result_array();
 		return $datos;
 	}
 	
-	function obten_mastil($busqueda=null, $datos_orden=null) {
-		/**
-		 * Obtiene el numero de filas que tiene en la base de datos.
-		 */
-		$numero = $this->db->query("Select *
-				from productos
-				where id_tipo_producto = 6")->num_rows();
-	
-		/**
-		 * Se comprueba que hay almenos más de 5 lineas de producto, si es mayor realiza todos
-		 * los calculos para realizar el paginador.
-		 * En esta primera versión el paginador se reiniciara si realiza un busqueda.
-		 */
-		if($numero > 5) {
-	
-			$datos['numero_paginas'] = $num_paginas = ceil($numero / 5);
-			if($this->input->post('numero_pagina') && $this->input->post('numero_pagina') != 1) {
-	
-				$numero_pagina = $this->input->post('numero_pagina');
-				$limit = 5;
-				$offset = 5 * ($numero_pagina - 1);
-	
-				$datos_paginador = "limit $limit offset $offset";
-	
-			} else {
-				$datos_paginador = "limit 5 offset 0";
-			}
-		} else {
-			$datos_paginador = '';
-		}
-	
-		$datos['filas'] = $this->db->query("Select *
-				from productos natural join categorias natural join proveedores natural join tipo_productos
-				where id_tipo_producto = 6
-				$busqueda
-				$datos_orden
-				$datos_paginador")->result_array();
-				return $datos;
-	}
-	
-	function obten_clavijero($busqueda=null, $datos_orden=null) {
-		/**
-		 * Obtiene el numero de filas que tiene en la base de datos.
-		 */
-		$numero = $this->db->query("Select *
-				from productos
-				where id_tipo_producto = 7")->num_rows();
-	
-		/**
-		 * Se comprueba que hay almenos más de 5 lineas de producto, si es mayor realiza todos
-		 * los calculos para realizar el paginador.
-		 * En esta primera versión el paginador se reiniciara si realiza un busqueda.
-		 */
-		if($numero > 5) {
-	
-			$datos['numero_paginas'] = $num_paginas = ceil($numero / 5);
-			if($this->input->post('numero_pagina') && $this->input->post('numero_pagina') != 1) {
-	
-				$numero_pagina = $this->input->post('numero_pagina');
-				$limit = 5;
-				$offset = 5 * ($numero_pagina - 1);
-	
-				$datos_paginador = "limit $limit offset $offset";
-	
-			} else {
-				$datos_paginador = "limit 5 offset 0";
-			}
-		} else {
-			$datos_paginador = '';
-		}
-	
-		$datos['filas'] = $this->db->query("Select *
-				from productos natural join categorias natural join proveedores natural join tipo_productos
-				where id_tipo_producto = 7
-				$busqueda
-				$datos_orden
-				$datos_paginador")->result_array();
-				return $datos;
+	function obten_tipo_producto() {
+		
+		return $this->db->query("Select id_tipo_producto as id, tnomb_producto as tipo  from tipo_productos")->result_array();
 	}
 }
