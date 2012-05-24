@@ -8,7 +8,7 @@
                                        'nombre_prov' => 'Marca'), $columna) ?>
     <?= form_input('criterio', $criterio, 'id=buscar') ?>
     <?= form_submit('buscar', 'Buscar', 'id=boton_buscar') ?>
-    <?= form_hidden('tipo_producto', 'pastillas') ?>                  
+    <?= form_hidden('tipo_producto', $this->session->userdata('producto')) ?>                  
     <?= form_close() ?>
 </fieldset>
 <?php if(!empty($filas)): ?>
@@ -16,62 +16,62 @@
 <table>
   <thead>
   	<th>
-  		<?= form_open('productos/pastillas') ?>
+  		<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'id_producto') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('id_producto','Código Producto', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
   	</th>
     <th>
-    	<?= form_open('productos/pastillas') ?>
+    	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'nombre_prod') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('nombre_prod','Nombre', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/pastillas') ?>
+    	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'fabricante') ?>
     	<?= form_submit('fabricante','Fabricante', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/pastillas') ?>
+    	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'descripcion') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('descripcion','Descripción', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/pastillas') ?>
+    	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'tnomb_producto') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('tnomb_producto','Tipo de Parte', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/pastillas') ?>
+    	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'precio') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('precio','Precio', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/pastillas') ?>
+    	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'stock') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('stock','Stock Disponible', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/pastillas') ?>
+    	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'nombre_prov') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('nombre_prov','Proveedor', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/pastillas') ?>
+    	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'tipo_instrumento') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('tipo_instrumento','Compatible', "id='boton_cabecera'") ?>
@@ -114,3 +114,9 @@
 	<?php endfor;?>
 </form>
 <?php endif;?>
+
+<?php echo $this->session->userdata('producto'); ?>
+<br>
+<?php echo $this->session->userdata('campo'); ?>
+<br>
+<?php echo $this->session->userdata('tipo_orden'); ?>

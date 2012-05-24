@@ -26,14 +26,15 @@ class Producto extends CI_Model {
 	 */
 
 
-	function obten_producto($busqueda=null, $datos_orden=null, $producto=null) {
+	function obten_producto($busqueda=null, $datos_orden=null) {
 		
+		$producto = $this->session->userdata('producto');
 		/**
 		 * Obtiene el numero de filas que tiene en la base de datos.
 		 */
 		$numero = $this->db->query("Select *
 				from productos
-				$producto ")->num_rows();
+				$producto $busqueda ")->num_rows();
 
 		/**
 		 * Se comprueba que hay almenos más de 5 lineas de producto, si es mayor realiza todos

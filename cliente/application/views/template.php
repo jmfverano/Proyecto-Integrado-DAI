@@ -22,16 +22,16 @@
 				<p><?= anchor('productos/index/1','Cuerpo.'); ?></p>
 				<p><?= anchor('productos/index/6','Mástil.'); ?></p>
 				<p><?= anchor('productos/index/2','Pastillas.'); ?></p>
-				<p><?= anchor('productos/clavijero','Clavijeros.'); ?></p>
-				<p><?= anchor('productos/cuerda','Cuerdas.'); ?></p>
-				<p><?= anchor('productos/cejuela','Cejuela.'); ?></p>
-				<p><?= anchor('productos/puente','Puente.'); ?></p>
-				<p><?= anchor('productos/potenciometro','Potenciometros.'); ?></p>
-				<p><?= anchor('productos/jack','Conexión Jack.'); ?></p>
-				<p><?= anchor('productos/selector_posicion','Selector Posición.'); ?></p>
-				<p><?= anchor('productos/pickguard','Pickguard.'); ?></p>
-				<p><?= anchor('productos/otras','Otros.'); ?></p>
-				<p><?= anchor('productos/index/0','Todos.'); ?></p>
+				<p><?= anchor('productos/index/7','Clavijeros.'); ?></p>
+				<p><?= anchor('productos/index/8','Cuerdas.'); ?></p>
+				<p><?= anchor('productos/index/9','Cejuela.'); ?></p>
+				<p><?= anchor('productos/index/10','Puente.'); ?></p>
+				<p><?= anchor('productos/index/11','Potenciometros.'); ?></p>
+				<p><?= anchor('productos/index/12','Conexión Jack.'); ?></p>
+				<p><?= anchor('productos/index/13','Selector Posición.'); ?></p>
+				<p><?= anchor('productos/index/14','Pickguard.'); ?></p>
+				<p><?= anchor('productos/index/15','Otros.'); ?></p>
+				<p><?= anchor('productos/index/99','Todos.'); ?></p>
 				
 			</fieldset>
 		</div>

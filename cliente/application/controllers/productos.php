@@ -6,7 +6,6 @@ class Productos extends CI_Controller {
 		CI_Controller::__construct();
 		$this->session->set_userdata('orden', 'order by id_producto');
 		$this->session->set_userdata('orden_tipo', 'asc');
-		$this->utilidades->tipos_productos();
 		
 	}
 	
@@ -14,8 +13,10 @@ class Productos extends CI_Controller {
 		
 		/**
 		 *  Se comprueba el valor enviado desde la vista.
+		 *  Si no se manda, entonces tomara el anterior que esta pensado así para el paginador.
 		 */
 		switch ($id_producto) {
+			
 			case 1:
 				$producto = "where id_tipo_producto = 1";
 				break;
@@ -25,26 +26,70 @@ class Productos extends CI_Controller {
 			case 6:
 				$producto = "where id_tipo_producto = 6";
 				break;
-			case null:
-				$producto = $this->session->userdata('producto');
-			default:
+			case 7:
+				$producto = "where id_tipo_producto = 7";
+				break;
+			case 8:
+				$producto = "where id_tipo_producto = 8";
+				break;
+			case 9:
+				$producto = "where id_tipo_producto = 9";
+				break;
+			case 10:
+				$producto = "where id_tipo_producto = 10";
+				break;
+			case 11:
+				$producto = "where id_tipo_producto = 11";
+				break;
+			case 12:
+				$producto = "where id_tipo_producto = 12";
+				break;
+			case 13:
+				$producto = "where id_tipo_producto = 13";
+				break;
+			case 14:
+				$producto = "where id_tipo_producto = 14";
+				break;
+			case 15:
+				$producto = "where id_tipo_producto = 15";
+				break;
+			case 99;
 				$producto = '';
+				break;
+			default:
+				$producto = $this->session->userdata('producto');
 				break;
 		}
 	
 		$this->session->set_userdata('producto',$producto);
 		
-		// Se realiza la busqueda por criterio.
+		/**
+		 * Se realiza las comprobaciones, se comprueba el criterio y las columnas, ademas de el producto seleccionado.
+		 * Si el produto seleccionado es todos, la variable de sessión <producto>tendrá un valor vacio. 
+		 */
 		if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
 		
-			$busqueda = "and " . $this->session->userdata('columna') .
-			" = " . $this->session->userdata('criterio') ;
-		
+			if ($this->session->userdata('producto') == '') {
+				
+				$busqueda = "where " . $this->session->userdata('columna') .
+				" = " . $this->session->userdata('criterio') ;
+			} else {
+			
+				$busqueda = "and " . $this->session->userdata('columna') .
+				" = " . $this->session->userdata('criterio') ;
+			}
+			
 		} elseif ($this->busqueda_criterio()) {
 		
-			$busqueda = "and " . $this->session->userdata('columna') . " like " .
-					" '%" . $this->session->userdata('criterio') ."%'";
-		
+			
+			if ($this->session->userdata('producto') == '') {
+			
+				$busqueda = "where " . $this->session->userdata('columna') . " like " .
+						" '%" . $this->session->userdata('criterio') ."%'";
+			} else {
+				$busqueda = "and " . $this->session->userdata('columna') . " like " .
+						" '%" . $this->session->userdata('criterio') ."%'";
+			}
 		} else {
 		
 			$busqueda = '';
@@ -54,7 +99,7 @@ class Productos extends CI_Controller {
 		$this->tipo_orden();
 		$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
 		// Con los datos ya preparados se procede a iniciar la consulta.
-		$datos = $this->Producto->obten_producto($busqueda, $datos_campo_orden, $producto);
+		$datos = $this->Producto->obten_producto($busqueda, $datos_campo_orden);
 		$datos['columna'] = $this->session->userdata('columna');
 		$datos['criterio'] = $this->session->userdata('criterio');
 		$this->template->load('template','productos/index', $datos);
@@ -63,35 +108,6 @@ class Productos extends CI_Controller {
 	}
 	
 	
-	function pastillas() {
-		
-			// Se realiza la busqueda por criterio.
-			if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
-				
-				$busqueda = "and " . $this->session->userdata('columna') .
-				" = " . $this->session->userdata('criterio') ;
-				
-			} elseif ($this->busqueda_criterio()) {
-				
-				$busqueda = "and " . $this->session->userdata('columna') . " like " .
-						" '%" . $this->session->userdata('criterio') ."%'";
-				
-			} else {
-				
-				$busqueda = '';
-			}
-			
-			// Se comprueba el orden con la siguiente fucion.
-			$this->tipo_orden();
-			$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
-			// Con los datos ya preparados se procede a iniciar la consulta.
-			$datos = $this->Producto->obten_producto($busqueda, $datos_campo_orden);
-			$datos['columna'] = $this->session->userdata('columna');
-			$datos['criterio'] = $this->session->userdata('criterio');
-			$this->template->load('template','productos/pastillas', $datos);
-			
-	}
-	
 	
 	/**
 	 *  Esta funcion será la encargada de controlar el orden a la hora de realizar la buscaqueda.
@@ -99,19 +115,28 @@ class Productos extends CI_Controller {
 	 */
 	private function tipo_orden() {
 		
-		if ($this->input->post('campo')) {
-			
-			$this->session->set_userdata('campo', $this->input->post('campo'));
-			
+		if ($this->session->userdata('campo')) {
+		
+			if ($this->input->post('campo')) {
+				
+				$this->session->set_userdata('campo', $this->input->post('campo'));	
+			}
 		} else {
 			
-			$this->session->set_userdata('campo', 'id_producto');			
+			$this->session->set_userdata('campo', 'id_producto');
 		}
 		
-		if ($this->session->userdata('tipo_orden') == $this->input->post('orden')) {
+		if ($this->session->userdata('tipo_orden')) {	
 			
-			$this->session->set_userdata('tipo_orden', 'desc');
-		
+			if ($this->session->userdata('tipo_orden') == $this->input->post('orden')) {
+				
+			
+				$this->session->set_userdata('tipo_orden', 'desc');
+			
+			} else {
+				
+				$this->session->set_userdata('tipo_orden', 'asc');
+			}
 		} else {
 			
 			$this->session->set_userdata('tipo_orden', 'asc');
