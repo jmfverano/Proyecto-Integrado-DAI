@@ -32,6 +32,7 @@
     <th>
     	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'fabricante') ?>
+  		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('fabricante','Fabricante', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
@@ -119,4 +120,4 @@
 <br>
 <?php echo $this->session->userdata('campo'); ?>
 <br>
-<?php echo $this->session->userdata('tipo_orden'); ?>
+<?php echo $this->session->userdata('orden_tipo'); ?>

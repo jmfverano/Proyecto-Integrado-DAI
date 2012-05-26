@@ -4,12 +4,22 @@ class Productos extends CI_Controller {
 	
 	function __construct() {
 		CI_Controller::__construct();
-		$this->session->set_userdata('orden', 'order by id_producto');
-		$this->session->set_userdata('orden_tipo', 'asc');
 		
 	}
 	
 	function index($id_producto=null) {
+		/**
+		 * Comprueba si es la primera vez que entra en este producto.
+		 */
+		
+		
+		if ($id_producto != $this->session->userdata('id_anterior') && $id_producto != null) {
+			
+			$this->session->set_userdata('orden', 'order by id_producto');
+			$this->session->set_userdata('orden_tipo', 'desc');
+		}
+		
+		
 		
 		/**
 		 *  Se comprueba el valor enviado desde la vista.
@@ -62,6 +72,8 @@ class Productos extends CI_Controller {
 		}
 	
 		$this->session->set_userdata('producto',$producto);
+		$this->session->set_userdata('id_anterior',$id_producto);
+		
 		
 		/**
 		 * Se realiza las comprobaciones, se comprueba el criterio y las columnas, ademas de el producto seleccionado.
@@ -95,9 +107,11 @@ class Productos extends CI_Controller {
 			$busqueda = '';
 		}
 			
-		// Se comprueba el orden con la siguiente fucion.
-		$this->tipo_orden();
-		$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('tipo_orden');
+		// Se comprueba el orden con la siguiente fucion, si viene del paginador el orden se mantiene.
+		if (!$this->input->post('numero_pagina')) {
+			$this->tipo_orden();	
+		}
+		$datos_campo_orden = "order by " . $this->session->userdata('campo') . " " . $this->session->userdata('orden_tipo');
 		// Con los datos ya preparados se procede a iniciar la consulta.
 		$datos = $this->Producto->obten_producto($busqueda, $datos_campo_orden);
 		$datos['columna'] = $this->session->userdata('columna');
@@ -113,35 +127,33 @@ class Productos extends CI_Controller {
 	 *  Esta funcion será la encargada de controlar el orden a la hora de realizar la buscaqueda.
 	 *  Sera llamada antes de realizar la consulta, la consulta lo debera obtener de la varable de sessión.
 	 */
+	
 	private function tipo_orden() {
 		
 		if ($this->session->userdata('campo')) {
 		
 			if ($this->input->post('campo')) {
+		
+				$this->session->set_userdata('campo', $this->input->post('campo'));
+			}  else {
 				
-				$this->session->set_userdata('campo', $this->input->post('campo'));	
+				$this->session->set_userdata('campo', 'id_producto');
 			}
-		} else {
-			
-			$this->session->set_userdata('campo', 'id_producto');
 		}
 		
-		if ($this->session->userdata('tipo_orden')) {	
-			
-			if ($this->session->userdata('tipo_orden') == $this->input->post('orden')) {
-				
-			
-				$this->session->set_userdata('tipo_orden', 'desc');
-			
-			} else {
-				
-				$this->session->set_userdata('tipo_orden', 'asc');
-			}
-		} else {
-			
-			$this->session->set_userdata('tipo_orden', 'asc');
-		}
+		switch ($this->session->userdata('orden_tipo')) {
+			case 'asc':
+				$this->session->set_userdata('orden_tipo', 'desc');
+				break;
+			case 'desc':
+				$this->session->set_userdata('orden_tipo', 'asc');
+				break;
+			default:
+				$this->session->set_userdata('orden_tipo', 'asc');
+				break;		
+		}			
 	}
+	
 	
 	/**
 	 *  Se comprueba si la vista mando datos al controlador, si es así se gualdaran en las variables de
