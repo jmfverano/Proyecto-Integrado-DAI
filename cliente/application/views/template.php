@@ -17,7 +17,12 @@
 	<body>
 	<?php endif; ?>
 		<div id="header">
-			<div> <?php echo img('http://localhost/web/proyecto/cliente/estilos/logo_web.png'); ?> </div>
+			<div> 
+				<a href="http://localhost/web/proyecto/cliente/index.php/tiendas/index/">
+	   				<img src="http://localhost/web/proyecto/cliente/estilos/logo_plano.png" 
+	  				 alt="Tus instrumentos a medida, guitarras y bajos.." WIDTH="400" HEIGHT="170" border="0">
+				</a>
+			</div>
 		</div>
 		<div  id="menu_izquierdo">
 			<fieldset>

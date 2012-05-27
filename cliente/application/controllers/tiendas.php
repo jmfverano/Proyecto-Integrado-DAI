@@ -4,6 +4,7 @@ class Tiendas extends CI_Controller {
 
 	function index(){
 		
+		$this->template->load('template','tiendas/index');
 		
 	}
 }
