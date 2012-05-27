@@ -3,6 +3,9 @@
 <?php endif; ?>
 <!DOCTYPE HTML>
 <html>
+	<script languaje="javascript">
+		
+	</script>
 	<head>
 		<title>Music Band Center S.L</title>
 		<?= link_tag('estilos/tienda_c.css') ?>

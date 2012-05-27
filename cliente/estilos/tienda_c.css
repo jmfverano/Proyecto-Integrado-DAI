@@ -211,13 +211,17 @@
 
 /* Bloques de estilos para las vistas */
 
+
 body {
  
     background-image: url('fondo2.jpg');
+    background-attachment:fixed;
     background-size: 100%;
 	font-family: Helvetica, Tahoma, Arial;
 	font-size: 10px;
 	line-height: 12px;
+	
+
 }
 
 /* Estilo obtenido de una web*/
