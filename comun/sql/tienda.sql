@@ -59,6 +59,8 @@ insert into piezas_compatibles(pc_nombre, id_categoria) values ('Les Paul', 1);
 insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Guitarra', 1);
 insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Bajo', 2);
 insert into piezas_compatibles(pc_nombre, id_categoria) values ('JazzBass', 2);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Humbucker', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal  Silgle Coil', 1);
 
 
 drop table tipo_productos cascade;

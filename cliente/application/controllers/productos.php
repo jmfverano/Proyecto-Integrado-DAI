@@ -138,7 +138,10 @@ class Productos extends CI_Controller {
 			}  else {
 				
 				$this->session->set_userdata('campo', 'id_producto');
-			}
+			} 
+		} else {
+				
+				$this->session->set_userdata('campo', 'id_producto');
 		}
 		
 		switch ($this->session->userdata('orden_tipo')) {

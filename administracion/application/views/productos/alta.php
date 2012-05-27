@@ -13,6 +13,9 @@
     <?= form_dropdown('id_proveedor', $proveedor) ?> </br>
     Tipo producto
     <?= form_dropdown('id_tipo_producto', $tipo) ?> </br>
+    Pieza compatible 
+    <?= form_dropdown('id_piezas', $pieza_compatible) ?> </br>
+    <?= var_dump($pieza_compatible); ?>
     <?= form_label('Nombre:', 'nombre_prod') ?>
     <?= form_input('nombre_prod', $nombre_prod) ?><br/>
     <?= form_label('Descripción:', 'descripcion') ?>

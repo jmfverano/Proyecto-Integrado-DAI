@@ -26,6 +26,7 @@ class Producto extends CI_Model {
 		$id_categoria = $this->input->post('id_categoria');
 		$id_proveedor = $this->input->post('id_proveedor');
 		$id_tipo_producto = $this->input->post('id_tipo_producto');
+		$id_piezas = $this->input->post('id_piezas'); 
 		
 		if ($nombre_prod == '' or
 		$descripcion == '' or
@@ -36,8 +37,8 @@ class Producto extends CI_Model {
 			return false;
 
 		} else {
-			$this->db->query("insert into productos(nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_tipo_producto) values (?,?,?,?,?,?,?,?)",
-			array($nombre_prod,$descripcion, $fabricante, $precio, $stock, $id_categoria, $id_proveedor, $id_tipo_producto));
+			$this->db->query("insert into productos(nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_tipo_producto, id_piezas) values (?,?,?,?,?,?,?,?,?)",
+			array($nombre_prod,$descripcion, $fabricante, $precio, $stock, $id_categoria, $id_proveedor, $id_tipo_producto, $id_piezas));
 			return true;
 		}
 	}
@@ -55,6 +56,11 @@ function obten_categoria() {
 function obten_tipo() {
 	
 		return $this->db->query("Select * from tipo_productos")->result_array();
+	}
+	
+function obten_piezas_compatibles() {
+	
+		return $this->db->query("Select * from piezas_compatibles")->result_array();
 	}
 	
 }

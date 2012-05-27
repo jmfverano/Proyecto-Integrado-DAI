@@ -60,7 +60,8 @@ class Producto extends CI_Model {
 		}
 
 		$datos['filas'] = $this->db->query("Select *
-				from productos natural join categorias natural join proveedores natural join tipo_productos
+				from productos natural join categorias natural join proveedores 
+				natural join tipo_productos natural join piezas_compatibles
 				$producto
 				$busqueda
 				$datos_orden

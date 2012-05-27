@@ -75,7 +75,14 @@
     	<?= form_open('productos/index') ?>
   		<?= form_hidden('campo', 'tipo_instrumento') ?>
   		<?= form_hidden('orden', 'asc') ?>
-    	<?= form_submit('tipo_instrumento','Compatible', "id='boton_cabecera'") ?>
+    	<?= form_submit('tipo_instrumento','Tipo Pieza', "id='boton_cabecera'") ?>
+		<?= form_close() ?>
+    </th>
+    <th>
+    	<?= form_open('productos/index') ?>
+  		<?= form_hidden('campo', 'pc_nombre') ?>
+  		<?= form_hidden('orden', 'asc') ?>
+    	<?= form_submit('pc_nombre','Compatible', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
   </thead>
@@ -97,6 +104,7 @@
         <td><?= $stock ?></td>
         <td><?= $nombre_prov ?></td>
         <td><?= $tipo_instrumento ?> </td>
+        <td><?= $pc_nombre ?></td>
       </tr>      
     <?php endforeach; ?>
   </tbody>

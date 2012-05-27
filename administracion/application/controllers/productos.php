@@ -78,10 +78,18 @@ class Productos extends CI_Controller {
 		    	extract($fila);
 		    	$aux_tipo += array($id_tipo_producto => $tnomb_producto);
 		    }
+		    #Se obtiene los datos de las compatibilidad entre tipo de productos.
+  			$filas = $this->Producto->obten_piezas_compatibles();
+		    $aux_piezas = array();
+		    foreach ($filas as $fila) {
+		    	extract($fila);
+		    	$aux_piezas += array($id_piezas => $pc_nombre);
+		    }
 		    
 		    $data['proveedor'] = $aux_pro;
 		    $data['categoria'] = $aux_cat;
 		    $data['tipo'] = $aux_tipo;
+		    $data['pieza_compatible'] = $aux_piezas;
 		    
   		$this->template->load('template','productos/alta',$data);
   	}
