@@ -156,7 +156,7 @@
 	
 	background-color: #eee;
 	position:absolute;
-	top: 25%;
+	top: 30%;
 	left: 89%;
 	text-align: center;
 	font-style:Helvetica, Tahoma, Arial;
@@ -209,6 +209,10 @@
 
 }
  
+#eliminar_cesta {
+	
+	text-align: center;
+}
 
 /* Bloques de estilos para las vistas */
 

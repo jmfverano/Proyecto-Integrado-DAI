@@ -28,32 +28,40 @@ class Producto extends CI_Model {
 
 	function obten_producto($busqueda=null, $datos_orden=null) {
 		
+		if(!$this->session->userdata('valor_paginador')) {
+			$this->session->set_userdata('valor_paginador', 5);
+			$valor_paginador = $this->session->userdata('valor_paginador');
+		} else {
+			$valor_paginador = $this->session->userdata('valor_paginador');
+		}
+		
 		$producto = $this->session->userdata('producto');
 		/**
 		 * Obtiene el numero de filas que tiene en la base de datos.
 		 */
 		$numero = $this->db->query("Select *
 				from productos
-				$producto $busqueda ")->num_rows();
+				$producto $busqueda 
+				")->num_rows();
 
 		/**
 		 * Se comprueba que hay almenos más de 5 lineas de producto, si es mayor realiza todos
 		 * los calculos para realizar el paginador.
 		 * En esta primera versión el paginador se reiniciara si realiza un busqueda.
 		 */
-		if($numero > 5) {
+		if($numero > $valor_paginador) {
 
-			$datos['numero_paginas'] = $num_paginas = ceil($numero / 5);
+			$datos['numero_paginas'] = $num_paginas = ceil($numero / $valor_paginador);
 			if($this->input->post('numero_pagina') && $this->input->post('numero_pagina') != 1) {
 
 				$numero_pagina = $this->input->post('numero_pagina');
-				$limit = 5;
-				$offset = 5 * ($numero_pagina - 1);
+				$limit = $valor_paginador;
+				$offset = $valor_paginador * ($numero_pagina - 1);
 
 				$datos_paginador = "limit $limit offset $offset";
 
 			} else {
-				$datos_paginador = "limit 5 offset 0";
+				$datos_paginador = "limit $valor_paginador offset 0";
 			}
 		} else {
 			$datos_paginador = '';
@@ -69,8 +77,9 @@ class Producto extends CI_Model {
 		return $datos;
 	}
 	
-	function obten_tipo_producto() {
+	function obten_producto_creacion($where, $id_categoria) {
 		
-		return $this->db->query("Select id_tipo_producto as id, tnomb_producto as tipo  from tipo_productos")->result_array();
+		return $this->db->query("Select * from productos natural join categorias natural join proveedores 
+				natural join tipo_productos natural join piezas_compatibles $where $id_categoria")->result_array();
 	}
 }

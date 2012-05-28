@@ -10,6 +10,9 @@
     <?= form_submit('buscar', 'Buscar', 'id=boton_buscar') ?>
     <?= form_hidden('tipo_producto', $this->session->userdata('producto')) ?>                  
     <?= form_close() ?>
+    
+    <?php if(!empty($mensaje)) echo $mensaje; ?>
+    
 </fieldset>
 <?php if(!empty($filas)): ?>
 <p>
@@ -85,6 +88,9 @@
     	<?= form_submit('pc_nombre','Compatible', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
+    <th>
+    	Añadir
+    </th>
   </thead>
   <tbody>
     <?php foreach ($filas as $fila): ?>
@@ -105,6 +111,13 @@
         <td><?= $nombre_prov ?></td>
         <td><?= $tipo_instrumento ?> </td>
         <td><?= $pc_nombre ?></td>
+        <td>
+			<?= form_open('tiendas/creacion_guitarra') ?>
+		  		<?= form_hidden('id_producto', $id_producto) ?>
+		  		<?= form_hidden('id_piezas', $id_piezas) ?>
+		    	<?= form_submit('anadir_producto','Añadir') ?>
+			<?= form_close() ?>
+        </td>
       </tr>      
     <?php endforeach; ?>
   </tbody>
@@ -123,3 +136,19 @@
 	<?php endfor;?>
 </form>
 <?php endif;?>
+
+<!-- Se muestra el formulario que controlara los pasos  anteriores-->
+<?php if($this->session->userdata('numero_paso')) :?>
+	<div>
+		<?= form_open('tiendas/creacion_guitarra') ?>
+	  		<?= form_hidden('numero_paso', $this->session->userdata('numero_paso')) ?>
+	    	<?= form_submit('anterior','Volver al paso anterior') ?>
+		<?= form_close() ?>
+	</div>
+<?php endif; ?>
+
+<?php echo $this->session->userdata('producto'); ?>
+<br>
+<?php echo $this->session->userdata('campo'); ?>
+<br>
+<?php echo $this->session->userdata('orden_tipo'); ?>
