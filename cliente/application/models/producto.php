@@ -27,21 +27,21 @@ class Producto extends CI_Model {
 
 
 	function obten_producto($busqueda=null, $datos_orden=null) {
-		
+
 		if(!$this->session->userdata('valor_paginador')) {
 			$this->session->set_userdata('valor_paginador', 5);
 			$valor_paginador = $this->session->userdata('valor_paginador');
 		} else {
 			$valor_paginador = $this->session->userdata('valor_paginador');
 		}
-		
+
 		$producto = $this->session->userdata('producto');
 		/**
 		 * Obtiene el numero de filas que tiene en la base de datos.
 		 */
 		$numero = $this->db->query("Select *
 				from productos
-				$producto $busqueda 
+				$producto $busqueda
 				")->num_rows();
 
 		/**
@@ -68,7 +68,7 @@ class Producto extends CI_Model {
 		}
 
 		$datos['filas'] = $this->db->query("Select *
-				from productos natural join categorias natural join proveedores 
+				from productos natural join categorias natural join proveedores
 				natural join tipo_productos natural join piezas_compatibles
 				$producto
 				$busqueda
@@ -76,10 +76,60 @@ class Producto extends CI_Model {
 				$datos_paginador")->result_array();
 		return $datos;
 	}
-	
-	function obten_producto_creacion($where, $id_categoria) {
+
+	/**
+	 * Esta funcion será la encargada de devolver todos los datos encontrados.
+	 * Se pasara por datos que gestionaran el controlador tienda.
+	 */
+	function obten_producto_creacion($busqueda=null, $datos_orden=null) {
+
+
+		if(!$this->session->userdata('valor_paginador')) {
+			$this->session->set_userdata('valor_paginador', 5);
+			$valor_paginador = $this->session->userdata('valor_paginador');
+		} else {
+			$valor_paginador = $this->session->userdata('valor_paginador');
+		}
+
+		$producto = $this->session->userdata('producto');
+		/**
+		 * Obtiene el numero de filas que tiene en la base de datos.
+		 */
+		$numero = $this->db->query("Select *
+				from productos
+				$producto $busqueda")->num_rows();
+
+		/**
+		 * Se comprueba que hay almenos más de 5 lineas de producto, si es mayor realiza todos
+		 * los calculos para realizar el paginador.
+		 * En esta primera versión el paginador se reiniciara si realiza un busqueda.
+		 */
+		if($numero > $valor_paginador) {
+
+			$datos['numero_paginas'] = $num_paginas = ceil($numero / $valor_paginador);
+			if($this->input->post('numero_pagina') && $this->input->post('numero_pagina') != 1) {
+
+				$numero_pagina = $this->input->post('numero_pagina');
+				$limit = $valor_paginador;
+				$offset = $valor_paginador * ($numero_pagina - 1);
+
+				$datos_paginador = "limit $limit offset $offset";
+
+			} else {
+				$datos_paginador = "limit $valor_paginador offset 0";
+			}
+		} else {
+			$datos_paginador = '';
+		}
 		
-		return $this->db->query("Select * from productos natural join categorias natural join proveedores 
-				natural join tipo_productos natural join piezas_compatibles $where $id_categoria")->result_array();
+		return  $this->db->query("Select * from productos natural join categorias natural join proveedores
+				natural join tipo_productos natural join piezas_compatibles
+				$producto
+				$busqueda
+				$datos_orden
+				$datos_paginador")->result_array();
 	}
+
 }
+
+

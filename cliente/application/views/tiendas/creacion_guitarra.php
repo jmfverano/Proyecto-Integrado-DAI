@@ -1,6 +1,6 @@
 <fieldset>
   <legend>Buscar</legend>
-  <?= form_open('productos/index') ?>
+  <?= form_open('tiendas/creacion_guitarra') ?>
     <?= form_dropdown('columna', array('id_producto' => 'Código',
                                        'nombre_prod' => 'Nombre',
                                        'fabricante' => 'Fabricante',
@@ -11,7 +11,6 @@
     <?= form_hidden('tipo_producto', $this->session->userdata('producto')) ?>                  
     <?= form_close() ?>
     
-    <?php if(!empty($mensaje)) echo $mensaje; ?>
     
 </fieldset>
 <?php if(!empty($filas)): ?>
@@ -19,70 +18,70 @@
 <table>
   <thead>
   	<th>
-  		<?= form_open('productos/index') ?>
+  		<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'id_producto') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('id_producto','Código Producto', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
   	</th>
     <th>
-    	<?= form_open('productos/index') ?>
+    	<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'nombre_prod') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('nombre_prod','Nombre', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/index') ?>
+    	<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'fabricante') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('fabricante','Fabricante', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/index') ?>
+    	<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'descripcion') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('descripcion','Descripción', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/index') ?>
+    	<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'tnomb_producto') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('tnomb_producto','Tipo de Parte', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/index') ?>
+    	<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'precio') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('precio','Precio', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/index') ?>
+    	<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'stock') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('stock','Stock Disponible', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/index') ?>
+    	<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'nombre_prov') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('nombre_prov','Proveedor', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/index') ?>
+    	<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'tipo_instrumento') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('tipo_instrumento','Tipo Pieza', "id='boton_cabecera'") ?>
 		<?= form_close() ?>
     </th>
     <th>
-    	<?= form_open('productos/index') ?>
+    	<?= form_open('tiendas/creacion_guitarra') ?>
   		<?= form_hidden('campo', 'pc_nombre') ?>
   		<?= form_hidden('orden', 'asc') ?>
     	<?= form_submit('pc_nombre','Compatible', "id='boton_cabecera'") ?>
@@ -147,8 +146,4 @@
 	</div>
 <?php endif; ?>
 
-<?php echo $this->session->userdata('producto'); ?>
-<br>
-<?php echo $this->session->userdata('campo'); ?>
-<br>
-<?php echo $this->session->userdata('orden_tipo'); ?>
+<?php var_dump($this->session->userdata('cesta')); ?>

@@ -51,7 +51,9 @@
 					<p>La cesta está vacia.</p>
 				<?php else: ?>
 					<p>La cesta tiene articulos.</p>
-					<p><?= anchor('usuarios/cesta') ?></p>	
+					   <?= form_open('usuarios/cesta') ?></p>
+	 				<p><?= form_submit('ir_cesta', 'Cesta') ?><p>
+					   <?= form_close() ?>
 				<?php endif;?>
 			</fieldset>
 		</div>
@@ -78,6 +80,7 @@
 			</fieldset>
 		</div>
 		<div id="contents">
+		<?= !empty($mensaje) ? $mensaje : ''; ?>
 		<?= $contents ?>
 		</div>
 		

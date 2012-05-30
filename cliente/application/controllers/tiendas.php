@@ -7,7 +7,11 @@ class Tiendas extends CI_Controller {
 		$this->template->load('template','tiendas/index');
 		
 	}
-	
+	/**
+	 * Se comprueba que el usuario este logeado y se inicia el proceso de creación.
+	 * Si por algún motivo se sale de la linea de la creación se permitira volver a ella
+	 * o eliminar el proceseso.
+	 */
 	function creacion_guitarra() {
 		/*
 		 * Primero comprueba que este iniciada al sessión, sino no le deja.
@@ -24,10 +28,14 @@ class Tiendas extends CI_Controller {
 			$cesta = $this->session->userdata('cesta');
 			$cesta += array($numero_paso => $id_producto);
 			$numero_paso++;
-			$this->session->set_userdata('numero_paso', $numero_paso+1);
+			$this->session->set_userdata('numero_paso', $numero_paso);
 			$this->session->set_userdata('cesta',$cesta);
 			$this->proceso_creacion();
 				
+		} elseif ($this->input->post('orden') || $this->input->post('numero_pagina') || $this->input->post('continuar')) {
+			
+			$this->proceso_creacion();
+			
 		} else {
 			/*
 			 * Comprueba que el numero de paso que va y si existe la cesta.
@@ -60,17 +68,21 @@ class Tiendas extends CI_Controller {
 		
 		switch ($numero_paso) {
 			case 1:
-				$datos['mensajes'] = "Selecciona un cuerpo para tú guitarra.";
-				$id_categoria =  "and id_categoria = " . $this->session->userdata('id_categoria');
-				$where = "where id_tipo_producto = 1 ";
-				$datos['filas'] = $this->Producto->obten_producto_creacion($where, $id_categoria);
+				#Selecciona el cuerpo del instrumento.
+				$datos['mensaje'] = "Selecciona un cuerpo para tú guitarra.";
+				$producto = "where id_tipo_producto = 1 and id_categoria = " . $this->session->userdata('id_categoria');
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto, $busqueda);
 			break;
 			case 2:
-				$datos['mensajes'] = "Selecciona pastillas.";
-				$id_categoria =  "and id_categoria = " . $this->session->userdata('id_categoria') . "and id_piezas = 
-				$this->session->userdata('id_piezas') or 4";
-				$where = "where id_tipo_producto = 1 ";
-				$datos['filas'] = $this->Producto->obten_producto_creacion($where, $id_categoria);
+				#Selecciona el mástil de instrumento.
+				$datos['mensaje'] = "Selecciona el ḿastil.";
+				$producto = "where id_tipo_producto = 6 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " . 
+				$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
 			break;
 			default:
 				;
@@ -80,5 +92,70 @@ class Tiendas extends CI_Controller {
 		$datos['criterio'] = '';
 		$this->template->load('template','tiendas/creacion_guitarra', $datos);
 		
+	}
+	
+	private function comprueba_busqueda() {
+		
+		if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
+		
+			if ($this->session->userdata('producto') == '') {
+		
+				$busqueda = "and " . $this->session->userdata('columna') .
+				" = " . $this->session->userdata('criterio') ;
+			} else {
+					
+				$busqueda = "and " . $this->session->userdata('columna') .
+				" = " . $this->session->userdata('criterio') ;
+			}
+				
+		} elseif ($this->busqueda_criterio()) {
+		
+				
+			if ($this->session->userdata('producto') == '') {
+					
+				$busqueda = "and " . $this->session->userdata('columna') . " like " .
+						" '%" . $this->session->userdata('criterio') ."%'";
+			} else {
+				$busqueda = "and " . $this->session->userdata('columna') . " like " .
+						" '%" . $this->session->userdata('criterio') ."%'";
+			}
+		} else {
+		
+			$busqueda = '';
+		}
+		
+		return $busqueda;
+	}
+	
+	/**
+	 *  Se comprueba si la vista mando datos al controlador, si es así se gualdaran en las variables de
+	 *  sessión para complementar la sentencia SQL.
+	 *  @return Devuelve verdadero si la vista envio datos y falso sino.
+	 */
+	private function busqueda_criterio() {
+	
+		if ($this->input->post('buscar') && $this->input->post('criterio') != '' &&
+		    $this->session->userdata('tipo_producto') != $this->input->post('tipo_producto')) {
+				
+			$this->session->set_userdata('criterio',$this->input->post('criterio'));
+			$this->session->set_userdata('columna', $this->input->post('columna'));
+			$this->session->set_userdata('tipo_producto', $this->input->post('tipo_producto'));
+				
+			return true;
+				
+		} elseif ($this->input->post('buscar') && $this->input->post('criterio') != '') {
+				
+			$this->session->set_userdata('criterio',$this->input->post('criterio'));
+			$this->session->set_userdata('columna', $this->input->post('columna'));
+				
+			return true;
+				
+		} else {
+				
+			$this->session->set_userdata('criterio','');
+			$this->session->set_userdata('columna', '');
+				
+			return false;
+		}
 	}
 }
