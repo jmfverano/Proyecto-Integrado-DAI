@@ -61,7 +61,9 @@ class Tiendas extends CI_Controller {
 		
 		
 	}
-	
+	/**
+	 * Controla todos los pasos que se hacen hasta llegar al fin de la creación del instrumento.
+	 */
 	private function proceso_creacion() {
 		
 		$numero_paso = $this->session->userdata('numero_paso');
@@ -80,6 +82,87 @@ class Tiendas extends CI_Controller {
 				$datos['mensaje'] = "Selecciona el ḿastil.";
 				$producto = "where id_tipo_producto = 6 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " . 
 				$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 3:
+				#Selecciona las pastillas de instrumento.
+				$datos['mensaje'] = "Selecciona pastillas.";
+				$producto = "where id_tipo_producto in (2,3,4,5) and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 4:
+				#Selecciona el clavijero del instrumento.
+				$datos['mensaje'] = "Selecciona el clavijero.";
+				$producto = "where id_tipo_producto = 7 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+						     $this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 5:
+				#Selecciona la cejuela del instrumento.
+				$datos['mensaje'] = "Selecciona la cejuela.";
+				$producto = "where id_tipo_producto = 9 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 6:
+				#Selecciona el puente del instrumento.
+				$datos['mensaje'] = "Selecciona el puente.";
+				$producto = "where id_tipo_producto = 10 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 7:
+				#Selecciona los potenciometros del instrumento.
+				$datos['mensaje'] = "Selecciona los potenciometros.";
+				$producto = "where id_tipo_producto = 11 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 8:
+				#Selecciona la conexión jack.
+				$datos['mensaje'] = "Selecciona la conexión Jack.";
+				$producto = "where id_tipo_producto = 12 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 9:
+				#Selector de Posición.
+				$datos['mensaje'] = "Selector de Posición.";
+				$producto = "where id_tipo_producto = 13 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 10:
+				#Selector de Pickguard.
+				$datos['mensaje'] = "Selector de Pickguard.";
+				$producto = "where id_tipo_producto = 14 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+						$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 11:
+				#Otras partes compatibles con tu guitarra.
+				$datos['mensaje'] = "Otras partes compatibles con tu guitarra.";
+				$producto = "where id_tipo_producto = 15 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
