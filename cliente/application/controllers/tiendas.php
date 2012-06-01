@@ -24,12 +24,12 @@ class Tiendas extends CI_Controller {
 				$this->session->set_userdata('id_piezas',$this->input->post('id_piezas'));
 			}
 			$id_producto = $this->input->post('id_producto');
-			$numero_paso = $this->session->userdata('numero_paso');
+			$id_tipo_producto = $this->input->post('id_tipo_producto');
 			$cesta = $this->session->userdata('cesta');
+			$numero_paso = $this->session->userdata('numero_paso');
 			$cesta += array($numero_paso => $id_producto);
-			$numero_paso++;
-			$this->session->set_userdata('numero_paso', $numero_paso);
 			$this->session->set_userdata('cesta',$cesta);
+			$this->comprobar_producto($id_tipo_producto);
 			$this->proceso_creacion();
 				
 		} elseif ($this->input->post('orden') || $this->input->post('numero_pagina') || $this->input->post('continuar')) {
@@ -240,5 +240,20 @@ class Tiendas extends CI_Controller {
 				
 			return false;
 		}
+	}
+	
+	/**
+	 * Comprueba si llega desde la seleccion de pastillas.
+	 */
+	private function comprobar_producto($id_tipo_producto) {
+		if($id_tipo_producto != 4 && $id_tipo_producto != 2 && $id_tipo_producto != 3) {
+			$numero_paso = $this->session->userdata('numero_paso');
+			$numero_paso++;
+			$this->session->set_userdata('numero_paso', $numero_paso);
+		} elseif($this->input->post('continuar')) {
+			$numero_paso = $this->session->userdata('numero_paso');
+			$numero_paso++;
+			$this->session->set_userdata('numero_paso', $numero_paso);
+		} 	
 	}
 }

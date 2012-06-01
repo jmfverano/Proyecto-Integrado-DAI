@@ -122,6 +122,7 @@
   </tbody>
 </table>
 </p>
+	
 <?php else: ?>
 	<p id="p_informativo"> No se encontro ningún producto </p>
 <?php endif;?>
@@ -136,6 +137,19 @@
 </form>
 <?php endif;?>
 
+<div>
+	<p>Pulsa continuar para omitir la parte. </p>
+	<?php if (!empty($fila) && $this->session->userdata('numero_paso') > 1): ?>
+		<!-- Continuar sin introducir este articulo o bien cuando seleccione todas las pastillas. -->
+		<?= form_open('tiendas/creacion_guitarra') ?>
+			<?= form_hidden('id_tipo_producto', $id_tipo_producto) ?>
+			<?= form_hidden('id_producto', '') ?>
+			<?= form_hidden('id_piezas', $id_piezas) ?>
+			<?= form_submit('anadir_producto','Continuar') ?>
+		<?= form_close() ?>
+	<?php endif;?>
+</div>
+</br>
 <!-- Se muestra el formulario que controlara los pasos  anteriores-->
 <?php if($this->session->userdata('numero_paso')) :?>
 	<div>
@@ -145,5 +159,6 @@
 		<?= form_close() ?>
 	</div>
 <?php endif; ?>
+
 
 <?php var_dump($this->session->userdata('cesta')); ?>
