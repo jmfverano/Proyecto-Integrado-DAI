@@ -1,0 +1,259 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Tiendas extends CI_Controller {
+
+	function index(){
+		
+		$this->template->load('template','tiendas/index');
+		
+	}
+	/**
+	 * Se comprueba que el usuario este logeado y se inicia el proceso de creación.
+	 * Si por algún motivo se sale de la linea de la creación se permitira volver a ella
+	 * o eliminar el proceseso.
+	 */
+	function creacion_guitarra() {
+		/*
+		 * Primero comprueba que este iniciada al sessión, sino no le deja.
+		 */
+		$this->utilidades->comprobar_logueo();
+		
+		if ($this->input->post('anadir_producto')) {
+			
+			if (!$this->session->userdata('id_piezas')) {
+				$this->session->set_userdata('id_piezas',$this->input->post('id_piezas'));
+			}
+			$id_producto = $this->input->post('id_producto');
+			$id_tipo_producto = $this->input->post('id_tipo_producto');
+			$cesta = $this->session->userdata('cesta');
+			$numero_paso = $this->session->userdata('numero_paso');
+			$cesta += array($numero_paso => $id_producto);
+			$this->session->set_userdata('cesta',$cesta);
+			$this->comprobar_producto($id_tipo_producto);
+			$this->proceso_creacion();
+				
+		} elseif ($this->input->post('orden') || $this->input->post('numero_pagina') || $this->input->post('continuar')) {
+			
+			$this->proceso_creacion();
+			
+		} else {
+			/*
+			 * Comprueba que el numero de paso que va y si existe la cesta.
+			 */
+			if (!$this->session->userdata('cesta')) {
+				$cesta = array();
+				$this->session->set_userdata('cesta',$cesta);
+				$this->session->set_userdata('numero_paso', 1);
+				$this->session->set_userdata('id_categoria', '1');
+				$this->proceso_creacion();
+			} else {
+				if($this->input->post('elimina_cesta')) {
+					$this->session->unset_userdata('cesta');
+					redirect('tiendas/index');
+				} else {
+					$this->template->load('template','tiendas/vaciar_cesta');
+				}
+			}
+		}
+	}
+	
+	function creacion_bajo() {
+		
+		
+	}
+	/**
+	 * Controla todos los pasos que se hacen hasta llegar al fin de la creación del instrumento.
+	 */
+	private function proceso_creacion() {
+		
+		$numero_paso = $this->session->userdata('numero_paso');
+		
+		switch ($numero_paso) {
+			case 1:
+				#Selecciona el cuerpo del instrumento.
+				$datos['mensaje'] = "Selecciona un cuerpo para tú guitarra.";
+				$producto = "where id_tipo_producto = 1 and id_categoria = " . $this->session->userdata('id_categoria');
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto, $busqueda);
+			break;
+			case 2:
+				#Selecciona el mástil de instrumento.
+				$datos['mensaje'] = "Selecciona el ḿastil.";
+				$producto = "where id_tipo_producto = 6 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " . 
+				$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 3:
+				#Selecciona las pastillas de instrumento.
+				$datos['mensaje'] = "Selecciona pastillas.";
+				$producto = "where id_tipo_producto in (2,3,4,5) and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 4:
+				#Selecciona el clavijero del instrumento.
+				$datos['mensaje'] = "Selecciona el clavijero.";
+				$producto = "where id_tipo_producto = 7 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+						     $this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 5:
+				#Selecciona la cejuela del instrumento.
+				$datos['mensaje'] = "Selecciona la cejuela.";
+				$producto = "where id_tipo_producto = 9 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 6:
+				#Selecciona el puente del instrumento.
+				$datos['mensaje'] = "Selecciona el puente.";
+				$producto = "where id_tipo_producto = 10 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 7:
+				#Selecciona los potenciometros del instrumento.
+				$datos['mensaje'] = "Selecciona los potenciometros.";
+				$producto = "where id_tipo_producto = 11 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 8:
+				#Selecciona la conexión jack.
+				$datos['mensaje'] = "Selecciona la conexión Jack.";
+				$producto = "where id_tipo_producto = 12 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 9:
+				#Selector de Posición.
+				$datos['mensaje'] = "Selector de Posición.";
+				$producto = "where id_tipo_producto = 13 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 10:
+				#Selector de Pickguard.
+				$datos['mensaje'] = "Selector de Pickguard.";
+				$producto = "where id_tipo_producto = 14 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+						$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 11:
+				#Otras partes compatibles con tu guitarra.
+				$datos['mensaje'] = "Otras partes compatibles con tu guitarra.";
+				$producto = "where id_tipo_producto = 15 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
+							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			default:
+				;
+			break;
+		}
+		$datos['columna'] = '';
+		$datos['criterio'] = '';
+		$this->template->load('template','tiendas/creacion_guitarra', $datos);
+		
+	}
+	
+	private function comprueba_busqueda() {
+		
+		if ($this->busqueda_criterio() && $this->input->post('columna') == 'id_producto') {
+		
+			if ($this->session->userdata('producto') == '') {
+		
+				$busqueda = "and " . $this->session->userdata('columna') .
+				" = " . $this->session->userdata('criterio') ;
+			} else {
+					
+				$busqueda = "and " . $this->session->userdata('columna') .
+				" = " . $this->session->userdata('criterio') ;
+			}
+				
+		} elseif ($this->busqueda_criterio()) {
+		
+				
+			if ($this->session->userdata('producto') == '') {
+					
+				$busqueda = "and " . $this->session->userdata('columna') . " like " .
+						" '%" . $this->session->userdata('criterio') ."%'";
+			} else {
+				$busqueda = "and " . $this->session->userdata('columna') . " like " .
+						" '%" . $this->session->userdata('criterio') ."%'";
+			}
+		} else {
+		
+			$busqueda = '';
+		}
+		
+		return $busqueda;
+	}
+	
+	/**
+	 *  Se comprueba si la vista mando datos al controlador, si es así se gualdaran en las variables de
+	 *  sessión para complementar la sentencia SQL.
+	 *  @return Devuelve verdadero si la vista envio datos y falso sino.
+	 */
+	private function busqueda_criterio() {
+	
+		if ($this->input->post('buscar') && $this->input->post('criterio') != '' &&
+		    $this->session->userdata('tipo_producto') != $this->input->post('tipo_producto')) {
+				
+			$this->session->set_userdata('criterio',$this->input->post('criterio'));
+			$this->session->set_userdata('columna', $this->input->post('columna'));
+			$this->session->set_userdata('tipo_producto', $this->input->post('tipo_producto'));
+				
+			return true;
+				
+		} elseif ($this->input->post('buscar') && $this->input->post('criterio') != '') {
+				
+			$this->session->set_userdata('criterio',$this->input->post('criterio'));
+			$this->session->set_userdata('columna', $this->input->post('columna'));
+				
+			return true;
+				
+		} else {
+				
+			$this->session->set_userdata('criterio','');
+			$this->session->set_userdata('columna', '');
+				
+			return false;
+		}
+	}
+	
+	/**
+	 * Comprueba si llega desde la seleccion de pastillas.
+	 */
+	private function comprobar_producto($id_tipo_producto) {
+		if($id_tipo_producto != 4 && $id_tipo_producto != 2 && $id_tipo_producto != 3) {
+			$numero_paso = $this->session->userdata('numero_paso');
+			$numero_paso++;
+			$this->session->set_userdata('numero_paso', $numero_paso);
+		} elseif($this->input->post('continuar')) {
+			$numero_paso = $this->session->userdata('numero_paso');
+			$numero_paso++;
+			$this->session->set_userdata('numero_paso', $numero_paso);
+		} 	
+	}
+}

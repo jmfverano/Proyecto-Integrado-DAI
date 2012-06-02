@@ -80,6 +80,7 @@
 			</fieldset>
 		</div>
 		<div id="contents">
+		<?= !empty($mensaje) ? $mensaje : ''; ?>
 		<?= $contents ?>
 		</div>
 		

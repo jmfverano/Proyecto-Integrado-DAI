@@ -49,6 +49,9 @@ class Tiendas extends CI_Controller {
 			} else {
 				if($this->input->post('elimina_cesta')) {
 					$this->session->unset_userdata('cesta');
+					$this->session->unset_userdata('id_categoria');
+					$this->session->unset_userdata('numero_paso');
+					$this->session->unset_userdata('id_piezas');
 					redirect('tiendas/index');
 				} else {
 					$this->template->load('template','tiendas/vaciar_cesta');

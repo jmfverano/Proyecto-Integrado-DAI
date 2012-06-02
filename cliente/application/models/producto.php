@@ -91,13 +91,13 @@ class Producto extends CI_Model {
 			$valor_paginador = $this->session->userdata('valor_paginador');
 		}
 
-		$producto = $this->session->userdata('producto');
+
 		/**
 		 * Obtiene el numero de filas que tiene en la base de datos.
 		 */
 		$numero = $this->db->query("Select *
 				from productos
-				$producto $busqueda")->num_rows();
+				$busqueda")->num_rows();
 
 		/**
 		 * Se comprueba que hay almenos más de 5 lineas de producto, si es mayor realiza todos
@@ -124,7 +124,6 @@ class Producto extends CI_Model {
 		
 		return  $this->db->query("Select * from productos natural join categorias natural join proveedores
 				natural join tipo_productos natural join piezas_compatibles
-				$producto
 				$busqueda
 				$datos_orden
 				$datos_paginador")->result_array();

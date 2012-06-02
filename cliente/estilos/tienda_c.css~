@@ -78,7 +78,7 @@
 
 #contents {
 	
-	position:relative;
+	position:absolute;
 	text-align: center;	
 	width:80%;
 	top:15%; 
