@@ -69,14 +69,19 @@
 	    			<p><?= form_input('email','','id="login_input"') ?></p>
 	    			<p><?= form_label('Constraseña:', 'password', 'id="login_label"') ?> </p>
 	    			<p><?= form_password('password','','id="login_input"') ?><p>
-	 				<p><?= form_submit('login', 'Login') ?><p>
-					<?= form_close() ?>
+	 				<p><?= form_submit('login', 'Login') ?></p>
+					<p><?= form_close() ?></p>
 				<?php else: ?>
 					<p>Bienvenido <?= $this->session->userdata('nombre') ?>.</p>
 					<?= form_open('usuarios/logout') ?>
 					<p><?= form_submit('logout', 'Logout') ?><p>
 					<?=form_close() ?>
 				<?php endif; ?>
+				<p>
+					<?= form_open('usuarios/index') ?>
+					<?= form_submit('ir_panel', 'Panel Usuario') ?>
+					<?= form_close() ?>
+				</p>
 			</fieldset>
 		</div>
 		<div id="contents">

@@ -12,12 +12,6 @@ create table usuarios (
   admin      bool         default false
 );
 
-insert into usuarios (email, password, dni, nombre_usu, apellidos, direccion, telefono, admin)
-values ('josemanuel.tecnico@gmail.com',md5('werty'),'48894964T','Jose Manuel', 'Fernández Verano', 
-        'Paseo Jadín del Botánico Edif. Azucena B1', 956367056, true);
-insert into usuarios (email, password, dni, nombre_usu, apellidos, direccion, telefono) 
-values ('Xhaman@gmail.com',md5('werty'),'49894965T','Salvador', 'Jiménez Verano', 'Carretera Jerez Numero 10', 856367056);
-
 
 drop table proveedores cascade;
 
@@ -29,8 +23,6 @@ create table proveedores (
   email           varchar(100)    not null
 );
 
-insert into proveedores (nombre_prov, cif, telefono, email) values ('Fender', '12345678912','+34956112233','fender_iberia@fender.com');
-insert into proveedores (nombre_prov, cif, telefono, email) values ('Gibson', '12345678911','+34956112234','Gibson_europe@gibson.com');
 
 drop table categorias cascade;
 
@@ -39,8 +31,6 @@ create table categorias(
   tipo_instrumento           varchar(200) not null
 );
 
-insert into categorias (tipo_instrumento) values ('Guitarra');
-insert into categorias (tipo_instrumento) values ('Bajo');
 
 
 drop table piezas_compatibles cascade;
@@ -53,14 +43,6 @@ create table piezas_compatibles (
   
 );
 
-insert into piezas_compatibles(pc_nombre, id_categoria) values ('Telecaster', 1);
-insert into piezas_compatibles(pc_nombre, id_categoria) values ('SG', 1);
-insert into piezas_compatibles(pc_nombre, id_categoria) values ('Les Paul', 1);
-insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Guitarra', 1);
-insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Bajo', 2);
-insert into piezas_compatibles(pc_nombre, id_categoria) values ('JazzBass', 2);
-insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Humbucker', 1);
-
 
 drop table tipo_productos cascade;
 
@@ -70,22 +52,6 @@ create table tipo_productos (
   tnomb_producto            varchar(100)  not null unique
   
 );
-
-insert into tipo_productos (tnomb_producto) values ('Cuerpo');
-insert into tipo_productos (tnomb_producto) values ('Pastilla Puente');
-insert into tipo_productos (tnomb_producto) values ('Pastilla Mastil');
-insert into tipo_productos (tnomb_producto) values ('Pastilla central');
-insert into tipo_productos (tnomb_producto) values ('Set de pastillas');
-insert into tipo_productos (tnomb_producto) values ('Mastil');
-insert into tipo_productos (tnomb_producto) values ('Clavijero');
-insert into tipo_productos (tnomb_producto) values ('Cuerdas');
-insert into tipo_productos (tnomb_producto) values ('Cejuela');
-insert into tipo_productos (tnomb_producto) values ('Puente');
-insert into tipo_productos (tnomb_producto) values ('Potenciometro');
-insert into tipo_productos (tnomb_producto) values ('Conexión Jack');
-insert into tipo_productos (tnomb_producto) values ('Selector de Posición');
-insert into tipo_productos (tnomb_producto) values ('Guarda Puas');
-insert into tipo_productos (tnomb_producto) values ('Otros');
 
 drop table productos cascade;
 
@@ -102,20 +68,6 @@ create table productos (
   id_piezas         bigint      constraint fk_productos_piezas references piezas_compatibles (id_piezas)
  
 );
-
-insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Squier Tele Pick', 'Pastilla del mastil tipo Telecaster con sonido vitage', 'Squier',50.99, 1, 1,1,3);
-insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Fender Tele Pick', 'Pastilla del mastil tipo Telecaster con sonido vitage', 'Fender',50.99, 1, 1,1,3);
-insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Squier Tele Pick', 'Pastilla del puente tipo Telecaster con sonido vitage', 'Squier',50.99, 1, 1,1,2);
-insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Fender Tele Pick', 'Pastilla del puente tipo Telecaster con sonido vitage', 'Fender',50.99, 1, 1,1,2);
-insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Fender Strato Pick', 'Pastilla del mastil tipo Strato con sonido vitage', 'Fender',90.99, 1, 1,1,3);
-insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Fender Strato Pick', 'Pastilla central tipo Strato con sonido vitage', 'Fender',90.99, 1, 1,1,4);
-
 
 drop table pedidos cascade;
 
@@ -161,4 +113,96 @@ create table linea_facturas (
   cantidad         numeric(2)   default 1,
   precio           numeric(9,2) not null
 );
+
+-- Se introducen los datos para las pruebas del sistema.
+
+
+insert into usuarios (email, password, dni, nombre_usu, apellidos, direccion, telefono, admin)
+values ('josemanuel.tecnico@gmail.com',md5('werty'),'48894964T','Jose Manuel', 'Fernández Verano', 
+        'Paseo Jadín del Botánico Edif. Azucena B1', 956367056, true);
+insert into usuarios (email, password, dni, nombre_usu, apellidos, direccion, telefono) 
+values ('Xhaman@gmail.com',md5('werty'),'49894965T','Salvador', 'Jiménez Verano', 'Carretera Jerez Numero 10', 856367056);
+
+insert into proveedores (nombre_prov, cif, telefono, email) values ('Fender', '12345678912','+34956112233','fender_iberia@fender.com');
+insert into proveedores (nombre_prov, cif, telefono, email) values ('Gibson', '12345678911','+34956112234','Gibson_europe@gibson.com');
+
+insert into categorias (tipo_instrumento) values ('Guitarra');
+insert into categorias (tipo_instrumento) values ('Bajo');
+
+
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Telecaster', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('SG', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Les Paul', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Guitarra', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Bajo', 2);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('JazzBass', 2);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal Humbucker', 1);
+insert into piezas_compatibles(pc_nombre, id_categoria) values ('Universal  Silgle Coil', 1);
+
+
+insert into tipo_productos (tnomb_producto) values ('Cuerpo');
+insert into tipo_productos (tnomb_producto) values ('Pastilla Puente');
+insert into tipo_productos (tnomb_producto) values ('Pastilla Mastil');
+insert into tipo_productos (tnomb_producto) values ('Pastilla central');
+insert into tipo_productos (tnomb_producto) values ('Set de pastillas');
+insert into tipo_productos (tnomb_producto) values ('Mastil');
+insert into tipo_productos (tnomb_producto) values ('Clavijero');
+insert into tipo_productos (tnomb_producto) values ('Cuerdas');
+insert into tipo_productos (tnomb_producto) values ('Cejuela');
+insert into tipo_productos (tnomb_producto) values ('Puente');
+insert into tipo_productos (tnomb_producto) values ('Potenciometro');
+insert into tipo_productos (tnomb_producto) values ('Conexión Jack');
+insert into tipo_productos (tnomb_producto) values ('Selector de Posición');
+insert into tipo_productos (tnomb_producto) values ('Guarda Puas');
+insert into tipo_productos (tnomb_producto) values ('Otros');
+
+-- Se introducen todas estas pastillas para probar el paginador.
+
+insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Squier Tele Pick', 'Pastilla del mastil tipo Telecaster con sonido vitage', 'Squier',50.99, 1, 1,1,3);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Fender Tele Pick', 'Pastilla del mastil tipo Telecaster con sonido vitage', 'Fender',50.99, 1, 1,1,3);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Squier Tele Pick', 'Pastilla del puente tipo Telecaster con sonido vitage', 'Squier',50.99, 1, 1,1,2);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Fender Tele Pick', 'Pastilla del puente tipo Telecaster con sonido vitage', 'Fender',50.99, 1, 1,1,2);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Fender Strato Pick', 'Pastilla del mastil tipo Strato con sonido vitage', 'Fender',90.99, 1, 1,1,3);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Fender Strato Pick', 'Pastilla central tipo Strato con sonido vitage', 'Fender',90.99, 1, 1,1,4);
+
+-- Datos para probar el proceso de creación de guitarra, se ha elegido el modelo Les paul para la prueba.
+
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cuerpo Caoba Tipo Les Paul Custom', 'Cuerpo caoba tipo les paul custom sin camara', 'Gibson USA',250, 5, 1, 2,3,1);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Set Pastillas Humbucker Les Paul Custom', 'Pastillas Humbucker Sonido Vitage del 57', 'Gibson USA',300, 5, 1, 2,3,5);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Mástil Caoba Tipo Les Paul Custom', 'Mástil caoba tipo les paul custom con diapasón de Ebano', 'Gibson USA',270, 5, 1, 2,3,6);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Clavijero Tipo Les Paul Vitage', 'Clavijero Vitage auto lubricado Gibson (Plastico)', 'Gibson',90, 5, 1, 2,3,7);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Clavijero Tipo Les Paul Custom', 'Clavijero Vitage auto lubricado Gibson Custom Silver', 'Gibson',120, 5, 1, 2,3,7);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cejuela para Les Paul', 'Cejuela para Les paul de hueso, con perfil bajo color blanca', 'Gibson USA',40, 5, 1, 2,3,9);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Puente Tune-O-Matic', 'Puente Tune-O-Matic Completo Les Paul', 'Gibson',120, 5, 1, 2,3,10);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cuerdas 46-10', 'Cuerdas 46-10 Nickel', 'Gibson',8, 100, 1, 2,4,8);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cuerdas 46-10', 'Cuerdas 46-10 Nickel', 'Fender',8, 100, 1, 2,4,8);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cuerdas 42-9', 'Cuerdas 42-9 Nickel', 'Erniball',8, 100, 1, 2,4,8);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Pack Potenciometros', 'Pack Potenciometros para Les Paul 500k x 4', 'Gibson',60, 5, 1, 2,3,11);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Conexión Jack para Les Paul', 'Conexión Jack para Les Paul (Lateral) con particulas de oro', 'Gibson',59.00, 5, 1, 2,3,12);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Pickguard para Les Paul', 'Pickguard para les paul 3 capas NBN', 'Gibson USA',70, 5, 1, 2,3,13);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Indicador de posición potenciometros', 'Indicador de posición de pontenciometros', 'Grover',12, 5, 1, 2,4,14);
+
+
+
+
 

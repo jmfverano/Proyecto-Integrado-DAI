@@ -4,27 +4,26 @@ class Usuarios extends CI_Controller {
 
 	function __construct() {
 		CI_Controller::__construct();
-		$this->load->model('Usuario');
 	}
 
 	function index() {
+		
+		$this->utilidades->comprobar_logueo();
 		
 		if ($this->input->post('editar')) {
 			redirect('usuarios/editar');
 		} elseif ($this->input->post('borrar')) {
 			redirect('usuarios/borrar');
-		} elseif ($this->input->post('volver')) {
-			redirect('index/index');
-		} elseif ($this->input->post('buscar')) {
-			$datos['filas']= $this->Usuario->obtener_seleccion();
-			$datos['criterio'] = $this->input->post('criterio');
-			$datos['columna']  = $this->input->post('columna');
-			$this->template->load('template','usuarios/index', $datos);
-		} else {
-			$datos['filas']= $this->Usuario->obtener_todos();
-			$datos['criterio'] = '';
-			$datos['columna']  = '';
-			$this->template->load('template','usuarios/index', $datos);
+		} elseif ($this->input->post('nuevo_instrumento')) {
+			redirect('tiendas/index');
+		}  else {
+			/**
+			 * Aquí se obtiene todos los datos personales del usuario y los pedidos realizados.
+			 */
+			$data['usuario'] = $this->Usuario->datos_usuario();
+			$data['pedidos'] = $this->Usuario->pedidos_usuario();
+			$this->template->load('template','usuarios/index', $data);
+			
 		}
 	}
 
@@ -44,8 +43,8 @@ class Usuarios extends CI_Controller {
 				$mensaje = 'Error: usuario o contraseña incorrectos';
 			}
 
-		} elseif ($this->input->post('crear')) {
-			redirect('usuarios/crear');
+		} elseif ($this->input->post('nuevo')) {
+			redirect('usuarios/insertar');
 		} else {
 			$mensaje = $this->session->flashdata('mensaje');
 		}
@@ -59,6 +58,9 @@ class Usuarios extends CI_Controller {
 	}
 
 	function editar() {
+		
+		$this->utilidades->comprobar_logueo();
+		
 		if ($this->input->post('actualizar')) {
 			$datos['nombre_usu'] = $this->input->post('nombre_usu');
 			$datos['apellidos'] = $this->input->post('apellidos');
@@ -66,13 +68,8 @@ class Usuarios extends CI_Controller {
 			$datos['dni'] = $this->input->post('dni');
 			$datos['direccion'] = $this->input->post('direccion');
 			$datos['telefono'] = $this->input->post('telefono');
-			if ($this->input->post('admin')== 'si') {
-				$datos['admin'] = 'true';
-			} else {
-				$datos['admin'] = 'false';
-			}
-
-			$datos['id_usuario'] = $this->input->post('id_usuario');
+			$datos['id_usuario'] = $this->session->userdata('id_usuario');
+			
 			if(!$this->Usuario->actualizar_usuario($datos)){
 
 			} else {
@@ -84,23 +81,9 @@ class Usuarios extends CI_Controller {
 		}
 	}
 
-	function propiedades_usuario() {
-		if ($this->input->post('id_usuario')) {
-			/**
-			 * Aquí se obtiene todos los datos personales del usuario y los pedidos realizados.
-			 */
-			$data['usuario'] = $this->Usuario->datos_usuario();
-			$data['pedidos'] = $this->Usuario->pedidos_usuario();
-			$this->template->load('template','usuarios/propiedades_usuario', $data);
-			
-		} else {
-			$data['mensaje'] = "No se cargado la vista correctamente por algún motivo";
-			$this->template->load('template','usuarios/error', $data);
-			
-		}
-	}
 	
 	function insertar() {
+		
 		if ($this->input->post('alta')) {
 			
 			if ($this->Usuario->insertar_nuevo()) {
@@ -130,27 +113,26 @@ class Usuarios extends CI_Controller {
 	
 	function borrar() {
 		
-		if ($this->input->post('borrar')) {
-			
-			$datos['id_usuario'] = $this->input->post('id_usuario');
-			$this->template->load('template','usuarios/borrar', $datos);
-			
-		} else if ($this->input->post('si') && 
-		           $this->input->post('id_usuario')) {
+		$this->utilidades->comprobar_logueo();
+		
+		if ($this->input->post('si') && $this->session->userdata('id_usuario')) {
 			
 		    if($this->Usuario->borrar_usuario()) {
 		    	
 		    	$this->session->set_flashdata('mensaje', 'La operación se realizo correctamente.');
 				redirect('usuarios/index');
-		    	
+				$this->logout();
+				
 		    } else {
 		    	
 		    	$this->session->set_flashdata('mensaje', 'La operación no se realizo, intentelo denuevo más tarde.');
 				redirect('usuarios/index');
 		    }
+		}  elseif ($this->input->post('no')) {
+			redirect('usuarios/index');
 		} else {
 
-			redirect('usuarios/index');
+			$datos['id_usuario'] = $this->session->userdata('id_usuario');
+			$this->template->load('template','usuarios/borrar', $datos);		}
 		}
-	}
 }

@@ -14,6 +14,7 @@
     
 </fieldset>
 <?php if(!empty($filas)): ?>
+	<p id="p_informativo"> <?php echo (!empty($mensaje) ? $mensaje : ''); ?> </p>
 <p>
 <table>
   <thead>

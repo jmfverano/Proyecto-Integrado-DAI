@@ -20,9 +20,6 @@
     <?= form_input('direccion', $direccion) ?> <br/>
     <?= form_label('Teléfono:', 'telefono') ?>
     <?= form_input('telefono', $telefono) ?> <br/>
-    <p> Administrador 
-    <?= form_checkbox('admin', 'si', $admin == 't') ?>
-    </p>
   </p>
   <p><?= form_submit('actualizar', 'Actualizar', 'class="boton"') ?>
      <?= form_submit('cancelar', 'Cancelar', 'class="boton"') ?>

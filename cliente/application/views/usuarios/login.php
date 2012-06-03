@@ -11,6 +11,7 @@
     <?= form_label('Constraseña:', 'password') ?> <br/> 
     <?= form_password('password') ?><br/>
  <p><?= form_submit('login', 'Login') ?>
-    <?= form_submit('recuperar', 'Olvido su contraseña')?></p>
+    <?= form_submit('recuperar', 'Olvido su contraseña')?>
+    <?= form_submit('nuevo', 'Nuevo usuario')?></p>
 <?= form_close() ?>
 </div>
