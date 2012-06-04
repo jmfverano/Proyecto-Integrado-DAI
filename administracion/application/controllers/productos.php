@@ -95,4 +95,21 @@ class Productos extends CI_Controller {
   	}
   	
   }
+  
+  function informacion_producto() {
+  	
+  	if($this->input->post('id_producto')) {
+  		
+  		$id_producto = $this->input->post('id_producto');
+  		$datos['fila'] = $this->Producto->obten_producto_segun_id($id_producto);
+  		$datos['id_producto'] =  $id_producto = $this->input->post('id_producto');
+  		$this->template->load('template','productos/informacion_producto', $datos);
+  		
+  	} else {
+  		
+  		$datos['mensaje'] = "Se ha producido un error.";
+  		$this->template->load('template','productos/informacion_producto', $datos);
+  	}
+  	
+  }
 }
