@@ -12,7 +12,7 @@
 <?php endforeach; ?>
 </ul>
 
-<p><?php echo anchor('productos/index', 'Volver al listado de Productos.'); ?></p>
+<p><?php echo anchor('productos/index', 'Volver al listado de Productos'); ?></p>
 
 </body>
 </html>

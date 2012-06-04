@@ -11,13 +11,6 @@
 	<?php endif; ?>
 </div>
 </br>
-<div>
-	<p id="p_informativo"> Pulsa añadir y siga los pasos para añadir una imagen.</p>
-	<?= form_open('productos/sube_imagen') ?>
-      <?= form_submit('anadir', 'Añadir') ?>
-      <?= form_hidden('id_producto', $id_producto) ?>
-    <?= form_close() ?>
-</div>
 
 <?php if(!empty($fila)): ?>
 	<?php extract($fila); ?>
@@ -70,7 +63,7 @@
 					Precio
 				</td>
 				<td>
-					<?= $precio ?>
+					<?= $precio ?>€
 				</td>
 			</tr>
 			<tr>	
@@ -95,8 +88,4 @@
 	<p id="p_informativo"> No se encontro el producto en la base de datos.</p>
 <?php endif;?>
 <br>
-<div>
-	<?= form_open('productos/index') ?>
-      <?= form_submit('volver', 'Volver') ?>
-    <?= form_close() ?>
-</div>
+

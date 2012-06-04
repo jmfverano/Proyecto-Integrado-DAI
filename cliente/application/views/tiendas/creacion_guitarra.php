@@ -97,10 +97,16 @@
       <?php extract($fila); ?>
       <tr>
         <td>
-        	<?= form_open('productos/informacion_producto') ?>
-  				<?= form_hidden('id_producto', $id_producto) ?>
-        		<?= form_submit('id_producto', $id_producto, "id='boton_dni'") ?>
-			<?= form_close() ?>
+        	
+			<?php $atts = array('width'      => '1024',
+					             'height'     => '768',
+					             'scrollbars' => 'yes',
+					             'status'     => 'yes',
+					             'resizable'  => 'yes',
+					             'screenx'    => '0',
+					             'screeny'    => '0');?>
+
+		<?php echo anchor_popup("productos/informacion_producto/$id_producto",$id_producto, $atts); ?>
         </td>
         <td><?= $nombre_prod ?> </td>
         <td><?= $fabricante ?></td>

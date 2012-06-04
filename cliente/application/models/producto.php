@@ -128,6 +128,13 @@ class Producto extends CI_Model {
 				$datos_orden
 				$datos_paginador")->result_array();
 	}
+	
+	function obten_producto_segun_id($id) {
+	
+		return $this->db->query("select * from productos natural join categorias
+				natural join piezas_compatibles where id_producto = ?", array($id))->row_array();
+	
+	}
 
 }
 

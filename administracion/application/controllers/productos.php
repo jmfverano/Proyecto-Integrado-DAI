@@ -112,4 +112,15 @@ class Productos extends CI_Controller {
   	}
   	
   }
+  /**
+   * Llama al la vista que se encargara de cargar la foto, para el articulo que tiene la id_producto de llegada.
+   */
+  function sube_imagen() {
+  	
+  	if ($this->input->post('id_producto')) {
+  		
+  		$this->session->set_userdata('id_producto_imagen',$this->input->post('id_producto'));
+		redirect('upload/index');  		
+  	}
+  }
 }
