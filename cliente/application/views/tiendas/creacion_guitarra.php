@@ -98,8 +98,8 @@
       <tr>
         <td>
         	
-			<?php $atts = array('width'      => '1024',
-					             'height'     => '768',
+			<?php $atts = array('width'      => '800',
+					             'height'     => '500',
 					             'scrollbars' => 'yes',
 					             'status'     => 'yes',
 					             'resizable'  => 'yes',

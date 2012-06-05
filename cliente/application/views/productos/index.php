@@ -91,9 +91,9 @@
       <?php extract($fila); ?>
       <tr>
         <td>
-        	<?php $atts = array('width'      => '1024',
-					             'height'     => '768',
-					             'scrollbars' => 'yes',
+        	<?php $atts = array('width'      => '800',
+					             'height'     => '500',
+					             'scrollbars' => 'no',
 					             'status'     => 'yes',
 					             'resizable'  => 'yes',
 					             'screenx'    => '0',
