@@ -120,4 +120,28 @@ class Usuario extends CI_Model {
 		return $this->db->query('delete from usuarios where id_usuario = ?', array($id_usuario));
 		
 	}
+	/**
+	 * Busca todos los productos que ha sido añadido en la cesta.
+	 */
+	function obten_productos_cesta() {
+		
+		$cesta = $this->session->userdata('cesta');
+		$datos = array();
+		$query = "Select * from productos natural join categorias natural join piezas_compatibles
+				  natural join tipo_productos where id_producto =";
+		$bool  = false;
+		foreach ($cesta as $v) {
+			
+			if($v != '') {
+				
+				$query = "Select * from productos natural join categorias natural join piezas_compatibles
+				natural join tipo_productos where id_producto = $v";
+				$datos_new = $this->db->query($query)->result_array();
+			}
+			
+			$datos = array_merge($datos, $datos_new);
+		}
+
+		return $datos;
+	}
 }

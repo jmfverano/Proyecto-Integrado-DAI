@@ -135,4 +135,34 @@ class Usuarios extends CI_Controller {
 			$datos['id_usuario'] = $this->session->userdata('id_usuario');
 			$this->template->load('template','usuarios/borrar', $datos);		}
 		}
+		
+	function cesta() {
+		
+		$this->utilidades->comprobar_logueo();
+		
+		if($this->session->userdata('cesta')) {
+			$datos['filas'] = $this->Usuario->obten_productos_cesta();
+			$this->template->load('template','usuarios/cesta', $datos);
+				
+		} else {
+			
+		}
+	}
+	
+	/**
+	 * Elimina el producto de la cesta que tiene la id que se le manda.
+	 */
+	function elimina_cesta($id_producto) {
+		
+		$cesta = $this->session->userdata('cesta');
+		foreach ($cesta as $key => $valor) {
+			if($valor == $id_producto) {
+				$cesta[$key] = '';
+				break;
+			}
+		}
+		
+		$this->session->set_userdata('cesta',$cesta);
+		redirect('usuarios/cesta');
+	}
 }
