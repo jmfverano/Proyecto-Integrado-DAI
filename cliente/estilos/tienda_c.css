@@ -48,6 +48,11 @@
 	padding: 20px;
 }
 
+#crea_instrumento {
+	
+	border-radius: 10px;
+	border-color: black;
+}
 
 #boton_cabecera {
 	

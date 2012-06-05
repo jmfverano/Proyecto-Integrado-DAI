@@ -12,11 +12,23 @@ class Tiendas extends CI_Controller {
 	 * Si por algún motivo se sale de la linea de la creación se permitira volver a ella
 	 * o eliminar el proceseso.
 	 */
-	function creacion_guitarra() {
+	function creacion_instrumento($id_categoria=null) {
 		/*
 		 * Primero comprueba que este iniciada al sessión, sino no le deja.
 		 */
 		$this->utilidades->comprobar_logueo();
+		
+		if($id_categoria !=null) {
+			
+			if($id_categoria == 1 || $id_categoria == 2) {
+				
+				$this->session->set_userdata('id_categoria', $id_categoria);
+			} else {
+				
+				$datos['mensaje'] = "Se ha producido un error, vuelve a intentarlo.";
+				$this->template->load('template','usuarios/error', $datos);
+			}
+		}
 		
 		if ($this->input->post('anadir_producto')) {
 			
@@ -44,7 +56,6 @@ class Tiendas extends CI_Controller {
 				$cesta = array();
 				$this->session->set_userdata('cesta',$cesta);
 				$this->session->set_userdata('numero_paso', 1);
-				$this->session->set_userdata('id_categoria', '1');
 				$this->proceso_creacion();
 			} else {
 				if($this->input->post('elimina_cesta')) {
@@ -60,16 +71,13 @@ class Tiendas extends CI_Controller {
 		}
 	}
 	
-	function creacion_bajo() {
-		
-		
-	}
 	/**
 	 * Controla todos los pasos que se hacen hasta llegar al fin de la creación del instrumento.
 	 */
 	private function proceso_creacion() {
 		
 		$numero_paso = $this->session->userdata('numero_paso');
+		$id_instumento = $this->session->userdata('id_instrumento');
 		
 		switch ($numero_paso) {
 			case 1:

@@ -1,3 +1,3 @@
 <?= $mensaje ?>
 
-<?php anchor('index/index', 'Volver al Menu')?>
+<?php anchor('tiendas/index', 'Volver al Menu')?>
