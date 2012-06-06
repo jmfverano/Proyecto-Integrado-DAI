@@ -31,6 +31,7 @@
     </th>
   </thead>
   <tbody>
+    <?php $total = 0;?>
     <?php foreach ($filas as $fila): ?>
       <?php extract($fila); ?>
       <tr>
@@ -54,13 +55,26 @@
         <td><?= $tnomb_producto ?></td>
         <td><?= $pc_nombre ?></td>
         <td><?= anchor("usuarios/elimina_cesta/$id_producto", 'Eliminar') ?> </td>
-      </tr>      
+        </tr>
+ 		 <?php $total += $precio; ?>
     <?php endforeach; ?>
+    <?php $iva = ($total * 18) /100; ?>
+    <?php $total += $iva;?>
+    	<tr>
+        <td colspan="8"><b>IVA(18%)</td>
+        <td><?= $iva ?>€</td>
+       </tr>
+       <tr>
+        <td colspan="8"><b>Total</td>
+        <td><?= $total ?>€</td>
+       </tr>
   </tbody>
 </table>
-
+</br>
+<p id="p_informativo">Para completar el proceso vuelva a la creación de guitarra o bajo.</p>
 <?php else: ?>
 	
 	<p id="p_informativo"> La cesta está vacía.</p>
 
 <?php endif;?>
+<?php var_dump($this->session->userdata('cesta'));?>

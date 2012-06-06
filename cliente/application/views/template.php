@@ -3,9 +3,84 @@
 <?php endif; ?>
 <!DOCTYPE HTML>
 <html>
-	<script languaje="javascript">
-		
-	</script>
+	
+<script language="javascript">
+function muestraReloj()
+{
+// Compruebo si se puede ejecutar el script en el navegador del usuario
+if (!document.layers && !document.all && !document.getElementById) return;
+// Obtengo la hora actual y la divido en sus partes
+var fechacompleta = new Date();
+var horas = fechacompleta.getHours();
+var minutos = fechacompleta.getMinutes();
+var segundos = fechacompleta.getSeconds();
+var mt = "AM";
+// Pongo el formato 12 horas
+if (horas > 12) {
+mt = "PM";
+horas = horas - 12;
+}
+if (horas == 0) horas = 12;
+// Pongo minutos y segundos con dos dígitos
+if (minutos <= 9) minutos = "0" + minutos;
+if (segundos <= 9) segundos = "0" + segundos;
+// En la variable 'cadenareloj' puedes cambiar los colores y el tipo de fuente
+cadenareloj = "<font size='1' face='arial'>" + horas + ":" + minutos + ":" + segundos + " " + mt + "</font>";
+// Escribo el reloj de una manera u otra, según el navegador del usuario
+if (document.layers) {
+document.layers.spanreloj.document.write(cadenareloj);
+document.layers.spanreloj.document.close();
+}
+else if (document.all) spanreloj.innerHTML = cadenareloj;
+else if (document.getElementById) document.getElementById("spanreloj").innerHTML = cadenareloj;
+// Ejecuto la función con un intervalo de un segundo
+setTimeout("muestraReloj()", 1000);
+}
+
+// Fin del script
+</script>
+
+
+<script language="javascript">
+
+// Array de los meses
+var monthNames = new makeArray(12);
+monthNames[0] = "Enero";
+monthNames[1] = "Febrero";
+monthNames[2] = "Marzo";
+monthNames[3] = "Abril";
+monthNames[4] = "Mayo";
+monthNames[5] = "Junio";
+monthNames[6] = "Julio";
+monthNames[7] = "Agosto";
+monthNames[8] = "Septiembre";
+monthNames[9] = "Octubre";
+monthNames[10] = "Noviembre";
+monthNames[11] = "Diciembre";
+
+// Array de los días
+
+var dayNames = new makeArray(7);
+dayNames[0] = "Domingo";
+dayNames[1] = "Lunes";
+dayNames[2] = "Martes";
+dayNames[3] = "Mi&eacute;rcoles";
+dayNames[4] = "Jueves";
+dayNames[5] = "Viernes";
+dayNames[6] = "S&aacute;bado";
+
+var now = new Date();
+var year = now.getYear();
+
+if (year < 2000) year = year + 1900;
+
+function makeArray(len)
+{
+for (var i = 0; i < len; i++) this[i] = null;
+this.length = len;
+}
+
+</SCRIPT>
 	<head>
 		<title>Music Band Center S.L</title>
 		<?= link_tag('estilos/tienda_c.css') ?>
@@ -14,7 +89,15 @@
 	<body>
 	<?php else: ?>
 
-	<body>
+	<body onLoad="muestraReloj()">
+		
+	<div id="fecha">
+	<script language="JavaScript">
+	<!--
+		document.write( dayNames[now.getDay()] + " " + now.getDate() + " de " + monthNames[now.getMonth()] + " " +" de " + year);
+	// -->
+	</script>
+	</div>
 	<?php endif; ?>
 		<div id="header">
 			<div> 
