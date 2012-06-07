@@ -28,7 +28,7 @@ class Tienda extends CI_Model {
 		}
 		//Obtenemos el id del nuevo pedido.
 		$datos = $this->db->query("Select id_pedido from pedidos where id_usuario = ? 
-								   order by fecha desc limit 1",array($id_usuario))->row_array();
+								   order by id_pedido desc limit 1",array($id_usuario))->row_array();
 		$id_pedido = $datos['id_pedido'];
 		//Creamos la nueva factura, con el id_pedido y id_usuario.
 		$this->db->query("insert into facturas(id_usuario, id_pedido, dni, nombre_fat, apellidos, direccion, telefono)
@@ -47,6 +47,18 @@ class Tienda extends CI_Model {
 			$this->db->query("insert into linea_facturas(id_factura,id_producto,precio) select ?, id_producto, precio 
                               from productos where id_producto = ?", array($id_factura, $id_producto));
 			//Se comprueba si el producto se añadio correctamente.
+			if($this->db->affected_rows() != 1) {
+				$this->db->query("ROLLBACK");
+				return $completado = false;
+			}
+		}
+		
+		//Actualiza el stock de las piezas vendidas.
+		foreach ($cesta as $id_producto) {
+			$datos = $this->db->query("select stock from productos where id_producto = ?", array($id_producto))->row_array();
+			$stock = $datos['stock'] - 1;
+			$this->db->query("update productos set stock = ? where id_producto = ?", array($stock, $id_producto));
+			//Se comprueba si el producto se actualizo correctamente.
 			if($this->db->affected_rows() != 1) {
 				$this->db->query("ROLLBACK");
 				return $completado = false;

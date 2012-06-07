@@ -39,6 +39,7 @@ class Tiendas extends CI_Controller {
 			$id_tipo_producto = $this->input->post('id_tipo_producto');
 			$cesta = $this->session->userdata('cesta');
 			$numero_paso = $this->session->userdata('numero_paso');
+			unset($cesta[$numero_paso]);
 			$cesta += array($numero_paso => $id_producto);
 			$this->session->set_userdata('cesta',$cesta);
 			$this->comprobar_producto($id_tipo_producto);
@@ -91,7 +92,7 @@ class Tiendas extends CI_Controller {
 			case 1:
 				#Selecciona el cuerpo del instrumento.
 				$datos['mensaje'] = "Selecciona un cuerpo para tú guitarra.";
-				$producto = "where id_tipo_producto = 1 and id_categoria = " . $this->session->userdata('id_categoria');
+				$producto = "where id_tipo_producto = 1 and id_categoria = " . $this->session->userdata('id_categoria') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto, $busqueda);
@@ -100,7 +101,7 @@ class Tiendas extends CI_Controller {
 				#Selecciona el mástil de instrumento.
 				$datos['mensaje'] = "Selecciona el Mástil.";
 				$producto = "where id_tipo_producto = 6 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " . 
-				$this->session->userdata('id_piezas');
+				$this->session->userdata('id_piezas') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -109,7 +110,7 @@ class Tiendas extends CI_Controller {
 				#Selecciona las pastillas de instrumento.
 				$datos['mensaje'] = "Selecciona pastillas.";
 				$producto = "where id_tipo_producto in (2,3,4,5) and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
-							$this->session->userdata('id_piezas');
+							$this->session->userdata('id_piezas') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -118,7 +119,7 @@ class Tiendas extends CI_Controller {
 				#Selecciona el clavijero del instrumento.
 				$datos['mensaje'] = "Selecciona el clavijero.";
 				$producto = "where id_tipo_producto = 7 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
-						     $this->session->userdata('id_piezas');
+						     $this->session->userdata('id_piezas') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -127,7 +128,7 @@ class Tiendas extends CI_Controller {
 				#Selecciona la cejuela del instrumento.
 				$datos['mensaje'] = "Selecciona la cejuela.";
 				$producto = "where id_tipo_producto = 9 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
-							$this->session->userdata('id_piezas');
+							$this->session->userdata('id_piezas') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -136,7 +137,7 @@ class Tiendas extends CI_Controller {
 				#Selecciona el puente del instrumento.
 				$datos['mensaje'] = "Selecciona el puente.";
 				$producto = "where id_tipo_producto = 10 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
-							$this->session->userdata('id_piezas');
+							$this->session->userdata('id_piezas') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -145,7 +146,7 @@ class Tiendas extends CI_Controller {
 				#Selecciona los potenciometros del instrumento.
 				$datos['mensaje'] = "Selecciona los potenciometros.";
 				$producto = "where id_tipo_producto = 11 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
-							$this->session->userdata('id_piezas');
+							$this->session->userdata('id_piezas') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -154,7 +155,7 @@ class Tiendas extends CI_Controller {
 				#Selecciona la conexión jack.
 				$datos['mensaje'] = "Selecciona la conexión Jack.";
 				$producto = "where id_tipo_producto = 12 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
-							$this->session->userdata('id_piezas');
+							$this->session->userdata('id_piezas') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -163,7 +164,7 @@ class Tiendas extends CI_Controller {
 				#Selector de Posición.
 				$datos['mensaje'] = "Selector de Posición.";
 				$producto = "where id_tipo_producto = 13 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
-							$this->session->userdata('id_piezas');
+							$this->session->userdata('id_piezas') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -172,7 +173,7 @@ class Tiendas extends CI_Controller {
 				#Selector de Pickguard.
 				$datos['mensaje'] = "Selector de Pickguard.";
 				$producto = "where id_tipo_producto = 14 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
-						$this->session->userdata('id_piezas');
+						$this->session->userdata('id_piezas') . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -181,7 +182,7 @@ class Tiendas extends CI_Controller {
 				#Selector de Cuerdas.
 				$datos['mensaje'] = "Selector de Cuerdas.";
 				$producto = "where id_tipo_producto = 8 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas in (" .
-						$this->session->userdata('id_piezas').",4)";
+						$this->session->userdata('id_piezas').",4)" . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
@@ -190,7 +191,7 @@ class Tiendas extends CI_Controller {
 				#Otras partes compatibles con tu guitarra.
 				$datos['mensaje'] = "Otras partes compatibles con tu guitarra.";
 				$producto = "where id_tipo_producto = 15 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas in (" .
-						$this->session->userdata('id_piezas').",4)";
+						$this->session->userdata('id_piezas').",4)" . " and stock > 0 ";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
