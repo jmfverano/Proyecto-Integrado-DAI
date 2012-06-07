@@ -349,7 +349,24 @@ class Tiendas extends CI_Controller {
 	 */
 	function obtener_factura_en_pdf($id_pedido) {
 		
-		$this->utilidades->comprobar_logueo();
-		
+		if(is_numeric($id_pedido)) {
+			$datos = $this->Tienda->obten_factura($id_pedido);
+			$this->pdf($datos, $id_pedido);								
+		} else {
+				
+			$datos['mensaje'] = "Los datos recibidos no son correctos.";
+			$this->template->load('template','usuarios/error', $datos);
+		}
+	}
+	
+	/**
+	 * Obtiene el pdf.
+	 */
+	private function pdf($data, $id_pedido)
+	{
+		// page info here, db calls, etc.
+		$html = $this->load->view('usuarios/factura', $data, true);
+	    pdf_create($html, $id_pedido);
+	    
 	}
 }

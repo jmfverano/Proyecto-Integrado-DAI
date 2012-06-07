@@ -32,7 +32,7 @@
 		<p>Nombre: <?= $nombre_fat ?>
 		<p>Apellidos: <?= $apellidos ?></p>
 		<p>Dirección: <?= $direccion ?></p>
-		<p>Teléfono: <?=$telefono ?> </p>
+		<p>Teléfono: <?=$telefono ?></p>
 	</fieldset>
 </div>
 </br>
@@ -77,13 +77,13 @@
         <td>
         	<?= $id_producto ?>
         </td>
-        <td><?= $nombre_prod ?> </td>
+        <td><?= $nombre_prod ?></td>
         <td><?= $fabricante ?></td>
         <td><?= $descripcion ?></td>
         <th><?= $tnomb_producto ?></th>
         <td><?= $precio ?>€</td>
         <td><?= $cantidad ?></td>
-        <td><?= $tipo_instrumento ?> </td>
+        <td><?= $tipo_instrumento ?></td>
         <td><?= $pc_nombre ?></td>
       </tr>      
      <?php $total += $precio; ?>

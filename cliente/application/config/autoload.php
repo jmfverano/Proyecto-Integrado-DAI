@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'session', 'utilidades', 'form_valida
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'form', 'html');
+$autoload['helper'] = array('url', 'form', 'html','file', 'dompdf');
 
 
 /*

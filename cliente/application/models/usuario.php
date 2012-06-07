@@ -9,7 +9,7 @@ class Usuario extends CI_Model {
 	function comprobar_usuario($email, $password){
 		 
 		return $this->db->query("select * from usuarios
-  		                         where email = ? and password = md5(?) and admin = true", array($email, $password));	
+  		                         where email = ? and password = md5(?)", array($email, $password));	
 	}
 
 	function crear($email, $password, $nombre_usu, $apellidos) {
