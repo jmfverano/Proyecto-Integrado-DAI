@@ -71,7 +71,17 @@
   </tbody>
 </table>
 </br>
-<p id="p_informativo">Para completar el proceso vuelva a la creación de guitarra o bajo.</p>
+	<?php if($this->session->userdata('completado')):?>
+		<div>
+			<p id="p_informativo">El proceso guiado ha terminado, ahora confirma y cancela el pedido.</p>
+			<?= form_open("tiendas/instrumento_completado") ?>
+			<?= form_submit('elimina_cesta', 'Cancelar Pedido') ?>
+			<?= form_submit('realizar_pedido', 'Realizar Pedido') ?>
+			<?= form_close() ?>
+		</div>
+	<?php else:?>
+		<p id="p_informativo">Para completar el proceso vuelva a la creación de guitarra o bajo.</p>
+	<?php endif;?>
 <?php else: ?>
 	
 	<p id="p_informativo"> La cesta está vacía.</p>

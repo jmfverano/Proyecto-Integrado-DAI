@@ -4,6 +4,7 @@ class Pedido extends CI_Model {
 
 	function alta() {
 		
+		
 	}
  
 }

@@ -16,9 +16,11 @@ class Upload extends CI_Controller {
 
 	function do_upload()
 	{
-		$config['upload_path'] = '../comun/imagen_producto/';
+		$config['upload_path'] = '/home/ulthane/web/proyecto/comun/imagen_producto/';
+		var_dump(is_dir('/home/ulthane/web/proyecto/comun/imagen_producto/'));
+		var_dump($_SERVER['SCRIPT_FILENAME']); 
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100';
+		$config['max_size']	= '1000000';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
 		$config['file_name']  = $this->session->userdata('id_producto_imagen');

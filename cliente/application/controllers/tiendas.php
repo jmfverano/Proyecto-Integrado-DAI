@@ -44,8 +44,15 @@ class Tiendas extends CI_Controller {
 			$this->comprobar_producto($id_tipo_producto);
 			$this->proceso_creacion();
 				
-		} elseif ($this->input->post('orden') || $this->input->post('numero_pagina') || $this->input->post('continuar')) {
+		} elseif ($this->input->post('orden') ||  $this->input->post('continuar')) {
 			
+			$this->proceso_creacion();
+			
+		} elseif ($this->input->post('anterior')) { 
+			
+			$numero_paso = $this->session->userdata('numero_paso');
+			$numero_paso--;
+			$this->session->set_userdata('numero_paso', $numero_paso);
 			$this->proceso_creacion();
 			
 		} else {
@@ -63,6 +70,7 @@ class Tiendas extends CI_Controller {
 					$this->session->unset_userdata('id_categoria');
 					$this->session->unset_userdata('numero_paso');
 					$this->session->unset_userdata('id_piezas');
+					$this->session->unset_userdata('completado');
 					redirect('tiendas/index');
 				} else {
 					$this->template->load('template','tiendas/vaciar_cesta');
@@ -170,16 +178,25 @@ class Tiendas extends CI_Controller {
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
 			break;
 			case 11:
+				#Selector de Cuerdas.
+				$datos['mensaje'] = "Selector de Cuerdas.";
+				$producto = "where id_tipo_producto = 8 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas in (" .
+						$this->session->userdata('id_piezas').",4)";
+				$busqueda = $this->comprueba_busqueda();
+				$datos['busqueda'] = $busqueda;
+				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
+			break;
+			case 12:
 				#Otras partes compatibles con tu guitarra.
 				$datos['mensaje'] = "Otras partes compatibles con tu guitarra.";
-				$producto = "where id_tipo_producto = 15 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas = " .
-							$this->session->userdata('id_piezas') ." or id_piezas = 4";
+				$producto = "where id_tipo_producto = 15 and id_categoria = " . $this->session->userdata('id_categoria') . " and id_piezas in (" .
+						$this->session->userdata('id_piezas').",4)";
 				$busqueda = $this->comprueba_busqueda();
 				$datos['busqueda'] = $busqueda;
 				$datos['filas'] = $this->Producto->obten_producto_creacion($producto);
 			break;
 			default:
-				#Aquí entrara cuando el numero sea superior a 11, siendo así cuando se ha terminado la creación.
+				#Aquí entrara cuando el numero sea superior a 12, siendo así cuando se ha terminado la creación.
 				$this->instrumento_completado();
 			break;
 		}
@@ -273,8 +290,40 @@ class Tiendas extends CI_Controller {
 	 * Terminar creación de producto, se alamacenará todos los datos en la base de datos.
 	 * La operción teniendo encuenta los posibles problemas, si hay algún problema se olvera al estado anterior.
 	 */
-	private function instrumento_completado() {
+	function instrumento_completado() {
 		
-		
+		if($this->input->post('realizar_pedido')) {
+			// Aquí se realiza toda la operación, creando una factura nueva contodo lo que ello conlleva. 
+			if($this->tienda->nuevo_pedido) {
+				
+				$this->session->unset_userdata('cesta');
+				$this->session->unset_userdata('id_categoria');
+				$this->session->unset_userdata('numero_paso');
+				$this->session->unset_userdata('id_piezas');
+				$this->session->unset_userdata('completado');
+				$datos['mensaje'] = "Proceso completado.";
+				$this->template->load('template','usuarios/propiedades_usuario', $datos);	
+							
+			} else {
+				
+				$datos['mensaje'] = "Se ha producido un error, intentelo denuevo.";
+				$this->template->load('template','usuarios/cesta', $datos);
+				
+			}
+		} elseif ($this->input->post('elimina_cesta')) {
+			
+			$this->session->unset_userdata('cesta');
+			$this->session->unset_userdata('id_categoria');
+			$this->session->unset_userdata('numero_paso');
+			$this->session->unset_userdata('id_piezas');
+			$this->session->unset_userdata('completado');
+			redirect('tiendas/index');
+			
+		} else {
+			
+			$this->session->set_userdata('completado', true);
+			redirect('usuarios/cesta');
+			
+		}
 	}
 }

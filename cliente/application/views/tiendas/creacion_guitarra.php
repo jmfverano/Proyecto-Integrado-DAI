@@ -145,8 +145,9 @@
 <?php endif;?>
 
 <div>
-	<p>Pulsa continuar para omitir la parte. </p>
+	
 	<?php if (!empty($fila) && $this->session->userdata('numero_paso') > 1): ?>
+		<p>Pulsa continuar para omitir la parte. </p>
 		<!-- Continuar sin introducir este articulo o bien cuando seleccione todas las pastillas. -->
 		<?= form_open('tiendas/creacion_instrumento') ?>
 			<?= form_hidden('id_tipo_producto', $id_tipo_producto) ?>
@@ -158,7 +159,7 @@
 </div>
 </br>
 <!-- Se muestra el formulario que controlara los pasos  anteriores-->
-<?php if($this->session->userdata('numero_paso')) :?>
+<?php if($this->session->userdata('numero_paso') > 1) :?>
 	<div>
 		<?= form_open('tiendas/creacion_instrumento') ?>
 	  		<?= form_hidden('numero_paso', $this->session->userdata('numero_paso')) ?>

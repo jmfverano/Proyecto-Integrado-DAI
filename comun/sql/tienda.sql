@@ -1,4 +1,4 @@
-drop table usuarios cascade;
+﻿drop table usuarios cascade;
 
 create table usuarios (
   id_usuario bigserial    constraint pk_usuarios primary key,
@@ -74,21 +74,11 @@ drop table pedidos cascade;
 create table pedidos (
   id_pedido        bigserial     constraint pk_pedidos primary key,
   id_usuario       bigint        constraint fk_pedidos_usuario references usuarios (id_usuario),  
-  fecha            date          default current_date,
+  fecha            timestamp     default current_timestamp,
   estado           varchar(15)   default 'Iniciado'
 );
 
-insert into pedidos(id_usuario) values(1);
 
-drop table linea_pedidos cascade;
-
-create table linea_pedidos (
-  id_linea_pedido  bigserial    constraint pk_lineas_pedidos primary key,
-  id_pedido        bigint       constraint fk_linea_pedidos_pedido references pedidos (id_pedido),
-  id_producto      bigint       constraint fk_line_pedido_producto references productos (id_producto),
-  cantidad         numeric(2)   default 1,
-  precio           numeric(9,2) not null
-);
 
 drop table facturas cascade;
 
@@ -204,6 +194,7 @@ values ('Indicador de posición potenciometros', 'Indicador de posición de pont
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
 values ('Comutador de tres posiciones.', 'Indicador de tres posiciones para les paul', 'Gibson',20, 5, 1, 2,3,13);
 
+insert into pedidos(id_usuario) values(1);
 
 
 
