@@ -32,13 +32,24 @@
 				<th>Número Pedido</th>
 				<th>Fecha</th>
 				<th>Estado</th>
+				<th>Generar PDF</th>
 			</thead>
 			<tbody>
 			<?php foreach ($pedidos as $pedido): ?>
 			<?php extract($pedido); ?>
-				<td><?= $id_pedido ?></td>
-				<td><?= $fecha ?></td>
-				<td><?= $estado ?></td>
+			<?php $atts = array('width'      => '1024',
+					             'height'     => '768',
+					             'scrollbars' => 'yes',
+					             'status'     => 'yes',
+					             'resizable'  => 'yes',
+					             'screenx'    => '0',
+					             'screeny'    => '0');?>
+				<tr>
+					<td><?php echo anchor_popup("tiendas/muestra_factura/$id_pedido",$id_pedido, $atts); ?></td>
+					<td><?= $fecha ?></td>
+					<td><?= $estado ?></td>
+					<td> <?php echo anchor_popup("tiendas/obtener_factura_en_pdf/$id_pedido",'Obtener PDF', $atts); ?> </td>
+				</tr>
 				<?php endforeach;?>
 			</tbody>
 		</table>

@@ -40,7 +40,7 @@ class Tienda extends CI_Model {
 			return $completado = false;
 		}
 		//Ahora obtenemos el numero de la factura.
-		$datos = $this->db->query("Select id_factura from facturas where id_usuario = ? order by id_factura desc limit 1", array($id_usuario));
+		$datos = $this->db->query("Select id_factura from facturas where id_usuario = ? order by id_factura desc limit 1", array($id_usuario))->row_array();
 		$id_factura = $datos['id_factura'];
 		//Con un bucle añadimos todas las lines de facturas que son los productos que están en la cesta.
 		foreach ($cesta as $id_producto) {
@@ -59,8 +59,25 @@ class Tienda extends CI_Model {
 		}
 	}
 	
-	function consulta_pedido() {
-		
+	/**
+	 * Devuelve la factura que esta asociada al pedido enviado.
+	 */
+	function obten_factura($id) {
+		$id_pedido = $id;
+		$datos = $this->db->query("Select id_usuario from pedidos where id_pedido = $id_pedido ")->row_array();
+		$id_usuario = $datos['id_usuario'];
+		if($id_usuario == $this->session->userdata('id_usuario')) {
+			$datos['factura'] =  $this->db->query("Select * from facturas where id_pedido = $id_pedido ")->row_array();
+			$factura = $datos['factura'];
+			$id_factura = $factura['id_factura'];
+			$datos['usuario'] =  $this->db->query("Select * from usuarios where id_usuario =$id_usuario")->row_array();
+			$datos['filas'] = $this->db->query("Select * from linea_facturas natural join productos natural join piezas_compatibles natural join tipo_productos
+                                                natural join categorias where id_factura = $id_factura")->result_array();
+			return $datos;
+		} else {
+			
+			return false;
+		}
 		
 	}
  

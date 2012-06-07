@@ -1,0 +1,87 @@
+/* Datos de las Id */
+
+#posicion_empresa {
+	
+	position:absolute;
+	left: 1%;
+	top: 1%;
+}
+
+#datos_empresa {
+	
+	width: 250px;
+	border-radius: 5px;
+}
+
+#datos_factura {
+	
+	width: 280px;
+	border-radius: 5px;
+}
+
+#posicion_datos_factura {
+	
+	position:absolute;
+	right: 9%;
+	top: 1%;
+	
+}
+
+#posicion_productos {
+	
+	position:absolute;
+	top: 40%;
+	
+}
+
+/* Datos de las clases */
+body {
+ 
+    background-attachment:fixed;
+    background-size: 100%;
+	font-family: Helvetica, Tahoma, Arial;
+	font-size: 9px;
+	line-height: 12px;
+	
+
+}
+
+
+table,th,td{
+    border:1px solid #666;
+    border-collapse:collapse;
+    text-align:center;
+
+}
+table{
+    border:none;
+    border-top:1px solid #000;
+}
+thead th{
+    padding:5px 10px;
+    font-size:90%;
+    text-transform:uppercase;
+    color:#333;
+    background:#66ffff;
+    text-align:center;
+    size: auto;
+    
+
+}
+tbody td,tbody th{
+    font-size:85%;
+    padding:5px 10px;
+    background:#ffffff;
+    text-align:center;
+
+}
+tbody th{
+    color:#333;
+    text-align:center;
+
+}
+
+tfoot td,tfoot th{
+    border:none;
+    padding-top:10px;
+}

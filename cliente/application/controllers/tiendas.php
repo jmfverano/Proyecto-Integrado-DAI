@@ -292,9 +292,11 @@ class Tiendas extends CI_Controller {
 	 */
 	function instrumento_completado() {
 		
+		$this->utilidades->comprobar_logueo();
+		
 		if($this->input->post('realizar_pedido')) {
 			// Aquí se realiza toda la operación, creando una factura nueva contodo lo que ello conlleva. 
-			if($this->tienda->nuevo_pedido) {
+			if($this->Tienda->nuevo_pedido()) {
 				
 				$this->session->unset_userdata('cesta');
 				$this->session->unset_userdata('id_categoria');
@@ -302,8 +304,7 @@ class Tiendas extends CI_Controller {
 				$this->session->unset_userdata('id_piezas');
 				$this->session->unset_userdata('completado');
 				$datos['mensaje'] = "Proceso completado.";
-				$this->template->load('template','usuarios/propiedades_usuario', $datos);	
-							
+				redirect('usuarios/index');							
 			} else {
 				
 				$datos['mensaje'] = "Se ha producido un error, intentelo denuevo.";
@@ -325,5 +326,30 @@ class Tiendas extends CI_Controller {
 			redirect('usuarios/cesta');
 			
 		}
+	}
+	
+	/**
+	 * Muestra la factura con todo detalle.
+	 */
+	function muestra_factura($id_pedido) {
+		if(is_numeric($id_pedido)) {
+			$datos = $this->Tienda->obten_factura($id_pedido);
+			//var_dump($datos);
+			$this->load->view('usuarios/factura',$datos);
+			
+		} else {
+			
+			$datos['mensaje'] = "Los datos recibidos no son correctos.";
+			$this->template->load('template','usuarios/error', $datos);	
+		}
+	}
+	
+	/**
+	 * Genera un documento pdf de la factura asignada al pedido.
+	 */
+	function obtener_factura_en_pdf($id_pedido) {
+		
+		$this->utilidades->comprobar_logueo();
+		
 	}
 }

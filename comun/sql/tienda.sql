@@ -74,7 +74,7 @@ drop table pedidos cascade;
 create table pedidos (
   id_pedido        bigserial     constraint pk_pedidos primary key,
   id_usuario       bigint        constraint fk_pedidos_usuario references usuarios (id_usuario),  
-  fecha            timestamp     default current_timestamp,
+  fecha            date    default current_date,
   estado           varchar(15)   default 'Iniciado'
 );
 
@@ -193,8 +193,6 @@ insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_
 values ('Indicador de posición potenciometros', 'Indicador de posición de pontenciometros', 'Grover',12, 5, 1, 2,4,15);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
 values ('Comutador de tres posiciones.', 'Indicador de tres posiciones para les paul', 'Gibson',20, 5, 1, 2,3,13);
-
-insert into pedidos(id_usuario) values(1);
 
 
 
