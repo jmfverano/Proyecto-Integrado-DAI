@@ -125,7 +125,7 @@
 <form method="post">
 	<input type="hidden" value="paginador">
 	<?php for ($i=1; $i <= $numero_paginas; $i++): ?>
-		<input type="submit"  name="numero_pagina" value="<?= $i ?>" , id="boton_dni" >
+		<input type="submit"  name="numero_pagina" value="<?= $i ?>" , id="boton_paginador" >
 	<?php endfor;?>
 </form>
 <?php endif;?>

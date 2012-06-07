@@ -91,6 +91,17 @@
         height:19px;
 }  
 
+#boton_paginador {
+	
+        font-size:10px;
+        font-family:Helvetica, Tahoma, Arial;
+        font-weight:bold;
+        color:black;
+        background:#eee;
+        border:0px;
+        width:25px;
+        height:19px;
+}  
 
 #contents {
 	

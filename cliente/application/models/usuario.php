@@ -110,8 +110,14 @@ class Usuario extends CI_Model {
 		$datos['dni'] = $this->input->post('dni');
 		$datos['direccion'] = $this->input->post('direccion');
 		$datos['telefono'] = $this->input->post('telefono');
-		 
-		return $this->db->insert('usuarios', $datos);  
+		$dni = $datos['dni'];
+		$telefono = $datos['telefono'];
+		if (strlen($dni) == 9 && strlen($telefono) == 9) {	
+			return $this->db->insert('usuarios', $datos);  
+		} else {
+			
+			return false;
+		}
 	}
 	
 	function borrar_usuario() {
