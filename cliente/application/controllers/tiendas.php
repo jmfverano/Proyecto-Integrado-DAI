@@ -359,7 +359,7 @@ class Tiendas extends CI_Controller {
 			//inicializa pagina pdf
 			$this->fpdf->Open();
 			$this->fpdf->AddPage();
-			//$this->fpdf->SetFont('Times','B',16);
+			$this->fpdf->SetFont('Times','B',16);
 			//$this->fpdf->Cell(40,20,'Factura',1);
 			//dibuja rectangulo
 			//$this->fpdf->Rect(20,10,180,137,'D');
