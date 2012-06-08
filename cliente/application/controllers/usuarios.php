@@ -120,9 +120,8 @@ class Usuarios extends CI_Controller {
 		    if($this->Usuario->borrar_usuario()) {
 		    	
 		    	$this->session->set_flashdata('mensaje', 'La operación se realizo correctamente.');
-				redirect('usuarios/index');
 				$this->logout();
-				
+								
 		    } else {
 		    	
 		    	$this->session->set_flashdata('mensaje', 'La operación no se realizo, intentelo denuevo más tarde.');
