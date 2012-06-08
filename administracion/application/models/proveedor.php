@@ -40,4 +40,12 @@ class Proveedor extends CI_Model {
 			return $this->db->query("select * from proveedores order by $orden $tipo")->result_array();
 		}
 	}
+	
+	function insertar($data) {
+		
+		$this->db->insert('proveedores', $data);
+		
+		return $this->db->affected_rows();
+		
+	}
 }

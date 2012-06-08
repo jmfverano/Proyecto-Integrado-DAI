@@ -59,7 +59,7 @@
 	<p id="p_informativo">No se encontro ningun proveedor.</p>
 <?php endif;?>
 <p>
-	<?= form_open("proveedor/insertar") ?>
+	<?= form_open("proveedores/insertar") ?>
 	<?= form_submit('insertar', 'Nuevo Proveedor') ?>
 	<?= form_close() ?>
 	<?= form_open("index/index") ?>

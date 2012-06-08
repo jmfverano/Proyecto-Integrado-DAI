@@ -15,4 +15,33 @@ class Proveedores extends CI_Controller {
 		$datos['filas'] = $this->Proveedor->obtener_todos();
 		$this->template->load('template','proveedores/index', $datos);
 	}
+	
+	function insertar() {
+		
+		if ($this->input->post('alta_nueva')) {
+			
+			$datos['email'] = $this->input->post('email');
+			$datos['cif'] = $this->input->post('cif');
+			$datos['telefono'] = $this->input->post('telefono');
+			$datos['nombre_prov'] = $this->input->post('nombre_prov');
+
+			if(!$this->Proveedor->insertar($datos) == 1) {
+				
+				$this->template->load('template','proveedores/alta', $datos);
+			} else {
+				
+				redirect('index/index');
+			}
+			
+		} else {
+			
+			$datos['nombre_prov'] = '';
+			$datos['cif'] = '';
+			$datos['email'] = '';
+			$datos['telefono'] = '';
+			
+			$this->template->load('template','proveedores/alta', $datos);
+				
+		}
+	}
 }
