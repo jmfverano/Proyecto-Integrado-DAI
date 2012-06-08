@@ -346,8 +346,33 @@ class Tiendas extends CI_Controller {
 	}
 	
 	/**
-	 * Genera un documento pdf de la factura asignada al pedido.
+	 * Se obtiene los datos y genera la factura en pdf.
 	 */
+	function obtener_factura_en_pdf($id_pedido) {
+		
+		if(is_numeric($id_pedido)) {
+			$datos = $this->Tienda->obten_factura($id_pedido);
+			
+			$this->load->library('fpdf');
+			define('FPDF_FONTPATH','/var/www/web/proyecto/cliente/application/libraries/font/');
+			
+			ob_end_clean();
+			//inicializa pagina pdf
+			$this->fpdf->Open();
+			$this->fpdf->AddPage();
+			//$this->fpdf->SetFont('Times','B',16);
+			//$this->fpdf->Cell(40,20,'Factura',1);
+			//dibuja rectangulo
+			//$this->fpdf->Rect(20,10,180,137,'D');
+			//finaliza y muestra en pantalla pdf
+			$this->fpdf->Output();
+		}
+		
+	}
+	
+	/**
+	 * Genera un documento pdf de la factura asignada al pedido.
+	 *
 	function obtener_factura_en_pdf($id_pedido) {
 		
 		if(is_numeric($id_pedido)) {
@@ -362,12 +387,12 @@ class Tiendas extends CI_Controller {
 	
 	/**
 	 * Obtiene el pdf.
-	 */
+	 *
 	private function pdf($data, $id_pedido)
 	{
 		// page info here, db calls, etc.
 		$html = $this->load->view('usuarios/factura', $data, true);
 	    pdf_create($html, $id_pedido);
 	    
-	}
+	}*/
 }

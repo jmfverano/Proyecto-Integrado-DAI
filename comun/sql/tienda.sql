@@ -4,7 +4,7 @@ create table usuarios (
   id_usuario bigserial    constraint pk_usuarios primary key,
   email      varchar(200) constraint uq_usuarios_email unique,
   password   char(32)     not null,
-  dni        char(9)      constraint uq_usuarios_dni unique,
+  dni        char(9)      not null,
   nombre_usu varchar(100) not null,
   apellidos  varchar(200) not null,
   direccion  varchar(500) not null,
@@ -74,7 +74,7 @@ drop table pedidos cascade;
 create table pedidos (
   id_pedido        bigserial     constraint pk_pedidos primary key,
   id_usuario       bigint        constraint fk_pedidos_usuario references usuarios (id_usuario),  
-  fecha            date    default current_date,
+  fecha            date          default current_date,
   estado           varchar(15)   default 'Iniciado'
 );
 
@@ -194,6 +194,37 @@ values ('Indicador de posición potenciometros', 'Indicador de posición de pont
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
 values ('Comutador de tres posiciones.', 'Indicador de tres posiciones para les paul', 'Gibson',20, 5, 1, 2,3,13);
 
+
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cuerpo Caoba Tipo Les Paul Custom', 'Cuerpo caoba tipo les paul custom sin camara', 'Gibson USA',250, 5, 1, 2,2,1);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Set Pastillas Humbucker Les Paul Custom', 'Pastillas Humbucker Sonido Vitage del 57', 'Gibson USA',300, 5, 1, 2,2,5);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Mástil Caoba Tipo Les Paul Custom', 'Mástil caoba tipo les paul custom con diapasón de Ebano', 'Gibson USA',270, 5, 1, 2,2,6);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Clavijero Tipo Les Paul Vitage', 'Clavijero Vitage auto lubricado Gibson (Plastico)', 'Gibson',90, 5, 1, 2,2,7);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Clavijero Tipo Les Paul Custom', 'Clavijero Vitage auto lubricado Gibson Custom Silver', 'Gibson',120, 5, 1, 2,2,7);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cejuela para Les Paul', 'Cejuela para Les paul de hueso, con perfil bajo color blanca', 'Gibson USA',40, 5, 1, 2,2,9);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Puente Tune-O-Matic', 'Puente Tune-O-Matic Completo Les Paul', 'Gibson',120, 5, 1, 2,2,10);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cuerdas 46-10', 'Cuerdas 46-10 Nickel', 'Gibson',8, 100, 1, 2,4,8);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cuerdas 46-10', 'Cuerdas 46-10 Nickel', 'Fender',8, 100, 1, 2,4,8);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Cuerdas 42-9', 'Cuerdas 42-9 Nickel', 'Erniball',8, 100, 1, 2,4,8);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Pack Potenciometros', 'Pack Potenciometros para Les Paul 500k x 4', 'Gibson',60, 5, 1, 2,2,11);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Conexión Jack para Les Paul', 'Conexión Jack para Les Paul (Lateral) con particulas de oro', 'Gibson',59.00, 5, 1, 2,2,12);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Pickguard para Les Paul', 'Pickguard para les paul 3 capas NBN', 'Gibson USA',70, 5, 1, 2,2,14);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Indicador de posición potenciometros', 'Indicador de posición de pontenciometros', 'Grover',12, 5, 1, 2,4,15);
+insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
+values ('Comutador de tres posiciones.', 'Indicador de tres posiciones para les paul', 'Gibson',20, 5, 1, 2,2,13);
 
 
 

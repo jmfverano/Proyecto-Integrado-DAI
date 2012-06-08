@@ -1,10 +1,10 @@
-drop table usuarios cascade;
+﻿drop table usuarios cascade;
 
 create table usuarios (
   id_usuario bigserial    constraint pk_usuarios primary key,
   email      varchar(200) constraint uq_usuarios_email unique,
   password   char(32)     not null,
-  dni        char(9)      constraint uq_usuarios_dni unique,
+  dni        char(9)      not null,
   nombre_usu varchar(100) not null,
   apellidos  varchar(200) not null,
   direccion  varchar(500) not null,
@@ -74,7 +74,7 @@ drop table pedidos cascade;
 create table pedidos (
   id_pedido        bigserial     constraint pk_pedidos primary key,
   id_usuario       bigint        constraint fk_pedidos_usuario references usuarios (id_usuario),  
-  fecha            timestamp     default current_timestamp,
+  fecha            date          default current_date,
   estado           varchar(15)   default 'Iniciado'
 );
 
@@ -106,7 +106,6 @@ create table linea_facturas (
 
 -- Se introducen los datos para las pruebas del sistema.
 
-insert into pedidos(id_usuario) values(1);
 
 insert into usuarios (email, password, dni, nombre_usu, apellidos, direccion, telefono, admin)
 values ('josemanuel.tecnico@gmail.com',md5('werty'),'48894964T','Jose Manuel', 'Fernández Verano', 
@@ -194,7 +193,6 @@ insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_
 values ('Indicador de posición potenciometros', 'Indicador de posición de pontenciometros', 'Grover',12, 5, 1, 2,4,15);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
 values ('Comutador de tres posiciones.', 'Indicador de tres posiciones para les paul', 'Gibson',20, 5, 1, 2,3,13);
-
 
 
 

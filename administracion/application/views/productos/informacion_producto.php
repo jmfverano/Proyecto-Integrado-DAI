@@ -2,7 +2,7 @@
 <div>
 	<!-- Aquí se comprueba si tiene una imagen añadida. -->
 	
-	<?php if(file_exists("http://localhost/web/proyecto/comun/imagen_producto/$id_producto.jpg")): ?>
+	<?php if(file_exists("/var/www/web/proyecto/comun/imagen_producto/$id_producto.jpg")): ?>
 		<img src="http://localhost/web/proyecto/comun/imagen_producto/<?= $id_producto ?>.jpg" 
 	  		 WIDTH="400" HEIGHT="170" border="0">
 	<?php else: ?>
