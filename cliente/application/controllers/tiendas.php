@@ -348,153 +348,87 @@ class Tiendas extends CI_Controller {
 	 * Se obtiene los datos y genera la factura en pdf.
 	 */
 	  function obtener_factura_en_pdf($id_pedido) {
+	  	//Obtiene la factura, las filas y el usuario.
+	  	$datos = $this->Tienda->obten_factura($id_pedido);
 	  	
 	  	require_once('/var/www/web/proyecto/cliente/application/libraries/tcpdf/config/lang/spa.php');
 	  	require_once('/var/www/web/proyecto/cliente/application/libraries/tcpdf/tcpdf.php');
 	  	// Crear el documento
 		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-		
+		// Muy importante poner esta linea sino dara un error, como que ya fue generado.
 		ob_end_clean();
 		
 		// set document information
 		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor('Nicola Asuni');
-		$pdf->SetTitle('TCPDF Example 045');
-		$pdf->SetSubject('TCPDF Tutorial');
+		$pdf->SetAuthor('Music Band Center S.L');
+		$pdf->SetTitle('Factura Pedido Numero');
+		$pdf->SetSubject('Music Band Center Sopote Web');
 		$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
-		
-		// set default header data
-		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 045', PDF_HEADER_STRING);
-		
-		// set header and footer fonts
-		$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-		$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-		
-		// set default monospaced font
-		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-		
-		//set margins
-		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-		
-		//set auto page breaks
-		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-		
-		//set image scale factor
-		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-		
-		//set some language-dependent strings
-		$pdf->setLanguageArray($l);
-		
-		// ---------------------------------------------------------
-		
-		// set font
-		$pdf->SetFont('times', 'B', 20);
-		
 		// add a page
 		$pdf->AddPage();
+		// set font
+		$pdf->SetFont('times', 'B', 10);
 		
-		// set a bookmark for the current position
-		$pdf->Bookmark('Chapter 1', 0, 0, '', 'B', array(0,64,128));
-		
-		// print a line using Cell()
-		$pdf->Cell(0, 10, 'Chapter 1', 0, 1, 'L');
-		
-		$pdf->AddPage();
-		$pdf->Bookmark('Paragraph 1.1', 1, 0, '', '', array(128,0,0));
-		$pdf->Cell(0, 10, 'Paragraph 1.1', 0, 1, 'L');
-		
-		$pdf->AddPage();
-		$pdf->Bookmark('Paragraph 1.2', 1, 0, '', '', array(128,0,0));
-		$pdf->Cell(0, 10, 'Paragraph 1.2', 0, 1, 'L');
-		
-		$pdf->AddPage();
-		$pdf->Bookmark('Sub-Paragraph 1.2.1', 2, 0, '', 'I', array(0,128,0));
-		$pdf->Cell(0, 10, 'Sub-Paragraph 1.2.1', 0, 1, 'L');
-		
-		$pdf->AddPage();
-		$pdf->Bookmark('Paragraph 1.3', 1, 0, '', '', array(128,0,0));
-		$pdf->Cell(0, 10, 'Paragraph 1.3', 0, 1, 'L');
-		
-		// add some pages and bookmarks
-		for ($i = 2; $i < 12; $i++) {
-		    $pdf->AddPage();
-		    $pdf->Bookmark('Chapter '.$i, 0, 0, '', 'B', array(0,64,128));
-		    $pdf->Cell(0, 10, 'Chapter '.$i, 0, 1, 'L');
-		}
-		
-		// . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-		
-		// add a new page for TOC
-		$pdf->addTOCPage();
-		
-		// write the TOC title
-		$pdf->SetFont('times', 'B', 16);
-		$pdf->MultiCell(0, 0, 'Table Of Content', 0, 'C', 0, 1, '', '', true, 0);
+		//Imagen para la factura.
+		$pdf->Image('/var/www/web/proyecto/cliente/estilos/logo_plano.png', 90,5,40,15);
+		$factura = $datos['factura'];
+		//$pdf->Text(90,5,"Music Band Center S.L");
+		$pdf->Ln();
+		$pdf->Text(9,20,"Número de Factura: ".$factura['id_factura'].".");
+		$pdf->Ln();
+		$pdf->Text(9,25,"Número de Pedido: ".$factura['id_pedido'].".");
+		$pdf->Ln();
+		$pdf->Text(9,30,"Fecha: ".$factura['fecha'].".");
+		$pdf->Ln();
+		$pdf->Text(95,35," Datos del Cliente.");
+		$pdf->Ln();
+		$pdf->Text(9,40,"DNI: ".$factura['dni'].".");
+		$pdf->Ln();
+		$pdf->Text(9,45,"Nombre: ".$factura['nombre_fat'] ." ". $factura['apellidos'].".");
+		$pdf->Ln();
+		$pdf->Text(9,50,"Dirección: ".$factura['direccion'] .".");
+		$pdf->Ln();
+		$pdf->Text(9,55,"Teléfono: ".$factura['telefono'] .".");
+		$pdf->Ln();
+		$pdf->Text(9,60,"    ");
 		$pdf->Ln();
 		
-		$pdf->SetFont('dejavusans', '', 12);
+		// Datos de la celda.
+		$filas = $datos['filas'];
+		$total = 0;
+		$iva = 0;
+		// Fila de cabecera!!
+		$pdf->Cell(15,5,'Código',1);
+		$pdf->Cell(90,5,'Nombre Producto',1);
+		$pdf->Cell(25,5,'Fabricante',1);
+		$pdf->Cell(35,5,'Compatible',1);
+		$pdf->Cell(20,5,'Precio',1);
+		$pdf->Ln();
+		foreach ($filas as $var) {
+			extract($var);
+			// Ahora se crea una linea de la factura.
+			$pdf->Cell(15,5,$id_producto,1);
+			$pdf->Cell(90,5,$nombre_prod,1);
+			$pdf->Cell(25,5,$fabricante,1);
+			$pdf->Cell(35,5,$pc_nombre,1);
+			$pdf->Cell(20,5,$precio."€",1);
+			$pdf->Ln();
+			$total += $precio;
+		}
 		
-		// add a simple Table Of Content at first page
-		// (check the example n. 59 for the HTML version)
-		$pdf->addTOC(1, 'courier', '.', 'INDEX', 'B', array(128,0,0));
-		
-		// end of TOC page
-		$pdf->endTOCPage();
-		
-		// ---------------------------------------------------------
+		$iva = ($total * 18)/100;
+		$total = $total + $iva;
+		$pdf->Cell(165,5,'IVA',1);
+		$pdf->Cell(20,5,$iva."€",1);
+		$pdf->Ln();
+		$pdf->Cell(165,5,'Total a Pagar',1);
+		$pdf->Cell(20,5,$total."€",1);
 		
 		//Close and output PDF document
-		$pdf->Output('example_045.pdf', 'I');
+		$pdf->Output("factura_numero".$factura['id_factura'].".pdf", 'I');
 		
+		// Muy importante poner esta linea sino dara un error, como que ya fue generado.
+		ob_end_clean();
 				
 	  }
-	/**function obtener_factura_en_pdf($id_pedido) {
-		
-		if(is_numeric($id_pedido)) {
-			$datos = $this->Tienda->obten_factura($id_pedido);
-			
-			$this->load->library('fpdf');
-			define('FPDF_FONTPATH','/var/www/web/proyecto/cliente/application/libraries/font/');
-			
-			ob_end_clean();
-			//inicializa pagina pdf
-			$this->fpdf->Open();
-			$this->fpdf->AddPage();
-			$this->fpdf->SetFont('Times','B',16);
-			//$this->fpdf->Cell(40,20,'Factura',1);
-			//dibuja rectangulo
-			//$this->fpdf->Rect(20,10,180,137,'D');
-			//finaliza y muestra en pantalla pdf
-			$this->fpdf->Output();
-		}
-		
-	}
-	
-	/**
-	 * Genera un documento pdf de la factura asignada al pedido.
-	 *
-	function obtener_factura_en_pdf($id_pedido) {
-		
-		if(is_numeric($id_pedido)) {
-			$datos = $this->Tienda->obten_factura($id_pedido);
-			$this->pdf($datos, $id_pedido);								
-		} else {
-				
-			$datos['mensaje'] = "Los datos recibidos no son correctos.";
-			$this->template->load('template','usuarios/error', $datos);
-		}
-	}
-	
-	/**
-	 * Obtiene el pdf.
-	 *
-	private function pdf($data, $id_pedido)
-	{
-		// page info here, db calls, etc.
-		$html = $this->load->view('usuarios/factura', $data, true);
-	    pdf_create($html, $id_pedido);
-	    
-	}*/
 }
