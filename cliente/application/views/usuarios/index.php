@@ -1,4 +1,5 @@
 <div>
+	<?= $this->session->flashdata('mensaje'); ?>
 	<div>
 		<fieldset>
 			<legend>Datos Usuario</legend>

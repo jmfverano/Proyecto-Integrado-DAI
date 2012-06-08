@@ -163,13 +163,26 @@ class Usuarios extends CI_Controller {
 	 * Elimina el producto de la cesta que tiene la id que se le manda.
 	 */
 	function elimina_cesta($id_producto) {
-		
 		$cesta = $this->session->userdata('cesta');
 		$key = array_search($id_producto, $cesta);
-		if ($key) {
-			unset($cesta[$key]);
+		
+		if($key == 1) {
+
+			$this->session->unset_userdata('cesta');
+			$this->session->unset_userdata('id_categoria');
+			$this->session->unset_userdata('numero_paso');
+			$this->session->unset_userdata('id_piezas');
+			$this->session->unset_userdata('completado');
+			$this->session->set_flashdata('mensaje', 'Al eliminar el cuerpo, se vacia la cesta.');
+			redirect('usuarios/index');
+			
+		} else {
+		
+			if ($key) {
+				unset($cesta[$key]);
+			}
+			$this->session->set_userdata('cesta',$cesta);
+			redirect('usuarios/cesta');
 		}
-		$this->session->set_userdata('cesta',$cesta);
-		redirect('usuarios/cesta');
 	}
 }

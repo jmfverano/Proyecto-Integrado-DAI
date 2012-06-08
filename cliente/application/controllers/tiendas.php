@@ -304,11 +304,10 @@ class Tiendas extends CI_Controller {
 				$this->session->unset_userdata('numero_paso');
 				$this->session->unset_userdata('id_piezas');
 				$this->session->unset_userdata('completado');
-				$datos['mensaje'] = "Proceso completado.";
+				$this->session->set_flashdata('mensaje', 'Proceso completado.');
 				redirect('usuarios/index');							
 			} else {
-				
-				$datos['mensaje'] = "Se ha producido un error, intentelo denuevo.";
+				$this->session->set_flashdata('mensaje', 'Se ha producido un error, intentelo denuevo.');
 				$this->template->load('template','usuarios/cesta', $datos);
 				
 			}

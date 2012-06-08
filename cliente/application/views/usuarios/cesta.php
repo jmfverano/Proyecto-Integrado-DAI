@@ -1,4 +1,5 @@
-<?php if($filas): ?>
+<?= $this->session->flashdata('mensaje'); ?>
+<?php if(!empty($filas)): ?>
 	<p id="p_informativo">Estos son los productos que contiene la cesta. </p>
 	<table>
   <thead>
