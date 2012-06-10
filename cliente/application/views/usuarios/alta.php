@@ -3,7 +3,7 @@
     <p><?= $mensaje ?></p>
   </div>
 <?php endif; ?>
-
+<?php $this->session->flashdata('mensaje'); ?>
 <div>
 	<fieldset>
 		<legend>Instroduce los datos del usuario.</legend>

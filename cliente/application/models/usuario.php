@@ -103,7 +103,7 @@ class Usuario extends CI_Model {
 
 	function insertar_nuevo() {
 		 
-		$datos['email'] = $this->input->post('email');
+		$email = $datos['email'] = $this->input->post('email');
 		$datos['password'] = md5($this->input->post('password'));
 		$datos['nombre_usu'] = $this->input->post('nombre_usu');
 		$datos['apellidos'] = $this->input->post('apellidos');
@@ -112,11 +112,17 @@ class Usuario extends CI_Model {
 		$datos['telefono'] = $this->input->post('telefono');
 		$dni = $datos['dni'];
 		$telefono = $datos['telefono'];
-		if (strlen($dni) == 9 && strlen($telefono) == 9) {	
-			return $this->db->insert('usuarios', $datos);  
+		
+		//Comprobamos si el email ya esta regitrado.
+		if($this->db->query("Select * from usuarios where email = ?",array($email))->num_rows() == 1) {
+			return false;
 		} else {
 			
-			return false;
+			if (strlen($dni) == 9 && strlen($telefono) == 9) {	
+				return $this->db->insert('usuarios', $datos);  
+			} else {
+				return false;
+			}
 		}
 	}
 	
