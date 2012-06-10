@@ -11,6 +11,8 @@
     <?= form_close() ?>
 </fieldset>
 <?php if(!empty($filas)): ?>
+<?= $this->session->flashdata('mensaje') ?>
+ <p  id="p_informativo"><?= isset($mensaje) ? $mensaje : '' ?></p> 
 <p>
 <table>
   <thead>

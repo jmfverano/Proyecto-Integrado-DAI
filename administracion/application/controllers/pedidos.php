@@ -109,5 +109,23 @@ class Pedidos extends CI_Controller {
 			$this->template->load('template','pedidos/alta', $datos);
 		} 
 	}
+	/**
+	 * Actualizara el estado del pedido desde el panel de control.
+	 */
+	function modifica_estado() {
+		
+		if($this->input->post('cambiar')) {
+			
+			$estado = $this->input->post('estado');
+			$id_pedido = $this->input->post('id_pedido');
+			if($this->Pedido->modificar_estado($id_pedido, $estado) == 1) {
+				$this->session->set_flashdata('mensaje', 'La actualización fue completado.');
+				redirect('usuarios/index');
+			} else {
+				$this->session->set_flashdata('mensaje', 'Se ha producido un error, vuela a intentarlo');
+				redirect('usuarios/index');
+			}
+		}
+	}
 
 }
