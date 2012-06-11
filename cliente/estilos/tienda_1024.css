@@ -15,9 +15,11 @@
 }
 
 #footer {
+	
+	position:absolute;
 	text-align: center;
-	width: auto;
-	margin: 0 auto;
+	top:  3%;
+	left: 5%;
 	border-width: 4px;
 	font-weight: bold;
 	font-style: white;
@@ -105,10 +107,10 @@
 
 #contents {
 	
-	position:relative;
+	position:absolute;
 	text-align: center;	
-	width:80%;
-	top:15%; 
+	width:120%;
+	top:30%; 
 	margin: 3%;
 	left:7%;
 	padding-top: 30px;
@@ -145,8 +147,8 @@
 	
 	background-color: #eee;
 	position:absolute;
-	top:  26%;
-	left: 1%;
+	top:  18%;
+	left: 0%;
 	text-align: center;
 	font-style:Helvetica, Tahoma, Arial;
 	margin:1%;
@@ -155,7 +157,7 @@
 	border-color:white;
 	color: black;
 	border-width: 2px;
-	font-size: 10px;
+	font-size: 7px;
 	border-radius: 2px;
 }
 
@@ -164,8 +166,8 @@
 	
 	background-color: #eee;
 	position:absolute;
-	top:  26%;
-	left: 89%;
+	top:  65%;
+	left: 0%;
 	text-align: center;
 	font-style:Helvetica, Tahoma, Arial;
 	margin:1%;
@@ -174,7 +176,7 @@
 	border-color:white;
 	color: black;
 	border-width: 2px;
-	font-size: 10px;
+	font-size: 7px;
 	border-radius: 2px;
 }
 
@@ -183,30 +185,32 @@
 	
 	background-color: #eee;
 	position:absolute;
-	top: 50%;
-	left: 89%;
+	top:  80%;
+	left: -1%;
 	text-align: center;
 	font-style:Helvetica, Tahoma, Arial;
 	margin:1%;
-	width: 8%;
+	width: 10%;
 	border:none;
 	border-color:white;
 	color: black;
 	border-width: 2px;
+	font-size: 7px;
 	border-radius: 2px;
+
 }
 
 #cuadro_login {
 	
 	font-style: Helvetica, Tahoma, Arial;
-	font-size: 10px;
+	font-size: 7px;
 	
 }
 
 #menu_tipos {
 	
 	font-style:Helvetica, Tahoma, Arial;
-	font-size: 10px;
+	font-size: 7px;
 
 }
 

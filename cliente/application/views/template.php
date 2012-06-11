@@ -3,10 +3,24 @@
 <?php endif; ?>
 <!DOCTYPE HTML>
 <html>
+
+<SCRIPT LANGUAGE="JavaScript"> 
+//document.write('Su resolucion es de: ' + screen.width + ' x ' + screen.height + ''); 
+
+if (screen.width == 1024) { 
+document.write('<link href="http://localhost/web/proyecto/cliente/estilos/tienda_1024.css" rel="stylesheet" type="text/css">'); 
+//alert("Se ha detectado que tiene una resolución 1024 x 768, se adaptara el estilo. "); 
+
+} else { 
+	document.write('<link href="http://localhost/web/proyecto/cliente/estilos/tienda_c.css" rel="stylesheet" type="text/css">'); 
+} 
+// End -->
+</script> 	
 	
 <script language="javascript">
 function muestraReloj()
 {
+
 // Compruebo si se puede ejecutar el script en el navegador del usuario
 if (!document.layers && !document.all && !document.getElementById) return;
 // Obtengo la hora actual y la divido en sus partes
@@ -81,9 +95,10 @@ this.length = len;
 }
 
 </SCRIPT>
+
 	<head>
 		<title>Music Band Center S.L</title>
-		<?= link_tag('estilos/tienda_c.css') ?>
+		
 	</head>
 		<?php if (isset($contador)): ?>
 	<body>
@@ -137,6 +152,11 @@ this.length = len;
 					   <?= form_open('usuarios/cesta') ?></p>
 	 				<p><?= form_submit('ir_cesta', 'Cesta') ?><p>
 					   <?= form_close() ?>
+					<p>
+						<?= form_open('tiendas/creacion_instrumento') ?>
+    					<?= form_submit('continuar','Continuar') ?>
+						<?= form_close() ?>
+					</p>
 				<?php endif;?>
 			</fieldset>
 		</div>
