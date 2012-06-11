@@ -59,4 +59,3 @@
 		<?php endif;?>
 	</div>
 </div>
-<?php echo $this->session->userdata('id_usuario'); ?>

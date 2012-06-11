@@ -88,4 +88,3 @@
 	<p id="p_informativo"> La cesta está vacía.</p>
 
 <?php endif;?>
-<?php var_dump($this->session->userdata('cesta'));?>

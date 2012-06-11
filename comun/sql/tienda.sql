@@ -39,7 +39,8 @@ create table piezas_compatibles (
     
   id_piezas     bigserial     constraint pk_piezas_compatibles primary key,
   pc_nombre     varchar(30)   not null,
-  id_categoria  bigint        constraint fk_categorias_piezas_compatibles references categorias (id_categoria)
+  id_categoria  bigint        constraint fk_categorias_piezas_compatibles references categorias (id_categoria) 
+                                         on delete cascade on update cascade
   
 );
 
@@ -62,10 +63,14 @@ create table productos (
   descripcion       text         not null,
   fabricante        varchar(200) not null,
   precio            numeric(9,2) not null,
-  id_categoria      bigint      constraint fk_productos_categorias references categorias (id_categoria),
-  id_proveedor      bigint      constraint fk_productos_proveedores references proveedores (id_proveedor),
-  id_tipo_producto  bigint      constraint fk_productos_tipo_producto references tipo_productos (id_tipo_producto),
+  id_categoria      bigint      constraint fk_productos_categorias references categorias (id_categoria)
+                                           on delete cascade on update cascade,
+  id_proveedor      bigint      constraint fk_productos_proveedores references proveedores (id_proveedor)
+                                           on delete cascade on update cascade,
+  id_tipo_producto  bigint      constraint fk_productos_tipo_producto references tipo_productos (id_tipo_producto)
+                                           on delete cascade on update cascade,
   id_piezas         bigint      constraint fk_productos_piezas references piezas_compatibles (id_piezas)
+                                           on delete cascade on update cascade
  
 );
 
@@ -73,7 +78,8 @@ drop table pedidos cascade;
 
 create table pedidos (
   id_pedido        bigserial     constraint pk_pedidos primary key,
-  id_usuario       bigint        constraint fk_pedidos_usuario references usuarios (id_usuario),  
+  id_usuario       bigint        constraint fk_pedidos_usuario references usuarios (id_usuario)
+                                            on delete cascade on update cascade,  
   fecha            date          default current_date,
   estado           varchar(15)   default 'Iniciado'
 );
@@ -84,8 +90,10 @@ drop table facturas cascade;
 
 create table facturas (
   id_factura       bigserial     constraint pk_facturas primary key,
-  id_usuario       bigint        constraint fk_factura_usuario references usuarios (id_usuario),
-  id_pedido        bigint        constraint fk_factura_pedidos references pedidos (id_pedido),
+  id_usuario       bigint        constraint fk_factura_usuario references usuarios (id_usuario)
+                                            on delete cascade on update cascade,
+  id_pedido        bigint        constraint fk_factura_pedidos references pedidos (id_pedido)
+                                            on delete cascade on update cascade,
   dni              char(9),
   nombre_fat       varchar(100),  
   apellidos        varchar(200),  
@@ -98,8 +106,10 @@ drop table linea_facturas cascade;
 
 create table linea_facturas (
   id_linea_factura bigserial    constraint pk_linea_facturas primary key,
-  id_factura       bigint       constraint fk_linea_facturas_factura references facturas (id_factura),
-  id_producto      bigint       constraint fk_linea_facturas_producto references productos (id_producto),
+  id_factura       bigint       constraint fk_linea_facturas_factura references facturas (id_factura)
+                                           on delete cascade on update cascade,
+  id_producto      bigint       constraint fk_linea_facturas_producto references productos (id_producto)
+                                           on delete cascade on update cascade,
   cantidad         numeric(2)   default 1,
   precio           numeric(9,2) not null
 );
@@ -210,21 +220,20 @@ values ('Cejuela para Les Paul', 'Cejuela para Les paul de hueso, con perfil baj
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
 values ('Puente Tune-O-Matic', 'Puente Tune-O-Matic Completo Les Paul', 'Gibson',120, 5, 1, 2,2,10);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Cuerdas 46-10', 'Cuerdas 46-10 Nickel', 'Gibson',8, 100, 1, 2,4,8);
+values ('Cuerdas 46-10', 'Cuerdas 46-10 Nickel', 'D,Addarios',8, 100, 1, 2,4,8);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Cuerdas 46-10', 'Cuerdas 46-10 Nickel', 'Fender',8, 100, 1, 2,4,8);
+values ('Cuerdas 46-10', 'Cuerdas 46-10 Nickel', 'Dunlop',8, 100, 1, 2,4,8);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Cuerdas 42-9', 'Cuerdas 42-9 Nickel', 'Erniball',8, 100, 1, 2,4,8);
+values ('Cuerdas 42-9', 'Cuerdas 42-9 Nickel', 'Neon',8, 100, 1, 2,4,8);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
 values ('Pack Potenciometros', 'Pack Potenciometros para Les Paul 500k x 4', 'Gibson',60, 5, 1, 2,2,11);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
 values ('Conexión Jack para Les Paul', 'Conexión Jack para Les Paul (Lateral) con particulas de oro', 'Gibson',59.00, 5, 1, 2,2,12);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
-values ('Pickguard para Les Paul', 'Pickguard para les paul 3 capas NBN', 'Gibson USA',70, 5, 1, 2,2,14);
+values ('Pickguard para Les Paul', 'Pickguard para SG 3 capas NBN', 'Gibson USA',70, 5, 1, 2,2,14);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
 values ('Indicador de posición potenciometros', 'Indicador de posición de pontenciometros', 'Grover',12, 5, 1, 2,4,15);
 insert into productos  (nombre_prod, descripcion, fabricante, precio, stock, id_categoria, id_proveedor, id_piezas, id_tipo_producto) 
 values ('Comutador de tres posiciones.', 'Indicador de tres posiciones para les paul', 'Gibson',20, 5, 1, 2,2,13);
-
 
 

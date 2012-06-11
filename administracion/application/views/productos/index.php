@@ -57,3 +57,8 @@
   <?= form_submit('insertar', 'Nuevo Producto') ?>
 <?= form_close() ?>
 </p>
+<p>
+	<?= form_open("usuarios/index") ?>
+  	<?= form_submit('volver', 'Volver al Inicio') ?>
+	<?= form_close() ?>
+</p>

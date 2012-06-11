@@ -146,15 +146,15 @@
 
 <div>
 	
-	<?php if (!empty($fila) && $this->session->userdata('numero_paso') > 1): ?>
+	<?php if ($this->session->userdata('numero_paso') > 1): ?>
 		<p>Pulsa continuar para omitir la parte. </p>
 		<!-- Continuar sin introducir este articulo o bien cuando seleccione todas las pastillas. -->
 		<?= form_open('tiendas/creacion_instrumento') ?>
-			<?= form_hidden('id_tipo_producto', $id_tipo_producto) ?>
+			<?php /* <?= form_hidden('id_tipo_producto', $id_tipo_producto) ?>
 			<?= form_hidden('id_producto', '') ?>
-			<?= form_hidden('id_piezas', $id_piezas) ?>
+			<?= form_hidden('id_piezas', $id_piezas) ?> */?>
 			<?= form_submit('anadir_producto','Continuar') ?>
-		<?= form_close() ?>
+		<?= form_close(); ?>
 	<?php endif;?>
 </div>
 </br>
@@ -167,9 +167,3 @@
 		<?= form_close() ?>
 	</div>
 <?php endif; ?>
-
-
-<?php var_dump($this->session->userdata('cesta')); ?>
-<?php echo $this->session->userdata('producto'); ?>
-<?php echo $this->session->userdata('criterio'); ?>
-<?php echo $this->session->userdata('orden'); ?>

@@ -24,6 +24,9 @@
 		<?= form_close() ?>
 	</th>
 	<th>
+		Email
+	</th>
+	<th>
     	<?= form_open('usuarios/index') ?>
   		<?= form_hidden('orden', 'nombre_usu') ?>
     	<?= form_submit('nombre_usu','Nombre' , "id='boton_cabecera'") ?>
@@ -64,6 +67,7 @@
         		<?= form_submit('dni', $dni, "id='boton_dni'") ?>
 			<?= form_close() ?>
         </td>
+         <td><?= $email ?> </td>
         <td><?= $nombre_usu ?></td>
         <td><?= $apellidos ?></td>
         <td><?= $direccion ?></td>

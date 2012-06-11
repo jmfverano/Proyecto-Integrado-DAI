@@ -157,6 +157,11 @@ this.length = len;
     					<?= form_submit('continuar','Continuar') ?>
 						<?= form_close() ?>
 					</p>
+					<p>
+						<?= form_open('tiendas/creacion_instrumento') ?>
+    					<?= form_submit('elimina_cesta','Eliminar') ?>
+						<?= form_close() ?>
+					</p>
 				<?php endif;?>
 			</fieldset>
 		</div>
